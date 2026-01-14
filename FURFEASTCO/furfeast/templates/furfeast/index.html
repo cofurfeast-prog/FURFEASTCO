@@ -1,0 +1,474 @@
+{% extends 'furfeast/base.html' %}
+{% load static %}
+
+{% block title %}FURFEAST CO. — Premium Pet Food & Accessories | Natural and Nutritious{% endblock %}
+
+{% block content %}
+<main>
+    <!-- Hero Slider Section -->
+    <section id="hero-slider" class="relative w-full h-[500px] sm:h-[600px] lg:h-[700px] overflow-hidden bg-slate-200">
+        <!-- Slider content populated by slider.js -->
+    </section>
+
+    <!-- Promo Badges -->
+    <section class="py-8 md:py-12 bg-white">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="flex flex-col items-center text-center group">
+                    <div
+                        class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M10 17h4V5H2v12h3m15 0h1v-3.34a1 1 0 0 0-.293-.707L17.414 9.66a1 1 0 0 0-.707-.293H15V17h4zm-5-3h5m-4 7a2 2 0 1 1-4 0m13 0a2 2 0 1 1-4 0" />
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-slate-800">Free Shipping</h3>
+                    <p class="text-sm text-slate-500">On all orders over $50</p>
+                </div>
+                <div class="flex flex-col items-center text-center group">
+                    <div
+                        class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center text-secondary mb-4 group-hover:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" />
+                            <path d="m9 12 2 2 4-4" />
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-slate-800">Premium Quality</h3>
+                    <p class="text-sm text-slate-500">Vet-approved products</p>
+                </div>
+                <div class="flex flex-col items-center text-center group">
+                    <div
+                        class="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center text-accent mb-4 group-hover:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 0C1.46 6.7 1.33 10.28 4 13l8 8 8-8c2.67-2.72 2.54-6.3 0-8.42Z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-slate-800">Made with Love</h3>
+                    <p class="text-sm text-slate-500">Because they're family</p>
+                </div>
+                <div class="flex flex-col items-center text-center group">
+                    <div
+                        class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center text-slate-600 mb-4 group-hover:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" x2="12" y1="3" y2="15" />
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-slate-800">Easy Returns</h3>
+                    <p class="text-sm text-slate-500">30-day money back guarantee</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flash Sale Banner Section -->
+    <section class="py-8 md:py-16 bg-primary relative overflow-hidden">
+        <!-- Decorative Elements -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+            <div class="absolute top-0 left-1/4 w-64 h-64 bg-white rounded-full blur-3xl animate-pulse-slow"></div>
+            <div class="absolute bottom-0 right-1/4 w-48 h-48 bg-white rounded-full blur-3xl animate-pulse-slow"></div>
+        </div>
+
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 relative">
+            <div class="flex flex-col xl:flex-row items-center justify-between gap-10">
+                <div class="text-center lg:text-left">
+                    <span
+                        class="inline-block bg-white/20 text-white text-sm font-semibold px-4 py-1.5 rounded-full mb-6 backdrop-blur-sm flex items-center w-fit mx-auto lg:mx-0 gap-2">
+                        <span>⚡</span> Flash Sale
+                    </span>
+                    {% if flash_sale %}
+                    <h2
+                        class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 font-heading tracking-tight">
+                        {{ flash_sale.title|default:"Limited Time Offer!" }}
+                    </h2>
+                    <p class="text-white/90 text-xl mb-8 max-w-lg leading-relaxed">
+                        Get <span class="text-yellow-300 font-bold">{{ flash_sale.discount_percentage }}% OFF</span> on
+                        {% if flash_sale.category %}{{ flash_sale.get_category_display }}{% elif flash_sale.product %}{{ flash_sale.product.name }}{% else %}select items{% endif %}!
+                    </p>
+                    <a href="{% if flash_sale.category %}/shop/?category={{ flash_sale.category }}{% elif flash_sale.product %}/shop/?q={{ flash_sale.product.name }}{% else %}/shop/{% endif %}"
+                        class="inline-block bg-white text-primary font-bold px-10 py-4 rounded-full hover:bg-white/90 hover:scale-105 transition-all shadow-xl text-lg">
+                        Shop the Sale
+                    </a>
+                    {% else %}
+                    <h2
+                        class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 font-heading tracking-tight">
+                        No Active Flash Sales
+                    </h2>
+                    <p class="text-white/90 text-xl mb-8 max-w-lg leading-relaxed">
+                        Stay tuned for amazing deals on premium pet products!
+                    </p>
+                    <a href="/shop/"
+                        class="inline-block bg-white text-primary font-bold px-10 py-4 rounded-full hover:bg-white/90 hover:scale-105 transition-all shadow-xl text-lg">
+                        Browse Collection
+                    </a>
+                    {% endif %}
+                </div>
+
+                {% if flash_sale %}
+                <!-- Countdown -->
+                <div class="flex flex-col items-center">
+                    <p class="text-white font-semibold mb-6 text-xl tracking-wide uppercase">
+                        Hurry! Offer ends in:
+                    </p>
+                    <div id="countdown" data-endtime="{{ flash_sale.end_time|date:'c' }}" class="flex gap-4 sm:gap-6">
+                        <div class="flex flex-col items-center">
+                            <div
+                                class="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-2xl flex items-center justify-center shadow-2xl">
+                                <span id="days" class="text-2xl sm:text-3xl font-extrabold text-primary">00</span>
+                            </div>
+                            <span class="text-[10px] text-white/80 font-bold mt-2 uppercase tracking-widest">DAYS</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div
+                                class="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-2xl flex items-center justify-center shadow-2xl">
+                                <span id="hours" class="text-2xl sm:text-3xl font-extrabold text-primary">00</span>
+                            </div>
+                            <span
+                                class="text-[10px] text-white/80 font-bold mt-2 uppercase tracking-widest">HOURS</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div
+                                class="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-2xl flex items-center justify-center shadow-2xl">
+                                <span id="minutes" class="text-2xl sm:text-3xl font-extrabold text-primary">00</span>
+                            </div>
+                            <span class="text-[10px] text-white/80 font-bold mt-2 uppercase tracking-widest">MINS</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div
+                                class="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-2xl flex items-center justify-center shadow-2xl">
+                                <span id="seconds" class="text-2xl sm:text-3xl font-extrabold text-primary">00</span>
+                            </div>
+                            <span class="text-[10px] text-white/80 font-bold mt-2 uppercase tracking-widest">SECS</span>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Active Discounts Section -->
+    {% if promo_codes %}
+    <section class="py-12 md:py-16 bg-[#1a1208] overflow-hidden">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+            <!-- Header with lines -->
+            <div class="flex items-center justify-center gap-6 mb-12">
+                <div class="h-[1px] bg-[#f97316] opacity-30 w-12 sm:w-24"></div>
+                <h2 class="text-xs sm:text-sm font-bold text-[#f97316] uppercase tracking-[0.4em] whitespace-nowrap">
+                    Active Discounts</h2>
+                <div class="h-[1px] bg-[#f97316] opacity-30 w-12 sm:w-24"></div>
+            </div>
+
+            <div class="flex flex-col items-center gap-8">
+                {% for promo in promo_codes %}
+                <div class="w-full max-w-3xl px-4">
+                    <div
+                        class="bg-[#0a0a0a] border-2 border-dashed border-[#f97316] rounded-[2.5rem] p-8 sm:p-12 flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-8 transition-all duration-300">
+                        <div class="flex-1 text-center sm:text-left min-w-0">
+                            <span
+                                class="block text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 sm:mb-3">USE
+                                CODE</span>
+                            <h3
+                                class="text-3xl sm:text-4xl lg:text-5xl font-black text-white uppercase whitespace-nowrap">
+                                {{ promo.code }}</h3>
+                        </div>
+                        <div class="hidden sm:block h-16 sm:h-20 w-px bg-white/10 mx-6 sm:mx-10 shrink-0"></div>
+                        <div class="text-center sm:text-left shrink-0">
+                            <span
+                                class="block text-[10px] sm:text-xs font-bold text-[#f97316] uppercase tracking-widest mb-2 sm:mb-3">SAVE</span>
+                            <h3 class="text-3xl sm:text-4xl lg:text-5xl font-black text-[#f97316] whitespace-nowrap">${{ promo.discount_amount }}</h3>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Featured Products -->
+    {% if featured_products %}
+    <section class="py-16 md:py-20 bg-white">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                <div>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4 font-heading tracking-tight">
+                        Featured Products</h2>
+                    <p class="text-slate-500 text-lg">Handpicked favorites for your beloved pets</p>
+                </div>
+                <a href="{% url 'shop' %}"
+                    class="text-primary font-bold flex items-center gap-2 hover:gap-3 transition-all">
+                    View All Products →</a>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {% for product in featured_products %}
+                <div
+                    class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                    <div class="relative aspect-square overflow-hidden bg-slate-100">
+                        <a href="{% url 'product_detail' product.id %}">
+                            {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            {% else %}
+                            <div class="w-full h-full flex items-center justify-center text-slate-400">No Image</div>
+                            {% endif %}
+                        </a>
+
+                        {% if product.is_bestseller %}
+                        <span
+                            class="absolute top-4 left-4 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase">Bestseller</span>
+                        {% endif %}
+
+                        <button onclick="addToWishlist('{{ product.id }}')"
+                            class="absolute top-4 right-4 w-10 h-10 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center text-slate-700 hover:text-red-500 hover:bg-white transition-all shadow-md opacity-100 sm:opacity-0 sm:group-hover:opacity-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-base text-slate-500 mb-3 uppercase tracking-wide font-bold">{{ product.get_category_display }}</div>
+                        <div class="flex items-center justify-between mb-3">
+                            <a href="{% url 'product_detail' product.id %}" class="font-bold text-slate-800 text-2xl group-hover:text-primary transition-colors flex-1 mr-2">
+                                {{ product.name }}
+                            </a>
+                            <div class="flex items-center gap-1 shrink-0">
+                                <span class="text-amber-400 text-lg">★</span>
+                                <span class="text-base font-bold text-slate-600">({{ product.rating|floatformat:1 }})</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-2xl font-extrabold text-primary">${{ product.price }}</div>
+                            {% if product.original_price %}
+                            <div class="text-lg text-red-500 line-through font-bold">${{ product.original_price }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <a href="{% url 'product_detail' product.id %}" 
+                               class="py-2 bg-slate-100 text-slate-700 rounded-xl font-bold text-center hover:bg-slate-200 transition-all text-sm">
+                                View Details
+                            </a>
+                            <button onclick="addToCart('{{ product.id }}')"
+                                class="py-2 bg-slate-900 text-white rounded-xl font-bold flex items-center justify-center gap-1 hover:bg-primary transition-all text-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <circle cx="8" cy="21" r="1" />
+                                    <circle cx="19" cy="21" r="1" />
+                                    <path
+                                        d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+                                </svg>
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Customer Reviews Section -->
+    <section class="py-12 md:py-16 bg-gradient-to-br from-slate-50 to-slate-100">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4 font-heading tracking-tight">
+                    What Pet Parents Say</h2>
+                <p class="text-slate-600 text-lg max-w-2xl mx-auto">Real stories from our happy customers and their beloved pets</p>
+            </div>
+
+            <!-- Reviews Slider -->
+            <div class="relative overflow-hidden reviews-slider-container">
+                <div id="reviewsSlider" class="flex transition-transform duration-500 ease-in-out">
+                    {% if customer_reviews %}
+                        {% for review in customer_reviews %}
+                        <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4">
+                            <div class="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 h-full flex flex-col">
+                                <!-- Header with customer info and stars -->
+                                <div class="flex items-start justify-between mb-6">
+                                    <div class="flex items-center gap-4">
+                                        {% if review.user.profile.profile_picture %}
+                                        <img src="{{ review.user.profile.profile_picture.url }}" alt="{{ review.user.first_name }}" class="w-12 h-12 rounded-full object-cover">
+                                        {% else %}
+                                        <div class="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center text-slate-600 font-bold text-lg">
+                                            {{ review.user.first_name|first|upper }}
+                                        </div>
+                                        {% endif %}
+                                        <div>
+                                            <h4 class="font-bold text-slate-800">{{ review.user.first_name }} {{ review.user.last_name }}</h4>
+                                            <p class="text-slate-500 text-sm">{{ review.product.name }} Customer</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex text-amber-400 text-lg">
+                                        {% for i in "12345" %}
+                                            {% if forloop.counter <= review.rating %}
+                                                <span>★</span>
+                                            {% else %}
+                                                <span class="text-slate-300">★</span>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <!-- Review text aligned with name -->
+                                <div class="ml-16">
+                                    <p class="text-slate-700 leading-relaxed flex-grow">
+                                        "{{ review.comment }}"
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4">
+                            <div class="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 h-full flex flex-col">
+                                <!-- Header with customer info and stars -->
+                                <div class="flex items-start justify-between mb-6">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center text-slate-600 font-bold text-lg">
+                                            P
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-slate-800">Pet Parent</h4>
+                                            <p class="text-slate-500 text-sm">Verified Customer</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex text-amber-400 text-lg">
+                                        <span>★★★★★</span>
+                                    </div>
+                                </div>
+                                <!-- Review text aligned with name -->
+                                <div class="ml-16">
+                                    <p class="text-slate-700 leading-relaxed flex-grow">
+                                        "Amazing quality products! My pets love everything from FurFeast."
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Navigation buttons -->
+                {% if customer_reviews|length > 1 %}
+                <button id="prevReview" class="absolute left-0 top-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full p-3 hover:bg-slate-50 transition-colors z-10">
+                    <svg class="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+                <button id="nextReview" class="absolute right-0 top-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full p-3 hover:bg-slate-50 transition-colors z-10">
+                    <svg class="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+                {% endif %}
+            </div>
+
+            <!-- Trust Indicators -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mt-16 pt-12 border-t border-slate-200">
+                <div>
+                    <div class="text-3xl font-extrabold text-primary mb-2">10k+</div>
+                    <p class="text-slate-600 font-medium">Happy Pet Parents</p>
+                </div>
+                <div>
+                    <div class="text-3xl font-extrabold text-primary mb-2">4.9</div>
+                    <p class="text-slate-600 font-medium">Average Rating</p>
+                </div>
+                <div>
+                    <div class="text-3xl font-extrabold text-primary mb-2">50k+</div>
+                    <p class="text-slate-600 font-medium">Orders Delivered</p>
+                </div>
+                <div>
+                    <div class="text-3xl font-extrabold text-primary mb-2">99%</div>
+                    <p class="text-slate-600 font-medium">Satisfaction Rate</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-16 md:py-20 bg-slate-900 relative overflow-hidden">
+        <div class="absolute right-0 bottom-0 w-1/3 h-full bg-primary/5 rounded-l-full blur-3xl"></div>
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 relative">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6 font-heading tracking-tight">Join the
+                    FurFeast Family</h2>
+                <p class="text-slate-400 text-lg mb-10">Get expert pet care tips and exclusive offers delivered to your
+                    inbox.</p>
+                <form method="POST" action="{% url 'join_furfeast_family' %}" class="flex flex-col sm:flex-row gap-4">
+                    {% csrf_token %}
+                    <input type="email" name="email" placeholder="Enter your email address" required
+                        class="flex-1 bg-white/10 border border-white/20 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-primary transition-colors">
+                    <button type="submit"
+                        class="bg-primary text-white font-bold px-10 py-4 rounded-2xl hover:bg-orange-600 transition-all shadow-xl shadow-primary/20">
+                        Join Family
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Pass hero images to JavaScript
+const heroImages = [
+    {% for hero in hero_images %}
+    {
+        image: "{{ hero.image.url }}",
+        desktop_image: {% if hero.desktop_image %}"{{ hero.desktop_image.url }}"{% else %}"{{ hero.image.url }}"{% endif %},
+        mobile_image: {% if hero.mobile_image %}"{{ hero.mobile_image.url }}"{% else %}"{{ hero.image.url }}"{% endif %},
+        headline: "{{ hero.headline|escapejs }}",
+        subheadline: "{{ hero.subheadline|escapejs }}",
+        cta_text: "{{ hero.cta_text|escapejs }}",
+        cta_link: "{{ hero.cta_link|escapejs }}",
+        align: "{{ hero.align }}",
+        text_position_y: {{ hero.text_position_y|default:50 }}
+    }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+];
+</script>
+<script src="{% static 'js/slider.js' %}"></script>
+<script src="{% static 'js/reviews-slider-fixed.js' %}"></script>
+<script>
+    // Countdown Timer Logic
+    const countdownEl = document.getElementById('countdown');
+    if (countdownEl) {
+        const endTime = new Date(countdownEl.dataset.endtime).getTime();
+
+        const updateCountdown = () => {
+            const now = new Date().getTime();
+            const diff = endTime - now;
+
+            if (diff < 0) {
+                clearInterval(interval);
+                location.reload();
+                return;
+            }
+
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = d.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = h.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = m.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = s.toString().padStart(2, '0');
+        };
+
+        const interval = setInterval(updateCountdown, 1000);
+        updateCountdown();
+    }
+</script>
+{% endblock %}

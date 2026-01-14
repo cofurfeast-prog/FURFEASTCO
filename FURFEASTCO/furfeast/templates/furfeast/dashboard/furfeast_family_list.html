@@ -1,0 +1,218 @@
+{% extends 'furfeast/dashboard/base.html' %}
+
+{% block content %}
+<style>
+.furfeast-select option {
+    padding: 8px 12px;
+    background-color: white;
+    color: #374151;
+    transition: all 0.2s ease;
+}
+
+.furfeast-select option:hover {
+    background-color: #fed7aa !important;
+    color: #ea580c !important;
+}
+
+.furfeast-select option:checked {
+    background-color: #f97316 !important;
+    color: white !important;
+}
+</style>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+    <div>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">FurFeast Family</h2>
+        <p class="text-slate-500 text-sm sm:text-base">Manage family members and their pets</p>
+    </div>
+    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+        <!-- Pet Category Filter -->
+        <div class="relative flex-1 sm:flex-none sm:w-40">
+            <select onchange="updateFilter('category', this.value)" class="furfeast-select w-full appearance-none bg-white border-2 border-orange-200 rounded-xl px-4 py-2 pr-8 text-sm font-medium text-slate-700 hover:border-orange-300 focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-all">
+                <option value="">🐾 All Pets</option>
+                {% for value, label in pet_categories %}
+                <option value="{{ value }}" {% if category_filter == value %}selected{% endif %}>
+                    {% if value == 'dog' %}🐶 {{ label }}
+                    {% elif value == 'cat' %}🐱 {{ label }}
+                    {% elif value == 'bird' %}🐦 {{ label }}
+                    {% else %}🐾 {{ label }}{% endif %}
+                </option>
+                {% endfor %}
+            </select>
+            <div class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </div>
+        </div>
+        
+        <!-- Time Period Filter -->
+        <div class="relative flex-1 sm:flex-none sm:w-40">
+            <select onchange="updateFilter('period', this.value)" class="furfeast-select w-full appearance-none bg-white border-2 border-orange-200 rounded-xl px-4 py-2 pr-8 text-sm font-medium text-slate-700 hover:border-orange-300 focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-all">
+                <option value="">📅 All Time</option>
+                <option value="week" {% if period_filter == 'week' %}selected{% endif %}>📆 Last Week</option>
+                <option value="month" {% if period_filter == 'month' %}selected{% endif %}>🗓️ This Month</option>
+                <option value="3months" {% if period_filter == '3months' %}selected{% endif %}>📊 3 Months</option>
+                <option value="6months" {% if period_filter == '6months' %}selected{% endif %}>📈 6 Months</option>
+                <option value="year" {% if period_filter == 'year' %}selected{% endif %}>🎯 This Year</option>
+            </select>
+            <div class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </div>
+        </div>
+        
+        <!-- Clear Filters Button -->
+        {% if category_filter or period_filter %}
+        <button onclick="clearFilters()" class="px-4 py-2 bg-slate-100 text-slate-600 rounded-xl text-sm font-medium hover:bg-slate-200 transition-colors flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+            Clear
+        </button>
+        {% endif %}
+    </div>
+</div>
+
+<div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+    {% if family_members %}
+    <!-- Mobile Card View -->
+    <div class="block lg:hidden">
+        {% for member in family_members %}
+        <div class="p-4 border-b border-slate-100 last:border-b-0">
+            <div class="space-y-3">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <div class="font-semibold text-slate-900">{{ member.user.first_name }} {{ member.user.last_name }}</div>
+                        <div class="text-sm text-slate-500">{{ member.user.email }}</div>
+                    </div>
+                    <span class="px-2 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-medium">
+                        {% if member.pet_category == 'dog' %}🐶 Dog
+                        {% elif member.pet_category == 'cat' %}🐱 Cat
+                        {% elif member.pet_category == 'bird' %}🐦 Bird
+                        {% else %}🐾 Other{% endif %}
+                    </span>
+                </div>
+                <div class="grid grid-cols-2 gap-3 text-sm">
+                    <div>
+                        <span class="text-slate-500">Pet:</span>
+                        <div class="font-medium">{{ member.pet_name }}</div>
+                    </div>
+                    <div>
+                        <span class="text-slate-500">Age:</span>
+                        <div class="font-medium">{{ member.pet_age }}</div>
+                    </div>
+                    <div>
+                        <span class="text-slate-500">Food:</span>
+                        <div class="font-medium">{{ member.favourite_food }}</div>
+                    </div>
+                    <div>
+                        <span class="text-slate-500">Emails:</span>
+                        <div>
+                            {% if member.receive_expert_emails %}
+                            <span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">Yes</span>
+                            {% else %}
+                            <span class="px-2 py-1 bg-red-100 text-red-700 rounded-full text-xs font-medium">No</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="text-xs text-slate-500">
+                    Joined: {{ member.joined_at|date:"M d, Y" }}
+                </div>
+                {% if member.additional_description %}
+                <div class="text-sm text-slate-600 bg-slate-50 p-3 rounded-lg">
+                    <strong>Additional Info:</strong> {{ member.additional_description }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <!-- Desktop Table View -->
+    <div class="hidden lg:block overflow-x-auto">
+        <table class="w-full">
+            <thead class="bg-slate-50 border-b border-slate-100">
+                <tr>
+                    <th class="text-left px-6 py-4 font-semibold text-slate-700">Owner</th>
+                    <th class="text-left px-6 py-4 font-semibold text-slate-700">Pet Name</th>
+                    <th class="text-left px-6 py-4 font-semibold text-slate-700">Category</th>
+                    <th class="text-left px-6 py-4 font-semibold text-slate-700">Age</th>
+                    <th class="text-left px-6 py-4 font-semibold text-slate-700">Favourite Food</th>
+                    <th class="text-left px-6 py-4 font-semibold text-slate-700">Expert Emails</th>
+                    <th class="text-left px-6 py-4 font-semibold text-slate-700">Joined</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for member in family_members %}
+                <tr class="border-b border-slate-50 hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4">
+                        <div>
+                            <div class="font-semibold text-slate-900">{{ member.user.first_name }} {{ member.user.last_name }}</div>
+                            <div class="text-sm text-slate-500">{{ member.user.email }}</div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="font-semibold text-slate-900">{{ member.pet_name }}</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm font-medium">
+                            {% if member.pet_category == 'dog' %}🐶 Dog
+                            {% elif member.pet_category == 'cat' %}🐱 Cat
+                            {% elif member.pet_category == 'bird' %}🐦 Bird
+                            {% else %}🐾 Other{% endif %}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-slate-600">{{ member.pet_age }}</td>
+                    <td class="px-6 py-4 text-slate-600">{{ member.favourite_food }}</td>
+                    <td class="px-6 py-4">
+                        {% if member.receive_expert_emails %}
+                        <span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">Yes</span>
+                        {% else %}
+                        <span class="px-2 py-1 bg-red-100 text-red-700 rounded-full text-xs font-medium">No</span>
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4 text-slate-500 text-sm">{{ member.joined_at|date:"M d, Y" }}</td>
+                </tr>
+                {% if member.additional_description %}
+                <tr class="border-b border-slate-50 bg-slate-25">
+                    <td colspan="7" class="px-6 py-3">
+                        <div class="text-sm text-slate-600">
+                            <strong>Additional Info:</strong> {{ member.additional_description }}
+                        </div>
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="p-6 sm:p-8 text-center">
+        <div class="text-slate-400 mb-4 text-4xl sm:text-6xl">🐾</div>
+        <p class="text-slate-500 mb-4">No family members found.</p>
+        <p class="text-xs sm:text-sm text-slate-400">Family members will appear here when users join from the homepage.</p>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+function updateFilter(filterType, value) {
+    const url = new URL(window.location);
+    if (value) {
+        url.searchParams.set(filterType, value);
+    } else {
+        url.searchParams.delete(filterType);
+    }
+    window.location.href = url.toString();
+}
+
+function clearFilters() {
+    const url = new URL(window.location);
+    url.searchParams.delete('category');
+    url.searchParams.delete('period');
+    window.location.href = url.toString();
+}
+</script>
+{% endblock %}

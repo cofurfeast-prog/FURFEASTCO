@@ -1,0 +1,196 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FURFEAST CO. — Premium Pet Food & Accessories{% endblock %}</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="{% static 'css/styles.css' %}" as="style">
+    <link rel="preload" href="{% static 'js/components.js' %}" as="script">
+    <link rel="preload" href="{% static 'js/main.js' %}" as="script">
+    
+    <!-- Critical CSS inline for faster rendering -->
+    <style>
+        /* Fallback fonts for Nepal connectivity issues */
+        body{font-family:'Inter',Arial,sans-serif;margin:0;padding:0;background:#fff}
+        .font-heading{font-family:'Nunito',Arial,sans-serif}
+        
+        /* Critical above-the-fold styles */
+        .bg-primary{background-color:#f97316}
+        .text-primary{color:#f97316}
+        .sticky{position:sticky}
+        .top-0{top:0}
+        .z-50{z-index:50}
+        .backdrop-blur-md{backdrop-filter:blur(12px)}
+        .bg-card\/95{background-color:rgba(255,255,255,0.95)}
+        .border-b{border-bottom-width:1px}
+        .border-slate-200{border-color:#e2e8f0}
+        .max-w-\[1440px\]{max-width:1440px}
+        .mx-auto{margin-left:auto;margin-right:auto}
+        .px-4{padding-left:1rem;padding-right:1rem}
+        .py-3{padding-top:0.75rem;padding-bottom:0.75rem}
+        .flex{display:flex}
+        .items-center{align-items:center}
+        .justify-between{justify-content:space-between}
+        .gap-3{gap:0.75rem}
+        .text-2xl{font-size:1.5rem}
+        .font-bold{font-weight:700}
+        .leading-none{line-height:1}
+        .text-slate-500{color:#64748b}
+        .text-xs{font-size:0.75rem}
+        .hidden{display:none}
+        
+        /* Hero slider critical styles to prevent stretching */
+        #hero-slider{max-height:700px}
+        @media(min-width:640px){.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:py-4{padding-top:1rem;padding-bottom:1rem}.sm\:gap-4{gap:1rem}.sm\:text-lg{font-size:1.125rem}.sm\:text-3xl{font-size:1.875rem}.sm\:block{display:block}}
+        @media(min-width:1024px){.lg\:px-12{padding-left:3rem;padding-right:3rem}.lg\:text-2xl{font-size:1.5rem}.lg\:hidden{display:none}.lg\:flex{display:flex}.lg\:block{display:block}}
+    </style>
+    
+    <!-- Try to load Google Fonts with fallback -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet" onerror="this.remove()">
+    
+    <!-- Load Tailwind CSS with fallback -->
+    <link href="https://unpkg.com/tailwindcss@^3/dist/tailwind.min.css" rel="stylesheet" onerror="console.warn('Tailwind CDN blocked, using local styles')">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    <style>
+        /* Global Glow & Blur Utilities */
+        .shadow-glow {
+            box-shadow: 0 0 30px rgba(249, 115, 22, 0.3);
+        }
+
+        .backdrop-blur-md {
+            backdrop-filter: blur(12px);
+        }
+
+        /* FurFeast Toast Notifications */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            min-width: 300px;
+            padding: 16px 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transform: translateX(400px);
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border-left: 4px solid #065f46;
+        }
+
+        .toast.error {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            border-left: 4px solid #991b1b;
+        }
+
+        .toast.info {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            color: white;
+            border-left: 4px solid #c2410c;
+        }
+
+        /* FurFeast Custom Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.show .modal {
+            transform: scale(1);
+        }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body class="bg-background text-foreground font-body antialiased"
+    data-authenticated="{% if user.is_authenticated %}true{% else %}false{% endif %}">
+    {% if header_promo %}
+    <!-- Top Promo Bar -->
+    <div class="bg-[#f97316] text-white text-center py-2 text-[10px] sm:text-xs font-medium px-4">
+        🐾 Receive ${{ header_promo.discount_amount }} OFF on your order! Use code: <span
+            class="font-bold">FURFEAST20</span>
+    </div>
+    {% else %}
+    <!-- Fallback Promo Bar -->
+    <div class="bg-[#f97316] text-white text-center py-2 text-[10px] sm:text-xs font-medium px-4">
+        🐾 Get $10 OFF on your order! Use code: <span class="font-bold">FURFEAST10</span>
+    </div>
+    {% endif %}
+
+    <div id="shopify-section-header" data-cart-count="{{ cart_count }}" data-wishlist-count="{{ wishlist_count }}" data-notification-count="{{ notification_count }}">
+    </div>
+
+    {% if user.is_staff %}
+    <div class="bg-slate-900 text-white text-center py-2 px-4">
+        <a href="{% url 'dashboard_home' %}" class="text-orange-400 hover:text-orange-300 font-semibold">← Back to
+            Dashboard</a>
+    </div>
+    {% endif %}
+
+    {% block content %}
+    {% endblock %}
+
+    <div id="shopify-section-footer"></div>
+
+    <!-- Defer non-critical JavaScript -->
+    <script defer src="{% static 'js/components.js' %}"></script>
+    <script defer src="{% static 'js/main.js' %}"></script>
+    {% if debug %}
+    <script defer src="{% static 'js/performance.js' %}"></script>
+    {% endif %}
+
+    <!-- Show Django messages as toast notifications -->
+    {% if messages %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            {% for message in messages %}
+            showToast('{{ message|escapejs }}', '{% if message.tags == "success" %}success{% elif message.tags == "error" %}error{% else %}info{% endif %}');
+            {% endfor %}
+        });
+    </script>
+    {% endif %}
+
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>

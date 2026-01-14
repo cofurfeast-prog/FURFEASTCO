@@ -1,0 +1,62 @@
+{% extends 'furfeast/dashboard/base.html' %}
+
+{% block content %}
+<div class="bg-white rounded-2xl shadow-sm border border-slate-200">
+    <div class="p-4 sm:p-6 border-b border-slate-200">
+        <h1 class="text-xl sm:text-2xl font-bold text-slate-900">Customer Messages</h1>
+        <p class="text-slate-600 mt-1 text-sm">Chat conversations with customers</p>
+    </div>
+
+    <div class="divide-y divide-slate-200">
+        {% if customers %}
+            {% for customer_data in customers %}
+            <a href="{% url 'dashboard_customer_chat_detail' customer_data.user.id %}" 
+               class="flex items-center gap-4 p-4 hover:bg-slate-50 transition-colors">
+                {% if customer_data.user.profile.profile_picture %}
+                <img src="{{ customer_data.user.profile.profile_picture.url }}" alt="{{ customer_data.user.first_name }}" class="w-12 h-12 rounded-full object-cover flex-shrink-0">
+                {% else %}
+                <div class="w-12 h-12 rounded-full bg-orange-500 flex items-center justify-center text-white font-bold flex-shrink-0">
+                    {{ customer_data.user.first_name|first|upper }}
+                </div>
+                {% endif %}
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-center justify-between mb-1">
+                        <h3 class="font-semibold text-slate-900 truncate">
+                            {{ customer_data.user.first_name }} {{ customer_data.user.last_name }}
+                        </h3>
+                        <span class="text-xs text-slate-500">
+                            {{ customer_data.last_message_time|timesince }} ago
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <p class="text-sm text-slate-600 truncate flex-1">{{ customer_data.last_message }}</p>
+                        {% if customer_data.last_message_from_admin %}
+                            <span class="text-xs" title="{% if customer_data.last_message_read %}Seen{% else %}Sent{% endif %}">
+                                {% if customer_data.last_message_read %}
+                                    <span style="color: #FFA500;">✓✓</span>
+                                {% else %}
+                                    <span style="color: #9CA3AF;">✓✓</span>
+                                {% endif %}
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+                {% if customer_data.unread_count > 0 %}
+                <span class="bg-orange-500 text-white text-xs rounded-full px-2 py-1">
+                    {{ customer_data.unread_count }}
+                </span>
+                {% endif %}
+            </a>
+            {% endfor %}
+        {% else %}
+            <div class="p-12 text-center">
+                <svg class="w-16 h-16 mx-auto text-slate-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                </svg>
+                <h3 class="text-lg font-medium text-slate-900 mb-2">No messages yet</h3>
+                <p class="text-slate-600">Customer messages will appear here</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,261 @@
+{% extends 'furfeast/dashboard/base.html' %}
+
+{% block title %}Orders - FurFeast Admin{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+<div class="p-4 md:p-6">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+        <div>
+            <h1 class="text-2xl md:text-3xl font-bold text-slate-900">Order Management</h1>
+            <p class="text-slate-600 text-sm md:text-base">Manage customer orders from payment to delivery</p>
+        </div>
+        
+        <!-- Filter -->
+        <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+            <select onchange="filterOrders(this.value)" class="px-3 py-2 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-transparent">
+                <option value="">All Orders</option>
+                {% for status_code, status_name in status_choices %}
+                <option value="{{ status_code }}" {% if status_filter == status_code %}selected{% endif %}>{{ status_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <!-- Order Status Dashboard -->
+    <div class="bg-white rounded-xl shadow-sm border border-slate-100 p-6 mb-6">
+        <h2 class="text-xl font-bold text-slate-900 mb-4">Order Status Overview</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="text-center p-4 bg-yellow-50 rounded-lg border border-yellow-100">
+                <div class="text-2xl font-bold text-yellow-600">{{ pending_count }}</div>
+                <div class="text-sm text-yellow-700 font-medium">Pending Orders</div>
+                <button onclick="filterOrders('pending')" class="mt-2 text-xs text-yellow-600 hover:text-yellow-800">View All</button>
+            </div>
+            <div class="text-center p-4 bg-blue-50 rounded-lg border border-blue-100">
+                <div class="text-2xl font-bold text-blue-600">{{ processing_count }}</div>
+                <div class="text-sm text-blue-700 font-medium">Processing</div>
+                <button onclick="filterOrders('processing')" class="mt-2 text-xs text-blue-600 hover:text-blue-800">View All</button>
+            </div>
+            <div class="text-center p-4 bg-purple-50 rounded-lg border border-purple-100">
+                <div class="text-2xl font-bold text-purple-600">{{ shipped_count }}</div>
+                <div class="text-sm text-purple-700 font-medium">Shipped</div>
+                <button onclick="filterOrders('shipped')" class="mt-2 text-xs text-purple-600 hover:text-purple-800">View All</button>
+            </div>
+            <div class="text-center p-4 bg-green-50 rounded-lg border border-green-100">
+                <div class="text-2xl font-bold text-green-600">{{ delivered_count }}</div>
+                <div class="text-sm text-green-700 font-medium">Delivered</div>
+                <button onclick="filterOrders('delivered')" class="mt-2 text-xs text-green-600 hover:text-green-800">View All</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Orders Table -->
+    <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+        {% if orders %}
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead class="bg-slate-50 border-b border-slate-100">
+                    <tr>
+                        <th class="text-left p-4 font-semibold text-slate-700 text-sm">Order ID</th>
+                        <th class="text-left p-4 font-semibold text-slate-700 text-sm">Customer</th>
+                        <th class="text-left p-4 font-semibold text-slate-700 text-sm">Phone</th>
+                        <th class="text-left p-4 font-semibold text-slate-700 text-sm">Items</th>
+                        <th class="text-left p-4 font-semibold text-slate-700 text-sm">Total</th>
+                        <th class="text-left p-4 font-semibold text-slate-700 text-sm">Payment</th>
+                        <th class="text-left p-4 font-semibold text-slate-700 text-sm">Status</th>
+                        <th class="text-left p-4 font-semibold text-slate-700 text-sm">Actions</th>
+                        <th class="text-left p-4 font-semibold text-slate-700 text-sm">Date</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    {% for order in orders %}
+                    <tr class="hover:bg-slate-50 transition-colors">
+                        <td class="p-4">
+                            <div class="font-mono text-sm font-semibold text-slate-900">{{ order.order_id }}</div>
+                            {% if order.tracking_number %}
+                            <div class="text-xs text-slate-500 mt-1">Track: {{ order.tracking_number }}</div>
+                            {% endif %}
+                        </td>
+                        <td class="p-4">
+                            <div class="font-semibold text-slate-900">{{ order.user.first_name }} {{ order.user.last_name }}</div>
+                            <div class="text-sm text-slate-500">{{ order.user.email }}</div>
+                        </td>
+                        <td class="p-4">
+                            <div class="text-sm text-slate-700">
+                                {% if order.user.profile.phone_number %}
+                                    {{ order.user.profile.phone_number }}
+                                {% else %}
+                                    <span class="text-slate-400">Not provided</span>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td class="p-4">
+                            <div class="space-y-1">
+                                {% for item in order.items.all %}
+                                <div class="text-sm">
+                                    <span class="font-medium">{{ item.quantity }}x</span>
+                                    <span class="text-slate-700">{{ item.product.name|truncatechars:25 }}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td class="p-4">
+                            <div class="font-bold text-lg text-slate-900">${{ order.total_amount }}</div>
+                        </td>
+                        <td class="p-4">
+                            {% if order.payment_status == 'paid' or order.paypal_payment_id %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                ✓ Paid
+                            </span>
+                            {% elif order.payment_status == 'refunded' %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                💰 Refunded
+                            </span>
+                            {% else %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                ✗ Unpaid
+                            </span>
+                            {% endif %}
+                        </td>
+                        <td class="p-4">
+                            {% if order.status == 'pending' %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                ⏳ Pending
+                            </span>
+                            {% elif order.status == 'paid' %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                💳 Paid
+                            </span>
+                            {% elif order.status == 'processing' %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                📦 Processing
+                            </span>
+                            {% elif order.status == 'shipped' %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                                🚚 Shipped
+                            </span>
+                            {% elif order.status == 'delivered' %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                ✅ Delivered
+                            </span>
+                            {% elif order.status == 'cancelled' %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                ❌ Cancelled
+                            </span>
+                            {% endif %}
+                        </td>
+                        <td class="p-4">
+                            <div class="space-y-2">
+                                <a href="{% url 'dashboard_order_detail' order.id %}" 
+                                   style="display: block; padding: 8px 12px; background-color: #374151; color: white; text-align: center; border-radius: 4px; text-decoration: none; font-size: 12px; font-weight: 600;">
+                                    View Details
+                                </a>
+                                
+                                {% if order.status == 'paid' %}
+                                <button onclick="quickUpdateStatus({{ order.id }}, 'processing')" 
+                                        style="width: 100%; padding: 8px 12px; background-color: #2563eb; color: white; border: none; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">
+                                    Mark Processing
+                                </button>
+                                {% elif order.status == 'processing' %}
+                                <button onclick="quickUpdateStatus({{ order.id }}, 'shipped')" 
+                                        style="width: 100%; padding: 8px 12px; background-color: #7c3aed; color: white; border: none; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">
+                                    Mark Shipped
+                                </button>
+                                {% elif order.status == 'shipped' %}
+                                <button onclick="quickUpdateStatus({{ order.id }}, 'delivered')" 
+                                        style="width: 100%; padding: 8px 12px; background-color: #059669; color: white; border: none; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">
+                                    Mark Delivered
+                                </button>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td class="p-4">
+                            <div class="text-sm text-slate-700">{{ order.created_at|date:"M d, Y" }}</div>
+                            <div class="text-xs text-slate-500">{{ order.created_at|time:"g:i A" }}</div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        {% if orders.has_other_pages %}
+        <div class="px-4 py-3 bg-slate-50 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="text-sm text-slate-600">
+                Showing {{ orders.start_index }} to {{ orders.end_index }} of {{ orders.paginator.count }} orders
+            </div>
+            <div class="flex items-center gap-2">
+                {% if orders.has_previous %}
+                <a href="?page={{ orders.previous_page_number }}{% if status_filter %}&status={{ status_filter }}{% endif %}" 
+                   class="px-3 py-1 text-sm border border-slate-200 rounded-lg hover:bg-slate-100 transition-colors">
+                    Previous
+                </a>
+                {% endif %}
+                
+                <span class="px-3 py-1 text-sm bg-primary text-white rounded-lg">
+                    {{ orders.number }}
+                </span>
+                
+                {% if orders.has_next %}
+                <a href="?page={{ orders.next_page_number }}{% if status_filter %}&status={{ status_filter }}{% endif %}" 
+                   class="px-3 py-1 text-sm border border-slate-200 rounded-lg hover:bg-slate-100 transition-colors">
+                    Next
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        
+        {% else %}
+        <div class="p-8 text-center">
+            <div class="text-4xl mb-4">📦</div>
+            <h3 class="text-lg font-semibold text-slate-900 mb-2">No orders found</h3>
+            <p class="text-slate-500">Orders will appear here once customers make purchases.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+function filterOrders(status) {
+    const url = new URL(window.location);
+    if (status) {
+        url.searchParams.set('status', status);
+    } else {
+        url.searchParams.delete('status');
+    }
+    url.searchParams.delete('page'); // Reset to first page
+    window.location.href = url.toString();
+}
+
+function quickUpdateStatus(orderId, newStatus) {
+    const statusNames = {
+        'processing': 'Processing',
+        'shipped': 'Shipped',
+        'delivered': 'Delivered'
+    };
+    
+    if (confirm(`Mark this order as ${statusNames[newStatus]}?`)) {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = `/dashboard/orders/${orderId}/update-status/`;
+        
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        form.innerHTML = `
+            <input type="hidden" name="csrfmiddlewaretoken" value="${csrfToken}">
+            <input type="hidden" name="status" value="${newStatus}">
+        `;
+        
+        document.body.appendChild(form);
+        form.submit();
+        
+        // Force page refresh after a short delay to ensure counts update
+        setTimeout(() => {
+            window.location.href = `/dashboard/orders/?refresh=${Date.now()}`;
+        }, 100);
+    }
+}
+</script>
+{% endblock %}

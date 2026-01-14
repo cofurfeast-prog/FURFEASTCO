@@ -1,0 +1,135 @@
+{% extends 'furfeast/dashboard/base.html' %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <div class="mb-8">
+        <h2 class="text-2xl font-bold text-slate-900">{% if blog %}Edit Post{% else %}Write New Post{% endif %}</h2>
+        <p class="text-slate-500">{% if blog %}Update your blog post{% else %}Share news and tips with your customers{% endif %}</p>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data"
+        class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 space-y-6">
+        {% csrf_token %}
+
+        <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Title</label>
+            <input type="text" name="title" value="{{ blog.title|default:'' }}" required
+                class="w-full px-4 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors text-lg font-medium">
+        </div>
+
+        <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Writer Name</label>
+            <input type="text" name="writer_name" value="{{ blog.writer_name|default:'' }}" placeholder="{{ request.user.username }}"
+                class="w-full px-4 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors">
+            <p class="text-xs text-slate-400 mt-1">Leave empty to use your username ({{ request.user.username }})</p>
+        </div>
+
+        <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Content</label>
+            <textarea name="content" rows="12" required
+                class="w-full px-4 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors">{{ blog.content|default:'' }}</textarea>
+            <p class="text-xs text-slate-400 mt-2">HTML is supported for formatting.</p>
+        </div>
+
+        <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Featured Image</label>
+            {% if blog and blog.image %}
+            <div class="mb-3">
+                <img src="{{ blog.image.url }}" alt="Current image" class="w-32 h-32 object-cover rounded-lg">
+                <p class="text-xs text-slate-500 mt-1">Current image</p>
+            </div>
+            {% endif %}
+            <input type="file" name="image" id="imageInput" {% if not blog %}required{% endif %} accept="image/jpeg,image/jpg,image/png"
+                class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 transition-colors">
+            
+            <!-- Hidden inputs for image position -->
+            <input type="hidden" name="image_position_x" id="imagePositionX" value="0">
+            <input type="hidden" name="image_position_y" id="imagePositionY" value="0">
+            
+            <!-- Image Preview -->
+            <div id="imagePreview" class="mt-4 hidden">
+                <p class="text-sm font-semibold text-slate-700 mb-2">Preview & Adjust Position:</p>
+                <div class="relative w-full max-w-2xl h-80 border-2 border-dashed border-slate-300 rounded-lg overflow-hidden bg-slate-50" style="aspect-ratio: 16/9;">
+                    <img id="previewImg" class="absolute cursor-move" style="width: 100%; height: auto; min-height: 100%;" draggable="true">
+                </div>
+                <p class="text-xs text-slate-400 mt-2">Standard blog image size (16:9). Drag to adjust position. Only JPG and PNG formats allowed.</p>
+            </div>
+        </div>
+
+        <div class="flex items-center pt-2">
+            <label class="flex items-center gap-3 cursor-pointer">
+                <input type="checkbox" name="is_published" {% if blog.is_published or not blog %}checked{% endif %}
+                    class="w-5 h-5 rounded border-gray-300 text-orange-500 focus:ring-orange-500">
+                <span class="text-sm font-semibold text-slate-700">Publish Immediately</span>
+            </label>
+        </div>
+
+        <div class="flex items-center gap-4 pt-4 border-t border-slate-100 mt-6">
+            <button type="submit"
+                class="px-6 py-2 bg-orange-500 text-white rounded-xl font-bold hover:bg-orange-600 transition-colors">
+                {% if blog %}Update Post{% else %}Publish Post{% endif %}
+            </button>
+            <a href="{% url 'dashboard_blog_list' %}"
+                class="px-6 py-2 bg-slate-100 text-slate-600 rounded-xl font-bold hover:bg-slate-200 transition-colors">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+<script>
+document.getElementById('imageInput').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.getElementById('imagePreview');
+            const img = document.getElementById('previewImg');
+            img.src = e.target.result;
+            preview.classList.remove('hidden');
+            
+            let isDragging = false;
+            let startX, startY, startLeft, startTop;
+            
+            img.addEventListener('mousedown', function(e) {
+                isDragging = true;
+                startX = e.clientX;
+                startY = e.clientY;
+                startLeft = parseInt(img.style.left) || 0;
+                startTop = parseInt(img.style.top) || 0;
+                e.preventDefault();
+            });
+            
+            document.addEventListener('mousemove', function(e) {
+                if (!isDragging) return;
+                const deltaX = e.clientX - startX;
+                const deltaY = e.clientY - startY;
+                const newLeft = startLeft + deltaX;
+                const newTop = startTop + deltaY;
+                img.style.left = newLeft + 'px';
+                img.style.top = newTop + 'px';
+                
+                // Convert to percentage for accurate positioning
+                const container = img.parentElement;
+                const containerWidth = container.offsetWidth;
+                const containerHeight = container.offsetHeight;
+                const imgWidth = img.offsetWidth;
+                const imgHeight = img.offsetHeight;
+                
+                const percentX = (newLeft / (containerWidth - imgWidth)) * 100;
+                const percentY = (newTop / (containerHeight - imgHeight)) * 100;
+                
+                // Store percentage values
+                document.getElementById('imagePositionX').value = Math.max(0, Math.min(100, percentX));
+                document.getElementById('imagePositionY').value = Math.max(0, Math.min(100, percentY));
+            });
+            
+            document.addEventListener('mouseup', function() {
+                isDragging = false;
+            });
+        };
+        reader.readAsDataURL(file);
+    }
+});
+</script>
+{% endblock %}

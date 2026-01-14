@@ -1,0 +1,231 @@
+{% extends 'furfeast/dashboard/base.html' %}
+
+{% block content %}
+<div class="mb-8">
+    <h2 class="text-2xl font-bold text-slate-900">Overview</h2>
+    <p class="text-slate-500">Welcome back, {{ request.user.username }}</p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <!-- Stat Card -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Total Products</h3>
+            <div class="p-2 bg-orange-50 text-orange-500 rounded-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m7.5 4.27 9 5.15" />
+                    <path
+                        d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+                    <path d="m3.3 7 8.7 5 8.7-5" />
+                    <path d="M12 22v-10" />
+                </svg>
+            </div>
+        </div>
+        <div class="text-3xl font-bold text-slate-900">{{ total_products }}</div>
+    </div>
+
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Total Users</h3>
+            <div class="p-2 bg-blue-50 text-blue-500 rounded-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+            </div>
+        </div>
+        <div class="text-3xl font-bold text-slate-900">{{ total_users }}</div>
+    </div>
+
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Total Orders</h3>
+            <div class="p-2 bg-green-50 text-green-500 rounded-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                    <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                </svg>
+            </div>
+        </div>
+        <div class="text-3xl font-bold text-slate-900">{{ total_orders }}</div>
+        <p class="text-xs text-green-600 mt-1">+{{ pending_orders }} pending</p>
+    </div>
+</div>
+
+<div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-8">
+    <div class="p-6 border-b border-slate-100">
+        <div class="flex items-center justify-between">
+            <h3 class="font-bold text-slate-900">Recent Orders</h3>
+            <div class="flex gap-2">
+                <select id="orderStatusFilter" onchange="filterOrders()" class="px-3 py-2 border border-slate-300 rounded-lg text-sm">
+                    <option value="all">All Orders</option>
+                    <option value="pending">Pending</option>
+                    <option value="paid">Paid</option>
+                    <option value="processing">Processing</option>
+                    <option value="shipped">Shipped</option>
+                    <option value="delivered">Delivered</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm text-slate-600">
+            <thead class="bg-slate-50 text-slate-500 font-semibold uppercase tracking-wider">
+                <tr>
+                    <th class="px-6 py-4">Order ID</th>
+                    <th class="px-6 py-4">Customer</th>
+                    <th class="px-6 py-4">Phone</th>
+                    <th class="px-6 py-4">Amount</th>
+                    <th class="px-6 py-4">Status</th>
+                    <th class="px-6 py-4">Date</th>
+                    <th class="px-6 py-4">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+                {% for order in recent_orders %}
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4 font-medium text-slate-900">{{ order.order_id }}</td>
+                    <td class="px-6 py-4">{{ order.user.first_name }} {{ order.user.last_name }}</td>
+                    <td class="px-6 py-4">{{ order.shipping_phone|default:order.user.profile.phone_number|default:"-" }}</td>
+                    <td class="px-6 py-4">${{ order.total_amount }}</td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 py-1 rounded-full text-xs font-bold
+                            {% if order.status == 'pending' %}bg-yellow-50 text-yellow-600
+                            {% elif order.status == 'paid' %}bg-blue-50 text-blue-600
+                            {% elif order.status == 'processing' %}bg-purple-50 text-purple-600
+                            {% elif order.status == 'shipped' %}bg-orange-50 text-orange-600
+                            {% elif order.status == 'delivered' %}bg-green-50 text-green-600
+                            {% else %}bg-red-50 text-red-600{% endif %}">
+                            {{ order.get_status_display }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4">{{ order.created_at|date:"M d, Y" }}</td>
+                    <td class="px-6 py-4">
+                        <button onclick="openOrderModal('{{ order.id }}', '{{ order.order_id }}', '{{ order.status }}')" 
+                                class="text-primary hover:text-primary-dark font-medium">
+                            Manage
+                        </button>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="px-6 py-8 text-center text-slate-500">
+                        No orders found
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Order Management Modal -->
+<div id="orderModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+    <div class="bg-white rounded-2xl shadow-xl max-w-md w-full mx-4">
+        <div class="p-6 border-b border-slate-100">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-bold text-slate-900">Manage Order</h3>
+                <button onclick="closeOrderModal()" class="text-slate-400 hover:text-slate-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="p-6">
+            <div class="mb-4">
+                <p class="text-sm text-slate-600 mb-2">Order ID: <span id="modalOrderId" class="font-medium text-slate-900"></span></p>
+                <p class="text-sm text-slate-600 mb-4">Current Status: <span id="modalCurrentStatus" class="font-medium text-slate-900"></span></p>
+            </div>
+            
+            <div class="space-y-3">
+                <button onclick="updateOrderStatus('processing')" class="w-full px-4 py-3 bg-purple-50 text-purple-700 rounded-lg hover:bg-purple-100 transition-colors font-medium flex items-center justify-center gap-2">
+                    <span class="w-2 h-2 bg-purple-500 rounded-full"></span>
+                    Mark as Processing
+                </button>
+                
+                <button onclick="updateOrderStatus('shipped')" class="w-full px-4 py-3 bg-orange-50 text-orange-700 rounded-lg hover:bg-orange-100 transition-colors font-medium flex items-center justify-center gap-2">
+                    <span class="w-2 h-2 bg-orange-500 rounded-full"></span>
+                    Mark as Shipped
+                </button>
+                
+                <button onclick="updateOrderStatus('delivered')" class="w-full px-4 py-3 bg-green-50 text-green-700 rounded-lg hover:bg-green-100 transition-colors font-medium flex items-center justify-center gap-2">
+                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                    Mark as Delivered
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+let currentOrderId = null;
+
+function filterOrders() {
+    const status = document.getElementById('orderStatusFilter').value;
+    window.location.href = `?status=${status}`;
+}
+
+function openOrderModal(orderId, orderIdDisplay, currentStatus) {
+    currentOrderId = orderId;
+    document.getElementById('modalOrderId').textContent = orderIdDisplay;
+    document.getElementById('modalCurrentStatus').textContent = currentStatus.charAt(0).toUpperCase() + currentStatus.slice(1);
+    document.getElementById('orderModal').classList.remove('hidden');
+}
+
+function closeOrderModal() {
+    document.getElementById('orderModal').classList.add('hidden');
+    currentOrderId = null;
+}
+
+function updateOrderStatus(newStatus) {
+    if (!currentOrderId) return;
+    
+    const confirmMessage = `Mark this order as ${newStatus.charAt(0).toUpperCase() + newStatus.slice(1)}?`;
+    if (!confirm(confirmMessage)) return;
+    
+    fetch(`/admin/update-order-status/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: JSON.stringify({
+            order_id: currentOrderId,
+            status: newStatus
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Order status updated successfully! 🐾');
+            location.reload();
+        } else {
+            alert('Error: ' + data.error);
+        }
+    })
+    .catch(error => {
+        alert('Network error occurred');
+    });
+    
+    closeOrderModal();
+}
+
+// Close modal when clicking outside
+document.getElementById('orderModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeOrderModal();
+    }
+});
+</script>
+{% csrf_token %}
+{% endblock %}

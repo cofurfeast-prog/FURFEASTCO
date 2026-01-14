@@ -1,0 +1,213 @@
+{% extends 'furfeast/base.html' %}
+{% load static %}
+
+{% block title %}Contact Us — FURFEAST CO.{% endblock %}
+
+{% block content %}
+<main>
+    <!-- Hero Section -->
+    <section class="py-12 md:py-16 lg:py-20 bg-gradient-to-br from-slate-50 to-slate-100">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="text-center">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 mb-4 sm:mb-6 font-heading tracking-tight">
+                    Get in Touch
+                </h1>
+                <p class="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto">
+                    Have questions about our products? Need help with your order? We're here to help!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-12 md:py-16 lg:py-20 bg-white">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+                <!-- Contact Information -->
+                <div class="order-2 lg:order-1">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-6 sm:mb-8 font-heading">
+                        Contact Information
+                    </h2>
+                    
+                    <div class="space-y-4 sm:space-y-6">
+                        <!-- Address -->
+                        <div class="flex items-start gap-3 sm:gap-4">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sm:w-6 sm:h-6">
+                                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-800 mb-1 sm:mb-2 text-sm sm:text-base">Our Location</h3>
+                                <p class="text-slate-600 text-sm sm:text-base">
+                                    Unit 4/88 Dane St<br>
+                                    East Victoria Park WA 6101<br>
+                                    Australia
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="flex items-start gap-3 sm:gap-4">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sm:w-6 sm:h-6">
+                                    <rect width="20" height="16" x="2" y="4" rx="2"/>
+                                    <path d="m22 7-10 5L2 7"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-800 mb-1 sm:mb-2 text-sm sm:text-base">Email Us</h3>
+                                <p class="text-slate-600 text-sm sm:text-base">
+                                    <a href="mailto:cofurfeast@gmail.com" class="text-primary hover:text-primary-dark transition-colors break-all">
+                                        cofurfeast@gmail.com
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="flex items-start gap-3 sm:gap-4">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sm:w-6 sm:h-6">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-800 mb-1 sm:mb-2 text-sm sm:text-base">Call Us</h3>
+                                <p class="text-slate-600 text-sm sm:text-base">
+                                    <a href="tel:+61450233255" class="text-primary hover:text-primary-dark transition-colors">
+                                        +61 450 233 255
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Business Hours -->
+                        <div class="flex items-start gap-3 sm:gap-4">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sm:w-6 sm:h-6">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12,6 12,12 16,14"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-800 mb-1 sm:mb-2 text-sm sm:text-base">Business Hours</h3>
+                                <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                                    Monday - Friday: 9:00 AM - 6:00 PM<br>
+                                    Saturday: 10:00 AM - 4:00 PM<br>
+                                    Sunday: Closed
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="order-1 lg:order-2">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-6 sm:mb-8 font-heading">
+                        Send us a Message
+                    </h2>
+                    
+                    {% if user.is_authenticated %}
+                    <form method="POST" class="space-y-4 sm:space-y-6">
+                        {% csrf_token %}
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                            <div>
+                                <label for="first_name" class="block text-sm font-semibold text-slate-700 mb-2">
+                                    First Name
+                                </label>
+                                <input type="text" id="first_name" name="first_name" required
+                                    value="{{ user.first_name }}"
+                                    class="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm sm:text-base">
+                            </div>
+                            <div>
+                                <label for="last_name" class="block text-sm font-semibold text-slate-700 mb-2">
+                                    Last Name
+                                </label>
+                                <input type="text" id="last_name" name="last_name" required
+                                    value="{{ user.last_name }}"
+                                    class="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm sm:text-base">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-semibold text-slate-700 mb-2">
+                                Email Address
+                            </label>
+                            <input type="email" id="email" name="email" readonly
+                                value="{{ user.email }}"
+                                class="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border border-slate-200 bg-slate-50 text-slate-600 text-sm sm:text-base">
+                            <p class="text-xs text-slate-500 mt-1">Email is automatically filled from your account</p>
+                        </div>
+                        
+                        <div>
+                            <label for="subject" class="block text-sm font-semibold text-slate-700 mb-2">
+                                Subject
+                            </label>
+                            <input type="text" id="subject" name="subject" required
+                                class="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm sm:text-base">
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-semibold text-slate-700 mb-2">
+                                Message
+                            </label>
+                            <textarea id="message" name="message" rows="5" required
+                                class="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-none text-sm sm:text-base"></textarea>
+                        </div>
+                        
+                        <button type="submit" 
+                            class="w-full bg-primary text-white font-bold py-3 sm:py-4 px-4 sm:px-6 rounded-lg sm:rounded-xl hover:bg-primary-dark transition-all shadow-lg hover:shadow-xl text-sm sm:text-base">
+                            Send Message
+                        </button>
+                    </form>
+                    {% else %}
+                    <div class="bg-slate-50 rounded-xl p-6 sm:p-8 text-center">
+                        <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mx-auto mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M19 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">Login Required</h3>
+                        <p class="text-slate-600 mb-6">Please log in to your account to send us a message.</p>
+                        <a href="{% url 'login' %}" class="inline-block bg-primary text-white font-bold py-3 px-6 rounded-xl hover:bg-primary-dark transition-all">
+                            Login to Continue
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="py-12 md:py-16 lg:py-20 bg-slate-50">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="text-center mb-8 sm:mb-12">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-3 sm:mb-4 font-heading tracking-tight">
+                    Find Us Here
+                </h2>
+                <p class="text-slate-600 text-base sm:text-lg">
+                    Visit our location in East Victoria Park, Australia
+                </p>
+            </div>
+            
+            <!-- Google Maps Embed -->
+            <div class="bg-white rounded-2xl sm:rounded-3xl overflow-hidden shadow-lg sm:shadow-xl">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3384.173771447734!2d115.9092950754256!3d-31.983304474005426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2a32bb8884df99ef%3A0x7efb4a36e4d3a415!2sUnit%204%2F88%20Dane%20St%2C%20East%20Victoria%20Park%20WA%206101%2C%20Australia!5e0!3m2!1sen!2snp!4v1768276723844!5m2!1sen!2snp"
+                    width="100%" 
+                    height="300" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade"
+                    class="w-full h-[300px] sm:h-[400px] md:h-[450px]">
+                </iframe>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

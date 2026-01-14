@@ -1,0 +1,113 @@
+{% extends 'furfeast/dashboard/base.html' %}
+
+{% block content %}
+<div class="max-w-xl mx-auto">
+    <div class="mb-8">
+        <h2 class="text-2xl font-bold text-slate-900">{% if admin_user %}Edit Admin{% else %}Create New Admin{% endif %}
+        </h2>
+        <p class="text-slate-500">{% if admin_user %}Update admin user details{% else %}Add a new staff member with
+            dashboard access{% endif %}</p>
+    </div>
+
+    <form method="POST" class="bg-white p-4 md:p-8 rounded-2xl shadow-sm border border-slate-100 space-y-6">
+        {% csrf_token %}
+
+        <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Username</label>
+            <input type="text" name="username" value="{{ admin_user.username|default:'' }}" required autocomplete="off"
+                class="w-full px-4 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors">
+        </div>
+
+        <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Email Address</label>
+            <input type="email" name="email" value="{{ admin_user.email|default:'' }}" required autocomplete="off"
+                class="w-full px-4 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors">
+        </div>
+
+        <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Password {% if admin_user %}(leave blank to
+                keep current){% endif %}</label>
+            <div class="relative">
+                <input type="password" name="password" id="password" {% if not admin_user %}required{% endif %}
+                    autocomplete="new-password"
+                    class="w-full px-4 py-2 pr-12 rounded-xl border border-slate-200 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors">
+                <button type="button" onclick="togglePassword('password')"
+                    class="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                    <svg id="eye-password" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                        </path>
+                    </svg>
+                    <svg id="eye-off-password" class="w-5 h-5 hidden" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+            <p class="text-xs text-slate-400 mt-2">{% if admin_user %}Leave blank to keep current password{% else
+                %}Password must be strong{% endif %}.</p>
+        </div>
+
+        {% if not admin_user %}
+        <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Confirm Password</label>
+            <div class="relative">
+                <input type="password" name="confirm_password" id="confirm_password" required
+                    autocomplete="new-password"
+                    class="w-full px-4 py-2 pr-12 rounded-xl border border-slate-200 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors">
+                <button type="button" onclick="togglePassword('confirm_password')"
+                    class="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                    <svg id="eye-confirm_password" class="w-5 h-5" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                        </path>
+                    </svg>
+                    <svg id="eye-off-confirm_password" class="w-5 h-5 hidden" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="flex items-center gap-4 pt-4 border-t border-slate-100 mt-6">
+            <button type="submit"
+                class="px-6 py-2 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-colors">
+                {% if admin_user %}Update Admin User{% else %}Create Admin User{% endif %}
+            </button>
+            <a href="{% url 'dashboard_admin_list' %}"
+                class="px-6 py-2 bg-slate-100 text-slate-600 rounded-xl font-bold hover:bg-slate-200 transition-colors">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+<script>
+    function togglePassword(fieldId) {
+        const field = document.getElementById(fieldId);
+        const eyeIcon = document.getElementById('eye-' + fieldId);
+        const eyeOffIcon = document.getElementById('eye-off-' + fieldId);
+
+        if (field.type === 'password') {
+            field.type = 'text';
+            eyeIcon.classList.add('hidden');
+            eyeOffIcon.classList.remove('hidden');
+        } else {
+            field.type = 'password';
+            eyeIcon.classList.remove('hidden');
+            eyeOffIcon.classList.add('hidden');
+        }
+    }
+</script>
+{% endblock %}

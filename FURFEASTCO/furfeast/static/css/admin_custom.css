@@ -1,0 +1,38 @@
+/* Hide default Django error messages when our modal is shown */
+.furfeast-modal ~ * .errorlist {
+    display: none !important;
+}
+
+/* Style the form fields for better UX */
+#id_is_out_of_stock {
+    transform: scale(1.2);
+    margin-right: 8px;
+}
+
+#id_stock {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Highlight conflicting fields when there's an error */
+.field-error #id_is_out_of_stock,
+.field-error #id_stock {
+    border: 2px solid #dc2626 !important;
+    background-color: #fef2f2 !important;
+}
+
+/* Add visual feedback for the stock validation */
+.stock-validation-warning {
+    background-color: #fef3cd;
+    border: 1px solid #fbbf24;
+    color: #92400e;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-top: 8px;
+    font-size: 12px;
+    display: none;
+}
+
+.stock-validation-warning.show {
+    display: block;
+}

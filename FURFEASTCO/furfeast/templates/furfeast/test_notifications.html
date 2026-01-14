@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notification Test</title>
+    <script>
+        function testNotifications() {
+            console.log('Testing notification API...');
+            fetch('/api/notifications/')
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('API Response:', data);
+                    console.log('Count:', data.count);
+                    console.log('Notifications:', data.notifications);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+        
+        window.onload = function() {
+            console.log('Page loaded, testing API...');
+            testNotifications();
+        };
+    </script>
+</head>
+<body>
+    <h1>Notification API Test</h1>
+    <button onclick="testNotifications()">Test API</button>
+    <div id="result"></div>
+</body>
+</html>

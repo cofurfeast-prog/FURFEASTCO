@@ -1,0 +1,485 @@
+{% extends 'furfeast/dashboard/base.html' %}
+
+{% block content %}
+<div class="bg-white rounded-lg shadow-sm border border-slate-200 p-4 sm:p-6">
+    <div class="flex items-center justify-between mb-6">
+        <h1 class="text-xl sm:text-2xl font-bold text-slate-900">
+            {% if hero_image %}Edit Hero Image{% else %}Add Hero Image{% endif %}
+        </h1>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" class="space-y-6">
+        {% csrf_token %}
+        
+        <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Title</label>
+            <input type="text" name="title" value="{{ hero_image.title }}" required
+                class="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500">
+        </div>
+
+        <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Headline</label>
+            <input type="text" name="headline" value="{{ hero_image.headline }}" required
+                class="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500">
+        </div>
+
+        <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Subheadline</label>
+            <input type="text" name="subheadline" value="{{ hero_image.subheadline }}" required
+                class="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">CTA Text</label>
+                <input type="text" name="cta_text" value="{{ hero_image.cta_text|default:'Shop Now' }}"
+                    class="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">CTA Link</label>
+                <input type="text" name="cta_link" value="{{ hero_image.cta_link|default:'/shop/' }}"
+                    class="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500">
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Text Alignment</label>
+                <select name="align" class="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500">
+                    <option value="left" {% if hero_image.align == 'left' %}selected{% endif %}>Left</option>
+                    <option value="right" {% if hero_image.align == 'right' %}selected{% endif %}>Right</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Order</label>
+                <input type="number" name="order" value="{{ hero_image.order|default:0 }}" min="0"
+                    class="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500">
+            </div>
+        </div>
+
+        <div>
+            <label class="flex items-center gap-2">
+                <input type="checkbox" name="is_active" {% if hero_image.is_active or not hero_image %}checked{% endif %}
+                    class="w-4 h-4 text-orange-500 border-slate-300 rounded focus:ring-orange-500">
+                <span class="text-sm font-semibold text-slate-700">Active</span>
+            </label>
+        </div>
+
+        <!-- Text Position Controls (always visible for existing images) -->
+        {% if hero_image %}
+        <div class="p-4 bg-slate-50 rounded-lg">
+            <div class="flex items-center justify-between mb-3">
+                <label class="text-sm font-semibold text-slate-700">Text Position</label>
+                <div class="flex items-center gap-2">
+                    <input type="checkbox" id="apply-to-all-existing" name="apply_position_to_all" value="true" class="w-4 h-4 text-orange-500 border-slate-300 rounded focus:ring-orange-500">
+                    <label for="apply-to-all-existing" class="text-xs text-slate-600">Apply to all hero images</label>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="text-xs text-slate-600 mb-2 block">Vertical Position</label>
+                    <div class="flex items-center gap-2">
+                        <button type="button" onclick="moveTextUpExisting()" class="px-2 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600">↑</button>
+                        <button type="button" onclick="moveTextDownExisting()" class="px-2 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600">↓</button>
+                        <span class="text-xs text-slate-600" id="position-y-display-existing">{{ hero_image.text_position_y|default:50 }}%</span>
+                    </div>
+                </div>
+                <div>
+                    <label class="text-xs text-slate-600 mb-2 block">Horizontal Position</label>
+                    <div class="flex items-center gap-2">
+                        <button type="button" onclick="moveTextLeftExisting()" class="px-2 py-1 bg-green-500 text-white text-xs rounded hover:bg-green-600">←</button>
+                        <button type="button" onclick="moveTextRightExisting()" class="px-2 py-1 bg-green-500 text-white text-xs rounded hover:bg-green-600">→</button>
+                        <span class="text-xs text-slate-600" id="position-x-display-existing">{{ hero_image.text_position_x|default:10 }}%</span>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="text_position_y" id="text-position-y-existing" value="{{ hero_image.text_position_y|default:50 }}">
+            <input type="hidden" name="text_position_x" id="text-position-x-existing" value="{{ hero_image.text_position_x|default:10 }}">
+        </div>
+        {% else %}
+        <!-- Text Position Controls for new images -->
+        <div class="p-4 bg-slate-50 rounded-lg">
+            <div class="flex items-center justify-between mb-3">
+                <label class="text-sm font-semibold text-slate-700">Text Position</label>
+                <div class="flex items-center gap-2">
+                    <input type="checkbox" id="apply-to-all-new" name="apply_position_to_all" value="true" class="w-4 h-4 text-orange-500 border-slate-300 rounded focus:ring-orange-500">
+                    <label for="apply-to-all-new" class="text-xs text-slate-600">Apply to all hero images</label>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="text-xs text-slate-600 mb-2 block">Vertical Position</label>
+                    <div class="flex items-center gap-2">
+                        <button type="button" onclick="moveTextUpNew()" class="px-2 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600">↑</button>
+                        <button type="button" onclick="moveTextDownNew()" class="px-2 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600">↓</button>
+                        <span class="text-xs text-slate-600" id="position-y-display-new">50%</span>
+                    </div>
+                </div>
+                <div>
+                    <label class="text-xs text-slate-600 mb-2 block">Horizontal Position</label>
+                    <div class="flex items-center gap-2">
+                        <button type="button" onclick="moveTextLeftNew()" class="px-2 py-1 bg-green-500 text-white text-xs rounded hover:bg-green-600">←</button>
+                        <button type="button" onclick="moveTextRightNew()" class="px-2 py-1 bg-green-500 text-white text-xs rounded hover:bg-green-600">→</button>
+                        <span class="text-xs text-slate-600" id="position-x-display-new">10%</span>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="text_position_y" id="text-position-y-new" value="50">
+            <input type="hidden" name="text_position_x" id="text-position-x-new" value="10">
+        </div>
+        {% endif %}
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Desktop Image -->
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">
+                    Desktop Image <span class="text-red-500">*</span>
+                    <span class="text-xs text-slate-500 font-normal">(Landscape - 1920x800 recommended)</span>
+                </label>
+                {% if hero_image.desktop_image %}
+                    <div class="mb-3">
+                        <img src="{{ hero_image.desktop_image.url }}" alt="Current desktop image" class="w-full h-32 object-cover rounded-lg border">
+                        <p class="text-sm text-slate-500 mt-1">Current desktop image</p>
+                    </div>
+                {% endif %}
+                <input type="file" name="desktop_image" accept="image/*" {% if not hero_image.desktop_image %}required{% endif %}
+                    class="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500">
+            </div>
+            
+            <!-- Mobile Image -->
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">
+                    Mobile Image <span class="text-red-500">*</span>
+                    <span class="text-xs text-slate-500 font-normal">(Portrait/Square - 800x800 recommended)</span>
+                </label>
+                {% if hero_image.mobile_image %}
+                    <div class="mb-3">
+                        <img src="{{ hero_image.mobile_image.url }}" alt="Current mobile image" class="w-full h-32 object-cover rounded-lg border">
+                        <p class="text-sm text-slate-500 mt-1">Current mobile image</p>
+                    </div>
+                {% endif %}
+                <input type="file" name="mobile_image" accept="image/*" {% if not hero_image.mobile_image %}required{% endif %}
+                    class="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500">
+            </div>
+        </div>
+
+        <!-- Legacy Image Field (for backward compatibility) -->
+        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+            <p class="text-sm text-yellow-800 mb-2"><strong>Legacy Image:</strong> This field is kept for backward compatibility. Use Desktop and Mobile images above for best results.</p>
+            {% if hero_image.image %}
+                <div class="mb-3">
+                    <div class="relative w-full max-w-sm border-2 border-slate-200 rounded-lg overflow-hidden" style="aspect-ratio: 1920/800;">
+                        <img src="{{ hero_image.image.url }}" alt="Current image" class="w-full h-full object-cover">
+                        <!-- Dark overlay for better text visibility -->
+                        <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent"></div>
+                        <!-- Text Preview Overlay for existing image -->
+                        <div id="existing-text-overlay" class="absolute inset-0 flex px-4 sm:px-6 lg:px-12" style="align-items: flex-start; padding-top: {{ hero_image.text_position_y|default:50 }}%; padding-left: {{ hero_image.text_position_x|default:10 }}%;">
+                            <div class="max-w-xl text-white" id="existing-text-content">
+                                <h1 class="text-lg sm:text-xl font-bold mb-2 drop-shadow-lg" id="existing-preview-headline">{{ hero_image.headline }}</h1>
+                                <p class="text-sm sm:text-base mb-4 drop-shadow-lg" id="existing-preview-subheadline">{{ hero_image.subheadline }}</p>
+                                <button class="bg-orange-500 text-white px-4 py-2 rounded-full text-sm shadow-lg" id="existing-preview-cta">{{ hero_image.cta_text }}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-500 mt-1">Current image with text preview</p>
+                </div>
+            {% endif %}
+            <input type="file" id="hero-image-input" name="image" accept="image/*" {% if not hero_image %}required{% endif %}
+                class="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
+                onchange="previewHeroImage(this)">
+            
+            <!-- Dimension Check -->
+            <div id="dimension-check" class="hidden mt-2 p-3 rounded-lg">
+                <p id="dimension-text" class="text-sm font-semibold"></p>
+            </div>
+            
+            <!-- Image Preview -->
+            <div id="hero-image-preview" class="hidden mt-6 pt-6 border-t border-slate-100">
+                <p class="text-sm font-semibold text-slate-700 mb-4 text-center">Preview (Auto-resized to 1920x800):</p>
+                <div class="relative w-full border-2 border-dashed border-slate-300 rounded-lg overflow-hidden bg-slate-50" style="aspect-ratio: 1920/800;">
+                    <img id="hero-preview-img" class="w-full h-full object-cover">
+                    <!-- Text Preview Overlay -->
+                    <div id="text-overlay" class="absolute inset-0 flex items-center px-4 sm:px-6 lg:px-12" style="padding-top: 50%;">
+                        <div class="max-w-xl text-white" id="text-content">
+                            <h1 class="text-lg sm:text-xl font-bold mb-2" id="preview-headline">Your Headline</h1>
+                            <p class="text-sm sm:text-base mb-4" id="preview-subheadline">Your subheadline text</p>
+                            <button class="bg-orange-500 text-white px-4 py-2 rounded-full text-sm" id="preview-cta">Shop Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Text Position Controls -->
+                <div class="mt-4 p-4 bg-slate-50 rounded-lg">
+                    <div class="flex items-center justify-between mb-3">
+                        <label class="text-sm font-semibold text-slate-700">Text Position</label>
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" id="apply-to-all" class="w-4 h-4 text-orange-500 border-slate-300 rounded focus:ring-orange-500">
+                            <label for="apply-to-all" class="text-xs text-slate-600">Apply to all hero images</label>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button type="button" onclick="moveTextUp()" class="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600">↑ Up</button>
+                        <button type="button" onclick="moveTextDown()" class="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600">↓ Down</button>
+                        <span class="text-sm text-slate-600" id="position-display">Position: 50%</span>
+                    </div>
+                    <input type="hidden" name="text_position_y" id="text-position-input" value="{{ hero_image.text_position_y|default:50 }}">
+                    <input type="hidden" name="apply_position_to_all" id="apply-position-to-all" value="false">
+                </div>
+                
+                <div class="flex gap-3 mt-4 justify-center">
+                    <button type="button" onclick="cancelHeroPreview()" class="px-4 sm:px-6 py-2 bg-gray-500 text-white text-sm font-semibold rounded-lg hover:bg-gray-600 transition-colors">
+                        Cancel Preview
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+            <button type="submit" class="px-6 py-3 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition-colors">
+                {% if hero_image %}Update Hero Image{% else %}Create Hero Image{% endif %}
+            </button>
+            <a href="{% url 'dashboard_hero_image_list' %}" class="px-6 py-3 border border-slate-200 text-slate-700 font-semibold rounded-lg hover:bg-slate-50 transition-colors text-center">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+<script>
+let currentTextPosition = {{ hero_image.text_position_y|default:50 }};
+let currentTextPositionExisting = {{ hero_image.text_position_y|default:50 }};
+let currentTextPositionXExisting = {{ hero_image.text_position_x|default:10 }};
+
+function previewHeroImage(input) {
+    if (input.files && input.files[0]) {
+        const file = input.files[0];
+        
+        // Validate file type
+        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+        if (!allowedTypes.includes(file.type)) {
+            alert('Please select a valid image file (JPEG, PNG, WebP)');
+            return;
+        }
+        
+        // Validate file size (min 100KB, max 10MB)
+        if (file.size < 100 * 1024) {
+            alert('File size must be at least 100KB');
+            return;
+        }
+        
+        if (file.size > 10 * 1024 * 1024) {
+            alert('File size must be less than 10MB');
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                const width = this.width;
+                const height = this.height;
+                const dimensionCheck = document.getElementById('dimension-check');
+                const dimensionText = document.getElementById('dimension-text');
+                
+                // Show processing message
+                dimensionCheck.className = 'mt-2 p-3 rounded-lg bg-blue-50 border border-blue-200';
+                dimensionText.className = 'text-sm font-semibold text-blue-700';
+                dimensionText.textContent = `✓ Image accepted: ${width}x${height}px (will be auto-resized to 1920x800)`;
+                dimensionCheck.classList.remove('hidden');
+                
+                // Show preview
+                const previewImg = document.getElementById('hero-preview-img');
+                previewImg.src = e.target.result;
+                document.getElementById('hero-image-preview').classList.remove('hidden');
+                
+                // Update text preview
+                updateTextPreview();
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+function updateTextPreview() {
+    const headline = document.querySelector('input[name="headline"]').value || 'Your Headline';
+    const subheadline = document.querySelector('input[name="subheadline"]').value || 'Your subheadline text';
+    const ctaText = document.querySelector('input[name="cta_text"]').value || 'Shop Now';
+    const align = document.querySelector('select[name="align"]').value;
+    
+    document.getElementById('preview-headline').textContent = headline;
+    document.getElementById('preview-subheadline').textContent = subheadline;
+    document.getElementById('preview-cta').textContent = ctaText;
+    
+    const textOverlay = document.getElementById('text-overlay');
+    const textContent = document.getElementById('text-content');
+    
+    // Update alignment
+    if (align === 'right') {
+        textOverlay.style.justifyContent = 'flex-end';
+        textContent.style.textAlign = 'right';
+    } else {
+        textOverlay.style.justifyContent = 'flex-start';
+        textContent.style.textAlign = 'left';
+    }
+    
+    // Update vertical position
+    textOverlay.style.paddingTop = currentTextPosition + '%';
+    document.getElementById('position-display').textContent = `Position: ${currentTextPosition}%`;
+    document.getElementById('text-position-input').value = currentTextPosition;
+}
+
+function moveTextUp() {
+    if (currentTextPosition > 0) {
+        currentTextPosition = Math.max(0, currentTextPosition - 5);
+        updateTextPreview();
+    }
+}
+
+function moveTextDown() {
+    if (currentTextPosition < 80) {
+        currentTextPosition = Math.min(80, currentTextPosition + 5);
+        updateTextPreview();
+    }
+}
+
+// Functions for existing image controls
+function moveTextUpExisting() {
+    if (currentTextPositionExisting > 0) {
+        currentTextPositionExisting = Math.max(0, currentTextPositionExisting - 5);
+        updateExistingPosition();
+    }
+}
+
+function moveTextDownExisting() {
+    if (currentTextPositionExisting < 80) {
+        currentTextPositionExisting = Math.min(80, currentTextPositionExisting + 5);
+        updateExistingPosition();
+    }
+}
+
+function moveTextLeftExisting() {
+    if (currentTextPositionXExisting > 0) {
+        currentTextPositionXExisting = Math.max(0, currentTextPositionXExisting - 5);
+        updateExistingPosition();
+    }
+}
+
+function moveTextRightExisting() {
+    if (currentTextPositionXExisting < 80) {
+        currentTextPositionXExisting = Math.min(80, currentTextPositionXExisting + 5);
+        updateExistingPosition();
+    }
+}
+
+function updateExistingPosition() {
+    document.getElementById('position-y-display-existing').textContent = `${currentTextPositionExisting}%`;
+    document.getElementById('position-x-display-existing').textContent = `${currentTextPositionXExisting}%`;
+    document.getElementById('text-position-y-existing').value = currentTextPositionExisting;
+    document.getElementById('text-position-x-existing').value = currentTextPositionXExisting;
+    
+    // Update existing image overlay
+    const existingOverlay = document.getElementById('existing-text-overlay');
+    if (existingOverlay) {
+        existingOverlay.style.paddingTop = currentTextPositionExisting + '%';
+        existingOverlay.style.paddingLeft = currentTextPositionXExisting + '%';
+    }
+}
+
+// Functions for new image controls
+let currentTextPositionNew = 50;
+
+function moveTextUpNew() {
+    if (currentTextPositionNew > 0) {
+        currentTextPositionNew = Math.max(0, currentTextPositionNew - 5);
+        updateNewPosition();
+    }
+}
+
+function moveTextDownNew() {
+    if (currentTextPositionNew < 80) {
+        currentTextPositionNew = Math.min(80, currentTextPositionNew + 5);
+        updateNewPosition();
+    }
+}
+
+function updateNewPosition() {
+    document.getElementById('position-display-new').textContent = `Position: ${currentTextPositionNew}%`;
+    document.getElementById('text-position-input-new').value = currentTextPositionNew;
+    // Also update preview if visible
+    currentTextPosition = currentTextPositionNew;
+    if (!document.getElementById('hero-image-preview').classList.contains('hidden')) {
+        updateTextPreview();
+    }
+}
+
+function cancelHeroPreview() {
+    document.getElementById('hero-image-preview').classList.add('hidden');
+    document.getElementById('dimension-check').classList.add('hidden');
+    document.getElementById('hero-image-input').value = '';
+}
+
+// Update preview when form fields change
+document.addEventListener('DOMContentLoaded', function() {
+    const inputs = ['headline', 'subheadline', 'cta_text', 'align'];
+    inputs.forEach(name => {
+        const input = document.querySelector(`[name="${name}"]`);
+        if (input) {
+            input.addEventListener('input', function() {
+                updateTextPreview();
+                updateExistingImagePreview();
+            });
+            input.addEventListener('change', function() {
+                updateTextPreview();
+                updateExistingImagePreview();
+            });
+        }
+    });
+    
+    // Handle apply to all checkbox
+    const applyToAllCheckbox = document.getElementById('apply-to-all');
+    if (applyToAllCheckbox) {
+        applyToAllCheckbox.addEventListener('change', function() {
+            document.getElementById('apply-position-to-all').value = this.checked;
+        });
+    }
+    
+    // Handle existing apply to all checkbox
+    const applyToAllExistingCheckbox = document.getElementById('apply-to-all-existing');
+    if (applyToAllExistingCheckbox) {
+        applyToAllExistingCheckbox.addEventListener('change', function() {
+            // The checkbox value will be sent directly in the form
+        });
+    }
+});
+
+// Update existing image preview
+function updateExistingImagePreview() {
+    const headline = document.querySelector('input[name="headline"]').value;
+    const subheadline = document.querySelector('input[name="subheadline"]').value;
+    const ctaText = document.querySelector('input[name="cta_text"]').value;
+    const align = document.querySelector('select[name="align"]').value;
+    
+    const existingHeadline = document.getElementById('existing-preview-headline');
+    const existingSubheadline = document.getElementById('existing-preview-subheadline');
+    const existingCta = document.getElementById('existing-preview-cta');
+    const existingContent = document.getElementById('existing-text-content');
+    
+    if (existingHeadline) existingHeadline.textContent = headline;
+    if (existingSubheadline) existingSubheadline.textContent = subheadline;
+    if (existingCta) existingCta.textContent = ctaText;
+    
+    if (existingContent) {
+        if (align === 'right') {
+            existingContent.style.marginLeft = 'auto';
+            existingContent.style.marginRight = '0';
+            existingContent.style.textAlign = 'right';
+        } else {
+            existingContent.style.marginLeft = '0';
+            existingContent.style.marginRight = 'auto';
+            existingContent.style.textAlign = 'left';
+        }
+    }
+}
+</script>
+{% endblock %}

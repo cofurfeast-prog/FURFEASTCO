@@ -1,0 +1,194 @@
+{% extends 'furfeast/base.html' %}
+{% load static %}
+
+{% block title %}Checkout - FURFEAST CO.{% endblock %}
+
+{% block content %}
+<main class="pt-24 pb-16 bg-slate-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-slate-900">Checkout</h1>
+            <p class="text-slate-600 mt-2">Complete your purchase</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Order Summary -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm h-fit">
+                <h2 class="text-xl font-bold text-slate-900 mb-6">Order Summary</h2>
+                
+                {% if is_buy_now %}
+                <!-- Buy Now Product -->
+                <div class="flex items-center gap-4 p-4 border border-slate-200 rounded-xl mb-6">
+                    <div class="w-16 h-16 bg-slate-100 rounded-lg overflow-hidden flex-shrink-0">
+                        {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover">
+                        {% else %}
+                        <div class="w-full h-full flex items-center justify-center text-slate-400 text-xs">No Image</div>
+                        {% endif %}
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-slate-900">{{ product.name }}</h3>
+                        <p class="text-slate-600 text-sm">{{ product.get_category_display }}</p>
+                        <div class="flex items-center gap-4 mt-2">
+                            <div class="flex items-center border border-slate-300 rounded-lg">
+                                <button type="button" onclick="updateQuantity(-1)" class="px-3 py-1 hover:bg-slate-100">-</button>
+                                <input type="number" id="quantity" value="1" min="1" max="{{ product.stock }}" 
+                                       class="w-16 text-center border-0 focus:outline-none" onchange="updateTotal()">
+                                <button type="button" onclick="updateQuantity(1)" class="px-3 py-1 hover:bg-slate-100">+</button>
+                            </div>
+                            <span class="text-lg font-bold text-primary" id="itemPrice">${{ product.price }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Order Total -->
+                <div class="border-t pt-4 space-y-2">
+                    <div class="flex justify-between">
+                        <span class="text-slate-600">Subtotal:</span>
+                        <span id="subtotal">${{ product.price }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-slate-600">Shipping:</span>
+                        <span class="text-green-600">Free</span>
+                    </div>
+                    <div class="flex justify-between text-lg font-bold border-t pt-2">
+                        <span>Total:</span>
+                        <span id="total" class="text-primary">${{ product.price }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Checkout Form -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm">
+                <h2 class="text-xl font-bold text-slate-900 mb-6">Shipping Information</h2>
+                
+                <form id="checkoutForm" class="space-y-4">
+                    {% csrf_token %}
+                    <input type="hidden" id="productId" value="{{ product.id }}">
+                    <input type="hidden" id="finalQuantity" value="1">
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">First Name</label>
+                            <input type="text" name="first_name" value="{{ user.first_name }}" required
+                                   class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:border-primary focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Last Name</label>
+                            <input type="text" name="last_name" value="{{ user.last_name }}" required
+                                   class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:border-primary focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Email</label>
+                        <input type="email" name="email" value="{{ user.email }}" required
+                               class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:border-primary focus:outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Phone Number</label>
+                        <input type="tel" name="phone" value="{{ user.profile.phone_number|default:'' }}" required
+                               placeholder="{% if user.profile.phone_number %}{{ user.profile.phone_number }}{% else %}Enter your phone number{% endif %}"
+                               class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:border-primary focus:outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Shipping Address</label>
+                        <textarea name="address" rows="3" required
+                                  class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:border-primary focus:outline-none"
+                                  placeholder="Enter your full address"></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">City</label>
+                            <input type="text" name="city" required
+                                   class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:border-primary focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Postal Code</label>
+                            <input type="text" name="postal_code"
+                                   class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:border-primary focus:outline-none">
+                        </div>
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="border-t pt-6">
+                        <h3 class="text-lg font-bold text-slate-900 mb-4">Payment Method</h3>
+                        <div class="space-y-3">
+                            <label class="flex items-center p-4 border border-slate-300 rounded-xl cursor-pointer hover:border-primary">
+                                <input type="radio" name="payment_method" value="paypal" checked class="mr-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-white text-xs font-bold">PP</div>
+                                    <span class="font-medium">PayPal</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Place Order Button -->
+                    <button type="submit" 
+                            class="w-full bg-primary text-white font-bold py-4 rounded-xl hover:bg-orange-600 transition-all text-lg mt-6">
+                        Place Order
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+function updateQuantity(change) {
+    const quantityInput = document.getElementById('quantity');
+    const currentQuantity = parseInt(quantityInput.value);
+    const newQuantity = Math.max(1, Math.min({{ product.stock }}, currentQuantity + change));
+    quantityInput.value = newQuantity;
+    updateTotal();
+}
+
+function updateTotal() {
+    const quantity = parseInt(document.getElementById('quantity').value);
+    const price = {{ product.price }};
+    const total = (quantity * price).toFixed(2);
+    
+    document.getElementById('itemPrice').textContent = '$' + total;
+    document.getElementById('subtotal').textContent = '$' + total;
+    document.getElementById('total').textContent = '$' + total;
+    document.getElementById('finalQuantity').value = quantity;
+}
+
+document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    const quantity = document.getElementById('finalQuantity').value;
+    
+    // Add quantity to form data
+    formData.append('quantity', quantity);
+    formData.append('product_id', '{{ product.id }}');
+    
+    // Only handle PayPal payment now
+    handlePayPalPayment(formData);
+});
+
+function handlePayPalPayment(formData) {
+    // For now, redirect to PayPal capture with form data
+    const quantity = formData.get('quantity');
+    const total = ({{ product.price }} * quantity).toFixed(2);
+    
+    // Store shipping info in session storage for PayPal callback
+    sessionStorage.setItem('shippingInfo', JSON.stringify({
+        address: formData.get('address'),
+        phone: formData.get('phone'),
+        city: formData.get('city'),
+        postal_code: formData.get('postal_code'),
+        quantity: quantity,
+        product_id: '{{ product.id }}'
+    }));
+    
+    alert('PayPal integration coming soon! Please contact us to complete your order.');
+}
+</script>
+{% endblock %}

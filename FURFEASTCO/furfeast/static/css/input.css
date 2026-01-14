@@ -1,0 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    /* SathiPet Brand Colors - Warm & Trustworthy */
+    --background: 30 50% 98%;
+    --foreground: 220 20% 18%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 18%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 18%;
+
+    /* Primary - Warm Orange */
+    --primary: 27 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 27 100% 95%;
+    --primary-dark: 27 100% 42%;
+
+    /* Secondary - Teal Green */
+    --secondary: 168 70% 40%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-light: 168 60% 94%;
+
+    /* Accent - Soft Coral */
+    --accent: 15 90% 65%;
+    --accent-foreground: 0 0% 100%;
+
+    --muted: 30 20% 94%;
+    --muted-foreground: 220 10% 45%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 30 20% 88%;
+    --input: 30 20% 88%;
+    --ring: 27 100% 50%;
+
+    --radius: 0.75rem;
+
+    /* Custom Design Tokens */
+    --gradient-hero: linear-gradient(135deg, hsl(27 100% 50% / 0.9), hsl(15 90% 55% / 0.85));
+    --gradient-cta: linear-gradient(135deg, hsl(27 100% 50%), hsl(27 100% 42%));
+    --gradient-teal: linear-gradient(135deg, hsl(168 70% 40%), hsl(168 70% 32%));
+    --gradient-warm: linear-gradient(180deg, hsl(30 50% 98%), hsl(30 40% 95%));
+
+    --shadow-soft: 0 4px 20px hsl(27 100% 50% / 0.1);
+    --shadow-card: 0 2px 12px hsl(220 20% 18% / 0.06);
+    --shadow-card-hover: 0 8px 30px hsl(220 20% 18% / 0.12);
+    --shadow-glow: 0 0 30px hsl(27 100% 50% / 0.3);
+
+    --font-heading: 'Nunito', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+/* Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+/* Custom Utilities for SathiPet UI */
+.container-wide {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+    .container-wide {
+        padding: 0 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container-wide {
+        padding: 0 2rem;
+    }
+}
+
+.btn-primary {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-soft);
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+    box-shadow: 0 8px 30px hsl(220 20% 18% / 0.12);
+    transform: translateY(-1px);
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+.card-product {
+    background: hsl(var(--card));
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-card);
+}
+
+.card-product:hover {
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-4px);
+}
+
+.input-field {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid hsl(var(--border));
+    background: hsl(var(--background));
+    transition: all 0.2s;
+    outline: none;
+}
+
+.input-field:focus {
+    border-color: hsl(var(--primary));
+    box-shadow: 0 0 0 2px hsla(var(--primary), 0.2);
+}
+
+/* Animations */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.animate-slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-scale-in {
+    animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}

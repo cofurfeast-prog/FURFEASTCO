@@ -1,0 +1,285 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FurFeast Admin Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50">
+    <div class="flex h-screen bg-slate-50 md:overflow-hidden">
+
+        <!-- Mobile Header -->
+        <div
+            class="md:hidden fixed top-0 w-full bg-slate-900 text-white z-40 flex items-center justify-between p-4 h-16 shadow-md">
+            <h1 class="font-bold text-lg">
+                <span class="text-orange-500">FurFeast</span><span class="text-white">Admin</span>
+            </h1>
+            <button id="mobile-menu-btn" class="p-2 text-slate-300 hover:text-white focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Overlay -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-40 hidden transition-opacity opacity-0"
+            onclick="toggleSidebar()"></div>
+
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 text-white flex flex-col transition-transform duration-300 transform -translate-x-full md:translate-x-0 md:static md:inset-auto shadow-xl md:shadow-none">
+            <div class="p-6 border-b border-slate-800 hidden md:block">
+                <h1 class="text-2xl font-bold">
+                    <span class="text-orange-500">FurFeast</span><span class="text-white">Admin</span>
+                </h1>
+            </div>
+
+            <!-- Mobile Sidebar Header (with Close button) -->
+            <div class="p-4 border-b border-slate-800 flex items-center justify-between md:hidden">
+                <span class="font-bold text-lg">Menu</span>
+                <button onclick="toggleSidebar()" class="text-slate-400 hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-1">
+                <a href="{% url 'dashboard_home' %}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 text-slate-300 hover:text-white transition-colors">
+                    Dashboard
+                </a>
+
+                <div class="pt-4 pb-2 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Management
+                </div>
+
+                <a href="{% url 'dashboard_product_list' %}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 text-slate-300 hover:text-white transition-colors">
+                    Products
+                </a>
+                <a href="{% url 'dashboard_order_list' %}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 text-slate-300 hover:text-white transition-colors">
+                    Orders
+                </a>
+                <a href="{% url 'dashboard_flash_sale_list' %}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 text-slate-300 hover:text-white transition-colors">
+                    Flash Sales
+                </a>
+                <a href="{% url 'dashboard_promo_code_list' %}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 text-slate-300 hover:text-white transition-colors">
+                    Discount Codes
+                </a>
+                <a href="{% url 'dashboard_blog_list' %}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 text-slate-300 hover:text-white transition-colors">
+                    Blogs
+                </a>
+                <a href="{% url 'dashboard_about_us_edit' %}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 text-slate-300 hover:text-white transition-colors">
+                    About Us
+                </a>
+                <a href="{% url 'dashboard_hero_image_list' %}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 text-slate-300 hover:text-white transition-colors">
+                    Hero Images
+                </a>
+                <a href="{% url 'dashboard_furfeast_family_list' %}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 text-slate-300 hover:text-white transition-colors">
+                    FurFeast Family
+                </a>
+                <a href="{% url 'dashboard_customer_analytics' %}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 text-slate-300 hover:text-white transition-colors">
+                    Customer Analytics
+                </a>
+                <a href="{% url 'dashboard_business_analytics' %}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 text-slate-300 hover:text-white transition-colors">
+                    Business Analytics
+                </a>
+
+                <div class="pt-4 pb-2 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Customer Connections</div>
+
+                <a href="{% url 'dashboard_customer_queries' %}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 text-slate-300 hover:text-white transition-colors relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                    </svg>
+                    Customer Feedback
+                    <span id="message-counter" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </a>
+                
+                <a href="{% url 'dashboard_customer_messages_list' %}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 text-slate-300 hover:text-white transition-colors relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
+                    </svg>
+                    Customer Messages
+                    <span id="chat-counter" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </a>
+
+                <div class="pt-4 pb-2 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Settings</div>
+
+                <a href="{% url 'dashboard_admin_list' %}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 text-slate-300 hover:text-white transition-colors">
+                    Admins
+                </a>
+
+                <div class="pt-4 pb-2 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">View Site
+                </div>
+
+                <a href="{% url 'index' %}" target="_blank"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 text-slate-300 hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15,3 21,3 21,9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                    View Website
+                </a>
+            </nav>
+
+            <div class="p-4 border-t border-slate-800">
+                <div class="flex items-center gap-3 px-4 py-3">
+                    <div class="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center font-bold text-white flex-shrink-0">
+                        {{ request.user.username|make_list|first|upper }}
+                    </div>
+                    <div>
+                        <div class="text-sm font-semibold">{{ request.user.first_name }} {{ request.user.last_name }}</div>
+                        <div class="text-xs text-slate-400">{{ request.user.email }}</div>
+                        {% if request.user.profile.phone_number %}
+                        <div class="text-xs text-slate-400">{{ request.user.profile.phone_number }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 w-full pt-16 md:pt-0 md:overflow-y-auto">
+            <div class="p-4 md:p-8 max-w-7xl mx-auto min-h-screen md:min-h-0 pb-20 md:pb-8">
+                {% if messages %}
+                <div class="mb-6 space-y-2">
+                    {% for message in messages %}
+                    <div id="message-{{ forloop.counter }}"
+                        class="p-4 rounded-xl {% if message.tags == 'error' %}bg-red-50 text-red-600{% else %}bg-green-50 text-green-600{% endif %} transition-opacity duration-300">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {% block content %}
+                {% endblock %}
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        let isSidebarOpen = false;
+
+        function toggleSidebar() {
+            isSidebarOpen = !isSidebarOpen;
+            if (isSidebarOpen) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.remove('opacity-0'), 10); // Fade in
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('opacity-0');
+                setTimeout(() => overlay.classList.add('hidden'), 300); // Wait for fade out
+            }
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleSidebar);
+
+        // Close sidebar when resizing to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768 && isSidebarOpen) {
+                toggleSidebar();
+            }
+        });
+
+        // Auto-hide success messages after 5 seconds
+        document.addEventListener('DOMContentLoaded', () => {
+            const messages = document.querySelectorAll('[id^="message-"]');
+            messages.forEach((message, index) => {
+                if (message.classList.contains('bg-green-50')) {
+                    setTimeout(() => {
+                        message.style.opacity = '0';
+                        setTimeout(() => {
+                            message.remove();
+                        }, 300);
+                    }, 5000);
+                }
+            });
+            
+            // Add instant image preview for all file inputs
+            const fileInputs = document.querySelectorAll('input[type="file"][accept*="image"]');
+            fileInputs.forEach(input => {
+                input.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            // Find existing image preview or create one
+                            let preview = input.parentElement.querySelector('.image-preview');
+                            if (!preview) {
+                                preview = document.createElement('img');
+                                preview.className = 'image-preview mt-2 max-w-xs h-32 object-cover rounded-lg border';
+                                input.parentElement.appendChild(preview);
+                            }
+                            preview.src = e.target.result;
+                            preview.style.display = 'block';
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            });
+            
+            // Update message counter with absolute URL for production
+            fetch(window.location.origin + '/dashboard/message-count/')
+                .then(response => response.json())
+                .then(data => {
+                    const counter = document.getElementById('message-counter');
+                    if (counter && data.count > 0) {
+                        counter.textContent = data.count;
+                        counter.classList.remove('hidden');
+                    }
+                })
+                .catch(error => {
+                    console.log('Could not fetch message count:', error);
+                });
+            
+            // Update chat message counter
+            fetch(window.location.origin + '/dashboard/chat-message-count/')
+                .then(response => response.json())
+                .then(data => {
+                    const counter = document.getElementById('chat-counter');
+                    if (counter && data.count > 0) {
+                        counter.textContent = data.count;
+                        counter.classList.remove('hidden');
+                    }
+                })
+                .catch(error => {
+                    console.log('Could not fetch chat message count:', error);
+                });
+        });
+    </script>
+</body>
+
+</html>

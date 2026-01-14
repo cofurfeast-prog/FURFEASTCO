@@ -1,0 +1,148 @@
+{% extends 'furfeast/dashboard/base.html' %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-2xl md:text-3xl font-bold text-slate-900">Email Campaigns</h1>
+            <p class="text-slate-600 mt-1">Manage your promotional email campaigns</p>
+        </div>
+        <a href="{% url 'dashboard_customer_analytics' %}" class="bg-orange-600 text-white px-4 py-2 rounded-xl font-medium hover:bg-orange-700 transition-colors">
+            Create New Campaign
+        </a>
+    </div>
+
+    <!-- Campaigns List -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="divide-y divide-slate-200">
+            {% for campaign in campaigns %}
+            <div class="p-4 md:p-6">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                    <div class="flex-1">
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-3 mb-2">
+                            <h3 class="font-semibold text-slate-900">{{ campaign.title }}</h3>
+                            {% if campaign.sent_at %}
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 w-fit">
+                                    Sent
+                                </span>
+                            {% else %}
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 w-fit">
+                                    Draft
+                                </span>
+                            {% endif %}
+                        </div>
+                        <p class="text-slate-600 mb-2">{{ campaign.subject }}</p>
+                        <div class="flex flex-wrap gap-4 text-sm text-slate-500">
+                            <span>Created: {{ campaign.created_at|date:"M d, Y H:i" }}</span>
+                            {% if campaign.sent_at %}
+                                <span>Sent: {{ campaign.sent_at|date:"M d, Y H:i" }}</span>
+                            {% endif %}
+                            {% if campaign.recipients_count %}
+                                <span>Recipients: {{ campaign.recipients_count }}</span>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Media indicators -->
+                        <div class="flex gap-2 mt-2">
+                            {% if campaign.image %}
+                                <span class="inline-flex items-center px-2 py-1 rounded text-xs bg-blue-100 text-blue-800">
+                                    📷 Image
+                                </span>
+                            {% endif %}
+                            {% if campaign.video %}
+                                <span class="inline-flex items-center px-2 py-1 rounded text-xs bg-purple-100 text-purple-800">
+                                    🎥 Video
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                <div class="flex gap-3">
+                    {% if not campaign.sent_at %}
+                        <a href="{% url 'dashboard_campaign_edit' campaign.id %}" 
+                           class="px-3 py-1.5 text-blue-600 hover:text-blue-700 border border-blue-200 rounded-lg hover:bg-blue-50 transition-colors text-sm font-medium">
+                            Edit
+                        </a>
+                            <a href="{% url 'dashboard_campaign_delete' campaign.id %}" 
+                               onclick="event.preventDefault(); showConfirm('Delete this campaign?', () => window.location.href='{% url 'dashboard_campaign_delete' campaign.id %}');"
+                               class="px-3 py-1.5 text-red-600 hover:text-red-700 border border-red-200 rounded-lg hover:bg-red-50 transition-colors text-sm font-medium">
+                                Delete
+                            </a>
+                    {% else %}
+                        <a href="{% url 'dashboard_campaign_edit' campaign.id %}" 
+                           class="px-3 py-1.5 text-blue-600 hover:text-blue-700 border border-blue-200 rounded-lg hover:bg-blue-50 transition-colors text-sm font-medium">
+                            View
+                        </a>
+                        <a href="{% url 'dashboard_campaign_delete' campaign.id %}" 
+                           onclick="event.preventDefault(); showConfirm('Delete this sent campaign? This action cannot be undone.', () => window.location.href='{% url 'dashboard_campaign_delete' campaign.id %}');"
+                           class="px-3 py-1.5 text-red-600 hover:text-red-700 border border-red-200 rounded-lg hover:bg-red-50 transition-colors text-sm font-medium">
+                            Delete
+                        </a>
+                    {% endif %}
+                </div>
+                </div>
+                
+                <!-- Campaign preview -->
+                <div class="mt-4 p-4 bg-slate-50 rounded-lg">
+                    <p class="text-sm text-slate-700 line-clamp-3">{{ campaign.body|truncatewords:30 }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <div class="p-8 text-center">
+                <div class="text-slate-400 mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="mx-auto">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-medium text-slate-900 mb-2">No campaigns yet</h3>
+                <p class="text-slate-500 mb-4">Create your first email campaign to reach your customers</p>
+                <a href="{% url 'dashboard_customer_analytics' %}" class="inline-flex items-center px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors">
+                    Create Campaign
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script>
+// FurFeast Custom Confirm Modal
+function showConfirm(message, onConfirm) {
+    const overlay = document.createElement('div');
+    overlay.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+    
+    overlay.innerHTML = `
+        <div class="bg-white rounded-2xl p-6 w-full max-w-md transform scale-90 transition-transform duration-300">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div style="font-size: 48px; margin-bottom: 12px;">🐾</div>
+                <h3 style="font-size: 18px; font-weight: 600; color: #1e293b; margin-bottom: 8px;">FurFeast</h3>
+                <p style="color: #64748b; font-size: 14px;">${message}</p>
+            </div>
+            <div style="display: flex; gap: 12px; justify-content: center;">
+                <button onclick="closeConfirmModal()" style="padding: 10px 20px; background: #e2e8f0; color: #475569; border: none; border-radius: 8px; font-weight: 500; cursor: pointer;">Cancel</button>
+                <button onclick="confirmAction()" style="padding: 10px 20px; background: #f97316; color: white; border: none; border-radius: 8px; font-weight: 500; cursor: pointer;">Confirm</button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(overlay);
+    
+    window.closeConfirmModal = () => {
+        overlay.classList.add('opacity-0');
+        setTimeout(() => document.body.removeChild(overlay), 300);
+    };
+    
+    window.confirmAction = () => {
+        onConfirm();
+        closeConfirmModal();
+    };
+    
+    setTimeout(() => {
+        overlay.querySelector('.bg-white').classList.remove('scale-90');
+        overlay.querySelector('.bg-white').classList.add('scale-100');
+    }, 100);
+}
+</script>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'furfeast/base.html' %}
+
+{% block content %}
+<main class="pt-12 pb-24 px-4 sm:px-6 lg:px-12 bg-white min-h-screen">
+    <div class="max-w-4xl mx-auto">
+        <article class="prose prose-lg max-w-none">
+            <header class="mb-12">
+                <h1 class="text-4xl sm:text-5xl font-bold text-slate-900 mb-6 font-heading">{{ blog.title }}</h1>
+                <div class="flex items-center gap-4 text-slate-500 mb-8">
+                    <span>By {{ blog.writer_name|default:blog.author.username }}</span>
+                    <span>•</span>
+                    <span>{{ blog.created_at|date:"F d, Y" }}</span>
+                </div>
+                {% if blog.image %}
+                <div class="mb-8">
+                    <img src="{{ blog.image.url }}" alt="{{ blog.title }}" 
+                         class="w-full h-96 object-cover rounded-2xl shadow-lg resizable-image" 
+                         style="resize: both; overflow: auto; min-width: 200px; min-height: 150px; object-position: {{ blog.image_position_x|default:'50' }}% {{ blog.image_position_y|default:'50' }}%;">
+                </div>
+                {% endif %}
+            </header>
+            
+            <div class="text-slate-700 leading-relaxed text-lg">
+                {{ blog.content|linebreaks }}
+            </div>
+        </article>
+        
+        <div class="mt-12 pt-8 border-t border-slate-200">
+            <a href="{% url 'blog_list' %}" 
+               class="inline-flex items-center gap-2 text-primary font-bold hover:gap-3 transition-all">
+                ← Back to Blog
+            </a>
+        </div>
+    </div>
+</main>
+
+<style>
+.resizable-image {
+    resize: both;
+    overflow: auto;
+    cursor: nw-resize;
+}
+.resizable-image:hover {
+    border: 2px dashed #f97316;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,202 @@
+{% extends 'furfeast/dashboard/base.html' %}
+
+{% block content %}
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+    <div>
+        <h2 class="text-2xl font-bold text-slate-900">Products</h2>
+        <p class="text-slate-500">Manage your product catalog</p>
+    </div>
+    <a href="{% url 'dashboard_product_create' %}"
+        class="px-4 py-2 bg-orange-500 text-white rounded-xl font-semibold hover:bg-orange-600 transition-colors flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        Add Product
+    </a>
+</div>
+
+<!-- Filter Section -->
+<div class="mb-6">
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100">
+        <div class="p-6 border-b border-slate-100">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold text-slate-900">Product Filters</h3>
+                <select id="productListFilter" onchange="filterProductList()" class="px-3 py-2 border border-slate-300 rounded-lg text-sm" style="transition: all 0.2s ease; width: 120px;" onmouseover="this.style.borderColor='#fb923c'; this.style.backgroundColor='#fff7ed'; this.style.boxShadow='0 2px 8px rgba(251, 146, 60, 0.3)';" onmouseout="this.style.borderColor='#d1d5db'; this.style.backgroundColor='white'; this.style.boxShadow='none';" onfocus="this.style.borderColor='#f97316'; this.style.backgroundColor='#fff7ed'; this.style.boxShadow='0 0 0 3px rgba(249, 115, 22, 0.2)'; this.style.outline='none';" onblur="this.style.borderColor='#d1d5db'; this.style.backgroundColor='white'; this.style.boxShadow='none';">
+                    <option value="10" {% if current_limit == '10' %}selected{% endif %}>Recent 10</option>
+                    <option value="20" {% if current_limit == '20' %}selected{% endif %}>Recent 20</option>
+                    <option value="50" {% if current_limit == '50' %}selected{% endif %}>Recent 50</option>
+                    <option value="100" {% if current_limit == '100' %}selected{% endif %}>Recent 100</option>
+                    <option value="500" {% if current_limit == '500' %}selected{% endif %}>Recent 500</option>
+                    <option value="all" {% if current_limit == 'all' %}selected{% endif %}>All Time</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="bg-white rounded-2xl shadow-sm border border-slate-100">
+    <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm text-slate-600">
+            <thead class="bg-slate-50 text-slate-500 font-semibold uppercase tracking-wider">
+                <tr>
+                    <th class="px-6 py-4">Image</th>
+                    <th class="px-6 py-4">Name</th>
+                    <th class="px-6 py-4">Category</th>
+                    <th class="px-6 py-4">Price</th>
+                    <th class="px-6 py-4">Stock</th>
+                    <th class="px-6 py-4 text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+                {% for product in products %}
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4">
+                        <div class="w-12 h-12 rounded-lg bg-slate-100 overflow-hidden">
+                            {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}"
+                                class="w-full h-full object-cover">
+                            {% else %}
+                            <div class="w-full h-full flex items-center justify-center text-slate-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                                    <circle cx="9" cy="9" r="2" />
+                                    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                                </svg>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 font-medium text-slate-900">{{ product.name }}</td>
+                    <td class="px-6 py-4 capitalize">{{ product.category|cut:"-" }}</td>
+                    <td class="px-6 py-4">${{ product.price }}</td>
+                    <td class="px-6 py-4">
+                        {% if product.stock > 0 %}
+                        <span class="text-green-600 font-bold">{{ product.stock }}</span>
+                        {% else %}
+                        <span class="text-red-600 font-bold">Out of Stock</span>
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                        <div class="flex items-center justify-end gap-2">
+                            <a href="{% url 'dashboard_product_edit' product.id %}"
+                                class="p-2 text-slate-400 hover:text-blue-500 hover:bg-blue-50 rounded-lg transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                                </svg>
+                            </a>
+                            <a href="#" onclick="showDeleteConfirm('{{ product.id }}', '{{ product.name }}')"
+                                class="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M3 6h18"></path>
+                                    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                                    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    {% if products.has_other_pages %}
+    <div class="flex items-center justify-center gap-2 p-6 border-t border-slate-100">
+        {% if products.has_previous %}
+        <a href="?page={{ products.previous_page_number }}"
+            class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-50 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m15 18-6-6 6-6" />
+            </svg>
+        </a>
+        {% endif %}
+
+        <span class="text-sm font-semibold text-slate-900">Page {{ products.number }} of {{ products.paginator.num_pages
+            }}</span>
+
+        {% if products.has_next %}
+        <a href="?page={{ products.next_page_number }}"
+            class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-50 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m9 18 6-6-6-6" />
+            </svg>
+        </a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-2xl p-8 max-w-md mx-4 text-center transform scale-95 transition-all duration-300" id="modalContent">
+        <div class="w-20 h-20 mx-auto mb-6 bg-red-100 rounded-full flex items-center justify-center">
+            <div class="text-4xl animate-bounce">🐾</div>
+        </div>
+        <h3 class="text-xl font-bold text-slate-900 mb-2">Are you sure?</h3>
+        <p class="text-slate-600 mb-6">You want to delete "<span id="productName"></span>"? This action cannot be undone!</p>
+        <div class="flex gap-3 justify-center">
+            <button onclick="hideDeleteConfirm()" class="px-6 py-2 bg-slate-200 text-slate-700 rounded-xl font-semibold hover:bg-slate-300 transition-colors">
+                Cancel
+            </button>
+            <a id="confirmDeleteBtn" href="#" class="px-6 py-2 bg-red-500 text-white rounded-xl font-semibold hover:bg-red-600 transition-colors">
+                Yes, Delete
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+function filterProductList() {
+    const limit = document.getElementById('productListFilter').value;
+    window.location.href = `?limit=${limit}`;
+}
+
+function showDeleteConfirm(productId, productName) {
+    document.getElementById('productName').textContent = productName;
+    document.getElementById('confirmDeleteBtn').href = `/dashboard/products/delete/${productId}/`;
+    const modal = document.getElementById('deleteModal');
+    const content = document.getElementById('modalContent');
+    
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    
+    setTimeout(() => {
+        content.classList.remove('scale-95');
+        content.classList.add('scale-100');
+    }, 10);
+}
+
+function hideDeleteConfirm() {
+    const modal = document.getElementById('deleteModal');
+    const content = document.getElementById('modalContent');
+    
+    content.classList.remove('scale-100');
+    content.classList.add('scale-95');
+    
+    setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }, 300);
+}
+
+// Close modal when clicking outside
+document.getElementById('deleteModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        hideDeleteConfirm();
+    }
+});
+</script>
+{% endblock %}

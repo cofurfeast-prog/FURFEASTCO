@@ -1,0 +1,33 @@
+@login_required
+def customer_chat(request):
+    """Customer chat view"""
+    context = get_context_data(request)
+    messages_list = CustomerMessage.objects.filter(user=request.user).order_by('created_at')
+    context['messages'] = messages_list
+    return render(request, 'furfeast/customer_chat.html', context)
+
+@login_required
+@csrf_exempt
+def send_customer_message(request):
+    """Send message from customer"""
+    try:
+        message = request.POST.get('message', '').strip()
+        image = request.FILES.get('image')
+        
+        if not message and not image:
+            return JsonResponse({'success': False, 'error': 'Message or image required'})
+        
+        msg = CustomerMessage.objects.create(
+            user=request.user,
+            message=message or '',
+            image=image,
+            is_from_admin=False
+        )
+        
+        return JsonResponse({
+            'success': True,
+            'message_id': msg.id,
+            'created_at': msg.created_at.strftime('%b %d, %Y at %I:%M %p')
+        })
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})

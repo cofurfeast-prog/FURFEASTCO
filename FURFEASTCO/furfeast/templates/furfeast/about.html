@@ -1,0 +1,76 @@
+{% extends 'furfeast/base.html' %}
+
+{% block content %}
+<main class="bg-white min-h-screen">
+    <!-- Hero Section -->
+    <section class="py-20 lg:py-32 px-4 sm:px-6 lg:px-12 bg-slate-900 text-white relative overflow-hidden">
+        <div class="max-w-[1440px] mx-auto relative z-10">
+            <div class="max-w-3xl">
+                <h1 class="text-5xl lg:text-7xl font-bold mb-8 font-heading leading-tight">We Love Pets as Much as You
+                    Do.</h1>
+                <p class="text-xl text-slate-300 mb-12 leading-relaxed">FURFEAST CO. started with a simple mission: to
+                    provide the highest quality, natural nutrition for our beloved pets. We believe every pet deserves
+                    to thrive on a diet that's as wholesome as our own.</p>
+                <div class="flex flex-wrap gap-6">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary text-2xl">
+                            ✨</div>
+                        <span class="font-bold">Natural Ingredients</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 text-2xl">
+                            🌿</div>
+                        <span class="font-bold">Eco-Friendly</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="absolute right-0 top-0 h-full w-1/3 opacity-20 hidden lg:block">
+            <img src="https://images.unsplash.com/photo-1548191265-cc70d3d45ba1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                alt="" class="h-full object-cover">
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section class="py-24 px-4 sm:px-6 lg:px-12 overflow-hidden">
+        <div class="max-w-[1440px] mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                <!-- Text Content - Always Left Side on Desktop -->
+                <div class="order-1">
+                    <span class="text-primary font-bold uppercase tracking-widest text-sm mb-4 block">Our Story</span>
+                    <h2 class="text-4xl lg:text-5xl font-bold text-slate-900 mb-8 font-heading">{{ about_us.title }}</h2>
+                    <div class="space-y-6 text-slate-600 text-lg leading-relaxed">
+                        {{ about_us.content|linebreaks }}
+                    </div>
+                </div>
+                <!-- Image Content - Always Right Side on Desktop -->
+                <div class="relative order-2">
+                    <div class="aspect-square rounded-[3rem] overflow-hidden shadow-2xl">
+                        {% if about_us.image %}
+                            <img src="{{ about_us.image.url }}" alt="{{ about_us.title }}" class="w-full h-full object-cover">
+                        {% else %}
+                            <img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                alt="Happy Dogs" class="w-full h-full object-cover">
+                        {% endif %}
+                    </div>
+                    <!-- Desktop Stats Card -->
+                    <div class="absolute -bottom-10 -left-10 bg-white p-10 rounded-3xl shadow-xl border border-slate-100 hidden lg:block">
+                        <div class="text-5xl font-bold text-primary mb-2">{{ about_us.happy_pet_parents_count }}</div>
+                        <div class="text-slate-500 font-bold">Happy Pet Parents</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mobile Stats Card -->
+            <div class="lg:hidden mt-12 text-center">
+                <div class="inline-block bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
+                    <div class="text-4xl font-bold text-primary mb-2">{{ about_us.happy_pet_parents_count }}</div>
+                    <div class="text-slate-500 font-bold">Happy Pet Parents</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

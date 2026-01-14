@@ -1,0 +1,53 @@
+﻿{% extends 'furfeast/base.html' %}
+
+{% block content %}
+<main class="pt-12 pb-24 px-4 sm:px-6 lg:px-12 bg-slate-50 min-h-screen">
+    <div class="max-w-[1440px] mx-auto">
+        <div class="text-center mb-16">
+            <h1 class="text-4xl sm:text-5xl font-bold text-slate-900 mb-4 font-heading">Latest from Our Blog</h1>
+            <p class="text-slate-600 text-lg max-w-2xl mx-auto">Expert advice, nutrition tips, and heartwarming stories
+                for your furry friends.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for blog in blogs %}
+            <article
+                class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl transition-all group">
+                <div class="aspect-video overflow-hidden">
+                    {% if blog.image %}
+                    <img src="{{ blog.image.url }}" alt="{{ blog.title }}"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        style="object-position: {{ blog.image_position_x|default:'50' }}% {{ blog.image_position_y|default:'50' }}%;">
+                    {% endif %}
+                </div>
+                <div class="p-8">
+                    <div class="flex items-center gap-3 text-sm text-slate-500 mb-4">
+                        <span class="px-3 py-1 bg-orange-50 text-orange-600 rounded-full font-bold">News</span>
+                        <span>By {{ blog.writer_name|default:blog.author.username }}</span>
+                        <span>•</span>
+                        <span>{{ blog.created_at|date:"M d, Y" }}</span>
+                    </div>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4 group-hover:text-primary transition-colors">{{ blog.title }}</h2>
+                    <p class="text-slate-600 mb-6 line-clamp-3 leading-relaxed">{{ blog.content }}</p>
+                    <a href="{% url 'blog_detail' blog.id %}"
+                        class="inline-flex items-center gap-2 text-primary font-bold hover:gap-3 transition-all">
+                        Read More
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14" />
+                            <path d="m12 5 7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </article>
+            {% empty %}
+            <div class="col-span-full py-20 text-center">
+                <div class="text-6xl mb-6"></div>
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">No stories yet</h2>
+                <p class="text-slate-500">Check back soon for new pet health tips and stories!</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

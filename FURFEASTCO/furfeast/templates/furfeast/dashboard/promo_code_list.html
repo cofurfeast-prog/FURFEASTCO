@@ -1,0 +1,99 @@
+{% extends 'furfeast/dashboard/base.html' %}
+
+{% block content %}
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+    <div>
+        <h2 class="text-2xl font-bold text-slate-900">Discount Codes</h2>
+        <p class="text-slate-500">Manage promotional codes</p>
+    </div>
+    <a href="{% url 'dashboard_promo_code_create' %}"
+        class="px-4 py-2 bg-orange-500 text-white rounded-xl font-semibold hover:bg-orange-600 transition-colors">Add
+        Discount Code</a>
+</div>
+
+<div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm text-slate-600">
+            <thead class="bg-slate-50 text-slate-500 font-semibold uppercase tracking-wider">
+                <tr>
+                    <th class="px-6 py-4">Code</th>
+                    <th class="px-6 py-4">Discount Amount</th>
+                    <th class="px-6 py-4">Valid From</th>
+                    <th class="px-6 py-4">Valid To</th>
+                    <th class="px-6 py-4">Status</th>
+                    <th class="px-6 py-4 text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+                {% for code in codes %}
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4 font-mono font-bold text-slate-900">{{ code.code }}</td>
+                    <td class="px-6 py-4">${{ code.discount_amount }}</td>
+                    <td class="px-6 py-4">{{ code.valid_from|date:"M d" }}</td>
+                    <td class="px-6 py-4">{{ code.valid_to|date:"M d" }}</td>
+                    <td class="px-6 py-4">
+                        {% if code.active %}
+                        <span class="px-2 py-1 rounded-full bg-green-50 text-green-600 text-xs font-bold">Active</span>
+                        {% else %}
+                        <span
+                            class="px-2 py-1 rounded-full bg-slate-100 text-slate-500 text-xs font-bold">Inactive</span>
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4 text-right space-x-2">
+                        <a href="{% url 'dashboard_promo_code_edit' code.id %}"
+                            class="text-blue-500 hover:text-blue-700 font-bold">Edit</a>
+                        <a href="#" onclick="showConfirm('Delete this promo code? This action cannot be undone.', () => window.location.href='{% url 'dashboard_promo_code_delete' code.id %}')"
+                            class="text-red-500 hover:text-red-700 font-bold">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="px-6 py-8 text-center text-slate-400">
+                        No promo codes found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+// FurFeast Custom Confirm Modal
+function showConfirm(message, onConfirm) {
+    const overlay = document.createElement('div');
+    overlay.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+    
+    overlay.innerHTML = `
+        <div class="bg-white rounded-2xl p-6 w-full max-w-md transform scale-90 transition-transform duration-300">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div style="font-size: 48px; margin-bottom: 12px; animation: bounce 1s infinite;">🐾</div>
+                <h3 style="font-size: 18px; font-weight: 600; color: #1e293b; margin-bottom: 8px;">FurFeast</h3>
+                <p style="color: #64748b; font-size: 14px;">${message}</p>
+            </div>
+            <div style="display: flex; gap: 12px; justify-content: center;">
+                <button onclick="closeConfirmModal()" style="padding: 10px 20px; background: #e2e8f0; color: #475569; border: none; border-radius: 8px; font-weight: 500; cursor: pointer;">Cancel</button>
+                <button onclick="confirmAction()" style="padding: 10px 20px; background: #f97316; color: white; border: none; border-radius: 8px; font-weight: 500; cursor: pointer;">Confirm</button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(overlay);
+    
+    window.closeConfirmModal = () => {
+        overlay.classList.add('opacity-0');
+        setTimeout(() => document.body.removeChild(overlay), 300);
+    };
+    
+    window.confirmAction = () => {
+        onConfirm();
+        closeConfirmModal();
+    };
+    
+    setTimeout(() => {
+        overlay.querySelector('.bg-white').classList.remove('scale-90');
+        overlay.querySelector('.bg-white').classList.add('scale-100');
+    }, 100);
+}
+</script>
+{% endblock %}
