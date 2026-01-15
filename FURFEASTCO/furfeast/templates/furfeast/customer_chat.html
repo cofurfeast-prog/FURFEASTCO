@@ -3,22 +3,22 @@
 {% block title %}Chat with Seller - FURFEAST CO.{% endblock %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-8 max-w-4xl">
-    <div class="bg-white rounded-2xl shadow-lg flex flex-col" style="height: calc(100vh - 200px); min-height: 500px;">
-        <div class="bg-primary text-white px-4 sm:px-6 py-4 rounded-t-2xl flex items-center justify-between">
-            <div>
-                <h2 class="text-lg sm:text-xl font-bold">💬 Chat with Seller</h2>
-                <p class="text-sm opacity-90" id="status-text">We're here to help!</p>
+<div class="container mx-auto px-2 sm:px-4 py-4 sm:py-8 max-w-4xl">
+    <div class="bg-white rounded-2xl shadow-lg flex flex-col" style="height: calc(100vh - 150px); min-height: 400px;">
+        <div class="bg-primary text-white px-3 sm:px-6 py-3 sm:py-4 rounded-t-2xl flex items-center justify-between flex-wrap gap-2">
+            <div class="min-w-0">
+                <h2 class="text-base sm:text-xl font-bold truncate">💬 Chat with Seller</h2>
+                <p class="text-xs sm:text-sm opacity-90" id="status-text">We're here to help!</p>
             </div>
-            <div class="flex items-center gap-2">
-                <span id="online-indicator" class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></span>
-                <span class="text-sm">Online</span>
+            <div class="flex items-center gap-2 flex-shrink-0">
+                <span id="online-indicator" class="w-2 h-2 sm:w-3 sm:h-3 bg-green-400 rounded-full animate-pulse"></span>
+                <span class="text-xs sm:text-sm">Online</span>
             </div>
         </div>
 
-        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50">
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-2 sm:p-4 space-y-3 sm:space-y-4 bg-slate-50">
             <div id="typing-indicator" class="hidden flex justify-start">
-                <div class="bg-white rounded-lg px-4 py-3 shadow">
+                <div class="bg-white rounded-lg px-3 sm:px-4 py-2 sm:py-3 shadow">
                     <div class="flex gap-1">
                         <span class="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style="animation-delay: 0s"></span>
                         <span class="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
@@ -28,40 +28,45 @@
             </div>
             {% for msg in chat_messages %}
             <div class="flex {% if msg.is_from_admin %}justify-start{% else %}justify-end{% endif %}">
-                <div class="max-w-xs sm:max-w-md {% if msg.is_from_admin %}bg-white{% else %}bg-primary text-white{% endif %} rounded-lg px-4 py-3 shadow">
+                <div class="max-w-[85%] sm:max-w-xs md:max-w-md {% if msg.is_from_admin %}bg-white{% else %}bg-primary text-white{% endif %} rounded-lg px-3 sm:px-4 py-2 sm:py-3 shadow break-words">
                     {% if msg.image %}
                     <img src="{{ msg.image.url }}" alt="Attachment" class="rounded mb-2 max-w-full">
                     {% endif %}
                     {% if msg.message %}
-                    <p class="text-sm">{{ msg.message }}</p>
+                    <p class="text-xs sm:text-sm break-words">{{ msg.message }}</p>
                     {% endif %}
-                    <p class="text-xs {% if msg.is_from_admin %}text-slate-500{% else %}text-orange-100{% endif %} mt-1">
+                    <p class="text-[10px] sm:text-xs {% if msg.is_from_admin %}text-slate-500{% else %}text-orange-100{% endif %} mt-1">
                         {{ msg.created_at|date:"M d, g:i A" }}
                     </p>
                 </div>
             </div>
             {% empty %}
-            <div class="text-center text-slate-500 py-12">
-                <p>No messages yet. Start a conversation!</p>
+            <div class="text-center text-slate-500 py-8 sm:py-12 px-4">
+                <p class="text-sm sm:text-base">No messages yet. Start a conversation!</p>
             </div>
             {% endfor %}
         </div>
 
-        <form id="chat-form" class="p-4 border-t bg-white rounded-b-2xl">
+        <form id="chat-form" class="p-2 sm:p-4 border-t bg-white rounded-b-2xl">
             {% csrf_token %}
-            <div class="flex gap-2">
-                <input type="file" id="image-input" accept="image/*" class="hidden">
-                <button type="button" id="attach-btn" class="p-2 sm:p-3 hover:bg-slate-100 rounded-full transition-colors text-xl">
+            <div class="flex gap-1 sm:gap-2">
+                <input type="file" id="image-input" accept="image/jpeg,image/jpg,image/png" class="hidden">
+                <button type="button" id="attach-btn" class="p-2 hover:bg-slate-100 rounded-full transition-colors text-lg sm:text-xl flex-shrink-0">
                     📎
                 </button>
-                <input type="text" id="message-input" name="message" placeholder="Type your message..." 
-                       class="flex-1 px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-primary text-sm sm:text-base">
-                <button type="submit" class="px-4 sm:px-6 py-2 bg-primary text-white rounded-full hover:bg-primary-dark transition-colors font-semibold text-sm sm:text-base">
+                <input type="text" id="message-input" name="message" placeholder="Type message..." 
+                       class="flex-1 min-w-0 px-3 sm:px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-primary text-xs sm:text-base">
+                <button type="submit" class="px-3 sm:px-6 py-2 bg-primary text-white rounded-full hover:bg-primary-dark transition-colors font-semibold text-xs sm:text-base flex-shrink-0">
                     Send
                 </button>
             </div>
             <div id="image-preview" class="mt-2 hidden">
-                <img id="preview-img" class="h-20 rounded-lg">
+                <div class="relative inline-block">
+                    <img id="preview-img" class="h-16 sm:h-20 rounded-lg">
+                    <button type="button" id="remove-image" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">
+                        ✕
+                    </button>
+                </div>
             </div>
         </form>
     </div>
@@ -71,11 +76,55 @@
 const chatMessages = document.getElementById('chat-messages');
 const chatForm = document.getElementById('chat-form');
 const messageInput = document.getElementById('message-input');
+const imageInput = document.getElementById('image-input');
+const attachBtn = document.getElementById('attach-btn');
+const imagePreview = document.getElementById('image-preview');
+const previewImg = document.getElementById('preview-img');
+const removeImageBtn = document.getElementById('remove-image');
 const typingIndicator = document.getElementById('typing-indicator');
 const statusText = document.getElementById('status-text');
 const ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/ws/chat/`);
 
 let typingTimeout;
+let selectedImage = null;
+
+// Attach button click
+attachBtn.addEventListener('click', () => imageInput.click());
+
+// Image selection with validation
+imageInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    // Validate file type
+    if (!['image/jpeg', 'image/jpg', 'image/png'].includes(file.type)) {
+        alert('Only JPEG and PNG images are allowed');
+        imageInput.value = '';
+        return;
+    }
+    
+    // Validate file size (1MB)
+    if (file.size > 1048576) {
+        alert('Image size must be less than 1MB');
+        imageInput.value = '';
+        return;
+    }
+    
+    selectedImage = file;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        previewImg.src = e.target.result;
+        imagePreview.classList.remove('hidden');
+    };
+    reader.readAsDataURL(file);
+});
+
+// Remove image
+removeImageBtn.addEventListener('click', () => {
+    selectedImage = null;
+    imageInput.value = '';
+    imagePreview.classList.add('hidden');
+});
 
 ws.onopen = () => console.log('Customer connected to chat');
 
@@ -107,17 +156,17 @@ ws.onmessage = (e) => {
     div.setAttribute('data-msg-id', msg.id);
     
     const bubble = document.createElement('div');
-    bubble.className = `max-w-xs sm:max-w-md ${msg.is_from_admin ? 'bg-white' : 'bg-primary text-white'} rounded-lg px-4 py-3 shadow`;
+    bubble.className = `max-w-[85%] sm:max-w-xs md:max-w-md ${msg.is_from_admin ? 'bg-white' : 'bg-primary text-white'} rounded-lg px-3 sm:px-4 py-2 sm:py-3 shadow break-words`;
     
     if (msg.message) {
         const p = document.createElement('p');
-        p.className = 'text-sm';
+        p.className = 'text-xs sm:text-sm break-words';
         p.textContent = msg.message;
         bubble.appendChild(p);
     }
     
     const time = document.createElement('p');
-    time.className = `text-xs ${msg.is_from_admin ? 'text-slate-500' : 'text-orange-100'} mt-1`;
+    time.className = `text-[10px] sm:text-xs ${msg.is_from_admin ? 'text-slate-500' : 'text-orange-100'} mt-1`;
     time.textContent = new Date(msg.created_at).toLocaleString('en-US', {month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true});
     bubble.appendChild(time);
     

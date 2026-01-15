@@ -419,5 +419,17 @@ class CustomerMessage(models.Model):
     class Meta:
         ordering = ['created_at']
     
+    def clean(self):
+        from django.core.exceptions import ValidationError
+        if self.image:
+            # Check file size (1MB = 1048576 bytes)
+            if self.image.size > 1048576:
+                raise ValidationError('Image size must be less than 1MB')
+            # Check file extension
+            import os
+            ext = os.path.splitext(self.image.name)[1].lower()
+            if ext not in ['.jpg', '.jpeg', '.png']:
+                raise ValidationError('Only JPEG and PNG images are allowed')
+    
     def __str__(self):
         return f"{self.user.username} - {'Admin' if self.is_from_admin else 'Customer'} - {self.created_at}"
