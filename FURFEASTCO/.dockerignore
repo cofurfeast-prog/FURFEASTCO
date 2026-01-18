@@ -11,3 +11,13 @@ venv/
 .DS_Store
 node_modules/
 *.log
+*.md
+test_*.py
+*_test.py
+db.sqlite3
+.qodo/
+media/
+*.bat
+# Exclude shell scripts except start.sh
+# *.sh
+!start.sh

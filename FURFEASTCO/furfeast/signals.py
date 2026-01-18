@@ -33,36 +33,18 @@ def store_old_order_status(sender, instance, **kwargs):
 
 @receiver(post_save, sender=Order)
 def create_order_notification(sender, instance, created, **kwargs):
-    """Create notification when order status changes"""
+    """Update timestamps when order status changes"""
     if not created and hasattr(instance, '_old_status'):
         old_status = instance._old_status
         
-        # Check if status changed to shipped
+        # Update shipped_at timestamp
         if instance.status == 'shipped' and old_status != 'shipped':
-            # Update shipped_at timestamp
             if not instance.shipped_at:
                 instance.shipped_at = timezone.now()
                 instance.save(update_fields=['shipped_at'])
-            
-            # Create notification for customer
-            Notification.objects.create(
-                user=instance.user,
-                title="Order Shipped!",
-                message=f"Your order #{instance.order_id} has been shipped{' via ' + instance.courier_name if instance.courier_name else ''}. {('Tracking number: ' + instance.tracking_number) if instance.tracking_number else ''}",
-                order=instance
-            )
         
-        # Check if status changed to delivered
+        # Update delivered_at timestamp
         elif instance.status == 'delivered' and old_status != 'delivered':
-            # Update delivered_at timestamp
             if not instance.delivered_at:
                 instance.delivered_at = timezone.now()
                 instance.save(update_fields=['delivered_at'])
-            
-            # Create notification for customer
-            Notification.objects.create(
-                user=instance.user,
-                title="Order Delivered!",
-                message=f"Your order #{instance.order_id} has been delivered successfully. Thank you for shopping with FurFeast!",
-                order=instance
-            )

@@ -19,6 +19,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
             customer_id = query_string.split('customer_id=')[1].split('&')[0]
             self.customer_room = f"chat_{customer_id}"
             await self.channel_layer.group_add(self.customer_room, self.channel_name)
+            # Add admin to their own admin room for persistent message viewing
+            self.admin_room = f"admin_chat_{self.user.id}"
+            await self.channel_layer.group_add(self.admin_room, self.channel_name)
         
         await self.accept()
     
@@ -27,18 +30,19 @@ class ChatConsumer(AsyncWebsocketConsumer):
             await self.channel_layer.group_discard(self.room_name, self.channel_name)
         if hasattr(self, 'customer_room'):
             await self.channel_layer.group_discard(self.customer_room, self.channel_name)
+        if hasattr(self, 'admin_room'):
+            await self.channel_layer.group_discard(self.admin_room, self.channel_name)
     
     async def receive(self, text_data):
         data = json.loads(text_data)
-        message = data.get('message', '')
-        user_id = data.get('user_id')
-        typing = data.get('typing', False)
+        message_type = data.get('type', 'notification')
         
-        # Handle typing indicator
-        if typing:
+        if message_type == 'typing':
+            typing = data.get('typing', False)
+            user_id = data.get('user_id')
             typing_data = {
                 'type': 'typing_indicator',
-                'is_typing': True,
+                'is_typing': typing,
                 'user_id': self.user.id,
                 'is_admin': self.is_admin
             }
@@ -46,69 +50,38 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 await self.channel_layer.group_send(f"chat_{user_id}", typing_data)
             else:
                 await self.channel_layer.group_send(self.room_name, typing_data)
-            return
         
-        if message:
-            if user_id and self.is_admin:
-                msg = await self.save_admin_message(user_id, message)
-                msg_data = {
-                    'type': 'chat_message',
-                    'message': {
-                        'id': msg.id,
-                        'message': msg.message,
-                        'is_from_admin': True,
-                        'is_read': False,
-                        'created_at': msg.created_at.isoformat()
-                    }
-                }
-                await self.channel_layer.group_send(f"chat_{user_id}", msg_data)
+        elif message_type == 'message':
+            # Send full message data for instant rendering
+            message_data = {
+                'type': 'chat_message',
+                'message': data.get('message'),
+                'image': data.get('image'),
+                'message_id': data.get('message_id'),
+                'is_from_admin': self.is_admin,
+                'created_at': data.get('created_at')
+            }
+            
+            if self.is_admin:
+                user_id = data.get('user_id')
+                # Send to customer's room (admin is already listening there)
+                await self.channel_layer.group_send(f"chat_{user_id}", message_data)
             else:
-                msg = await self.save_customer_message(message)
-                msg_data = {
-                    'type': 'chat_message',
-                    'message': {
-                        'id': msg.id,
-                        'message': msg.message,
-                        'is_from_admin': False,
-                        'created_at': msg.created_at.isoformat()
-                    }
-                }
-                await self.channel_layer.group_send(self.room_name, msg_data)
+                # Send to customer's room (where admin is listening)
+                await self.channel_layer.group_send(self.room_name, message_data)
     
     async def chat_message(self, event):
-        await self.send(text_data=json.dumps(event['message']))
+        await self.send(text_data=json.dumps({
+            'type': 'message',
+            'message': event['message'],
+            'image': event.get('image'),
+            'message_id': event['message_id'],
+            'is_from_admin': event['is_from_admin'],
+            'created_at': event['created_at']
+        }))
     
     async def typing_indicator(self, event):
         await self.send(text_data=json.dumps({
             'typing': event['is_typing'],
             'is_admin': event.get('is_admin', False)
         }))
-    
-    @database_sync_to_async
-    def save_customer_message(self, message):
-        from .models import CustomerMessage
-        return CustomerMessage.objects.create(
-            user=self.user,
-            message=message,
-            is_from_admin=False
-        )
-    
-    @database_sync_to_async
-    def save_admin_message(self, user_id, message):
-        from .models import CustomerMessage, Notification
-        user = User.objects.get(id=user_id)
-        msg = CustomerMessage.objects.create(
-            user=user,
-            message=message,
-            is_from_admin=True,
-            is_read=False
-        )
-        # Create notification for customer
-        Notification.objects.create(
-            user=user,
-            title='New Message from Seller',
-            message=f'💬 {message[:50]}...' if len(message) > 50 else f'💬 {message}',
-            link='/chat/',
-            notification_type='message'
-        )
-        return msg

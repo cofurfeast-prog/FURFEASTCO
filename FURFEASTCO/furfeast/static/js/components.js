@@ -519,7 +519,13 @@ function getCookie(name) {
 
 // Notification functions (all types)
 function loadNotifications() {
-    fetch('/api/notifications/')
+    fetch(`/api/notifications/?t=${Date.now()}`, {
+        cache: 'no-store',
+        headers: {
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
+        }
+    })
         .then(response => response.json())
         .then(data => {
             const notificationList = document.getElementById('notification-list');
@@ -579,40 +585,64 @@ function markAsRead(notificationId, link) {
     .catch(error => console.error('Error marking notification as read:', error));
 }
 
+let notificationInterval = null;
+
 function clearAllNotifications() {
-    const dropdown = document.getElementById('notification-dropdown');
     const clearBtn = document.getElementById('clear-all-btn');
-    
-    // Prevent multiple clicks
     if (clearBtn && clearBtn.disabled) return;
     if (clearBtn) clearBtn.disabled = true;
     
+    // Stop auto-refresh temporarily
+    if (notificationInterval) {
+        clearInterval(notificationInterval);
+    }
+    
+    // Make API call to delete from database FIRST
     fetch('/api/notifications/clear/', {
         method: 'POST',
         headers: {
-            'X-CSRFToken': getCookie('csrftoken')
+            'X-CSRFToken': getCookie('csrftoken'),
+            'Content-Type': 'application/json'
         }
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Close dropdown
-            if (dropdown) {
-                dropdown.classList.add('hidden');
-            }
-            // Update badge and list
-            updateNotificationBadge();
-            loadNotifications();
+    .then(() => {
+        // After successful deletion, update UI
+        const badge = document.getElementById('notification-badge');
+        if (badge) {
+            badge.textContent = '0';
+            badge.classList.add('opacity-0');
+            badge.classList.remove('opacity-100');
         }
+        
+        const notificationList = document.getElementById('notification-list');
+        if (notificationList) {
+            notificationList.innerHTML = '<div class="p-4 text-center text-slate-500 text-sm">No notifications</div>';
+        }
+        
+        const dropdown = document.getElementById('notification-dropdown');
+        if (dropdown) dropdown.classList.add('hidden');
+        
+        // Restart auto-refresh
+        notificationInterval = setInterval(updateNotificationBadge, 3000);
     })
-    .catch(error => console.error('Error clearing notifications:', error))
+    .catch(error => {
+        console.error('Clear error:', error);
+        // Restart auto-refresh even on error
+        notificationInterval = setInterval(updateNotificationBadge, 3000);
+    })
     .finally(() => {
         if (clearBtn) clearBtn.disabled = false;
     });
 }
 
 function updateNotificationBadge() {
-    fetch('/api/notifications/')
+    fetch(`/api/notifications/?t=${Date.now()}`, {
+        cache: 'no-store',
+        headers: {
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
+        }
+    })
         .then(response => response.json())
         .then(data => {
             const badge = document.getElementById('notification-badge');
@@ -625,8 +655,8 @@ function updateNotificationBadge() {
         .catch(error => console.error('Error updating notification badge:', error));
 }
 
-// Auto-update badge every 30 seconds
-setInterval(updateNotificationBadge, 30000);
+// Auto-update badge every 3 seconds for real-time updates
+notificationInterval = setInterval(updateNotificationBadge, 3000);
 
 // Update badge on page load
 document.addEventListener('DOMContentLoaded', updateNotificationBadge);

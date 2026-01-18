@@ -43,6 +43,7 @@
                 </div>
             </div>
         </div>
+        <!-- Messages loaded from database on page load -->
         {% for msg in chat_messages %}
         <div class="flex {% if msg.is_from_admin %}justify-end{% else %}justify-start{% endif %}" data-msg-id="{{ msg.id }}">
             <div class="max-w-[85%] sm:max-w-md {% if msg.is_from_admin %}bg-orange-500 text-white{% else %}bg-slate-100 text-slate-900{% endif %} rounded-lg p-2 sm:p-3 break-words">
@@ -60,7 +61,7 @@
         {% endfor %}
     </div>
 
-    <form id="admin-chat-form" method="post" enctype="multipart/form-data" class="p-2 sm:p-4 border-t border-slate-200">
+    <form id="admin-chat-form" enctype="multipart/form-data" class="p-2 sm:p-4 border-t border-slate-200">
         {% csrf_token %}
         <div class="flex gap-1 sm:gap-2">
             <input type="text" id="admin-message-input" name="message" placeholder="Type message..." 
@@ -132,13 +133,53 @@ adminRemoveImageBtn.addEventListener('click', () => {
     adminImagePreview.classList.add('hidden');
 });
 
-ws.onopen = () => console.log('Admin connected to chat');
+ws.onopen = () => {
+    console.log('WebSocket connected');
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+};
+
+ws.onerror = (error) => console.error('WebSocket error:', error);
+
+ws.onclose = () => console.log('WebSocket disconnected');
+
+function renderMessage(msg) {
+    // Prevent duplicates
+    if (document.querySelector(`[data-msg-id="${msg.id}"]`)) return;
+    
+    const div = document.createElement('div');
+    div.className = `flex ${msg.is_from_admin ? 'justify-end' : 'justify-start'}`;
+    div.setAttribute('data-msg-id', msg.id);
+    
+    const bubble = document.createElement('div');
+    bubble.className = `max-w-[85%] sm:max-w-md ${msg.is_from_admin ? 'bg-orange-500 text-white' : 'bg-slate-100 text-slate-900'} rounded-lg p-2 sm:p-3 break-words`;
+    
+    if (msg.image) {
+        const img = document.createElement('img');
+        img.src = msg.image;
+        img.alt = 'Attachment';
+        img.className = 'rounded mb-2 max-w-full';
+        bubble.appendChild(img);
+    }
+    
+    if (msg.message) {
+        const p = document.createElement('p');
+        p.className = 'text-xs sm:text-sm break-words';
+        p.textContent = msg.message;
+        bubble.appendChild(p);
+    }
+    
+    const time = document.createElement('p');
+    time.className = `text-[10px] sm:text-xs ${msg.is_from_admin ? 'text-orange-100' : 'text-slate-500'} mt-1`;
+    time.textContent = new Date(msg.created_at).toLocaleString('en-US', {month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true});
+    bubble.appendChild(time);
+    
+    div.appendChild(bubble);
+    chatContainer.appendChild(div);
+}
 
 ws.onmessage = (e) => {
     const data = JSON.parse(e.data);
-    console.log('Admin received:', data);
     
-    // Handle typing indicator
     if (data.typing !== undefined) {
         if (!data.is_admin && data.typing) {
             customerTyping.classList.remove('hidden');
@@ -151,62 +192,67 @@ ws.onmessage = (e) => {
         return;
     }
     
-    const msg = data;
-    if (document.querySelector(`[data-msg-id="${msg.id}"]`)) return;
-    
-    const div = document.createElement('div');
-    div.className = `flex ${msg.is_from_admin ? 'justify-end' : 'justify-start'}`;
-    div.setAttribute('data-msg-id', msg.id);
-    
-    const bubble = document.createElement('div');
-    bubble.className = `max-w-[85%] sm:max-w-md ${msg.is_from_admin ? 'bg-orange-500 text-white' : 'bg-slate-100 text-slate-900'} rounded-lg p-2 sm:p-3 break-words`;
-    
-    const p = document.createElement('p');
-    p.className = 'text-xs sm:text-sm break-words';
-    p.textContent = msg.message;
-    bubble.appendChild(p);
-    
-    const time = document.createElement('p');
-    time.className = `text-[10px] sm:text-xs ${msg.is_from_admin ? 'text-orange-100' : 'text-slate-500'} mt-1`;
-    time.textContent = new Date(msg.created_at).toLocaleString('en-US', {month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true});
-    bubble.appendChild(time);
-    
-    div.appendChild(bubble);
-    chatContainer.appendChild(div);
-    chatContainer.scrollTop = chatContainer.scrollHeight;
+    if (data.type === 'message') {
+        const msg = {
+            id: data.message_id,
+            message: data.message,
+            image: data.image,
+            is_from_admin: data.is_from_admin,
+            created_at: data.created_at
+        };
+        renderMessage(msg);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
 };
 
 // Send typing indicator
 adminInput.addEventListener('input', () => {
     clearTimeout(typingTimeout);
-    ws.send(JSON.stringify({typing: true, user_id: userId}));
+    ws.send(JSON.stringify({type: 'typing', typing: true, user_id: userId}));
     typingTimeout = setTimeout(() => {
-        ws.send(JSON.stringify({typing: false, user_id: userId}));
+        ws.send(JSON.stringify({type: 'typing', typing: false, user_id: userId}));
     }, 1000);
 });
 
-adminForm.addEventListener('submit', (e) => {
+adminForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const msg = adminInput.value.trim();
-    if (!msg) return;
+    const imageFile = adminImageInput.files[0];
+    if (!msg && !imageFile) return;
+    
     clearTimeout(typingTimeout);
-    ws.send(JSON.stringify({message: msg, user_id: userId, typing: false}));
-    adminInput.value = '';
-});
-
-ws.onerror = (error) => console.error('WebSocket error:', error);
-ws.onclose = () => {
-    console.log('WebSocket disconnected. Reconnecting in 3s...');
-    setTimeout(() => location.reload(), 3000);
-};
-
-chatContainer.scrollTop = chatContainer.scrollHeight;
-
-// Force reload on back navigation
-window.addEventListener('pageshow', (event) => {
-    if (event.persisted || performance.getEntriesByType('navigation')[0].type === 'back_forward') {
-        location.reload();
+    
+    const formData = new FormData();
+    if (msg) formData.append('message', msg);
+    if (imageFile) formData.append('image', imageFile);
+    formData.append('user_id', userId);
+    formData.append('csrfmiddlewaretoken', document.querySelector('[name=csrfmiddlewaretoken]').value);
+    
+    try {
+        const response = await fetch('/api/send-admin-message/', {
+            method: 'POST',
+            body: formData
+        });
+        const result = await response.json();
+        
+        if (result.success) {
+            console.log('✅ Message saved to DB:', result.message);
+            // Render immediately
+            renderMessage(result.message);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            
+            // Clear inputs
+            adminInput.value = '';
+            adminImageInput.value = '';
+            adminImagePreview.classList.add('hidden');
+        } else {
+            console.error('❌ Failed to save message:', result);
+        }
+    } catch (error) {
+        console.error('❌ Admin send error:', error);
     }
 });
+
+chatContainer.scrollTop = chatContainer.scrollHeight;
 </script>
 {% endblock %}

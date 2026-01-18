@@ -284,46 +284,60 @@ def signup_view(request):
         phone_number = request.POST.get('phone_number')
         password = request.POST.get('password')
         
-        # Check if email already exists in User or PendingRegistration
+        # Check if email already exists in User
         if User.objects.filter(email=email).exists():
             messages.error(request, 'Email already registered.')
-        elif PendingRegistration.objects.filter(email=email).exists():
+            return render(request, 'furfeast/signup.html')
+        
+        # Check if pending registration exists
+        existing_pending = PendingRegistration.objects.filter(email=email).first()
+        if existing_pending:
             messages.error(request, 'Email verification pending. Please check your email.')
-        else:
-            from django.contrib.auth.hashers import make_password
-            from datetime import timedelta
-            
-            # Create pending registration (not actual user yet)
-            verification_token = str(uuid.uuid4())
-            expires_at = timezone.now() + timedelta(hours=24)
-            
-            pending_reg = PendingRegistration.objects.create(
-                first_name=first_name,
-                last_name=last_name,
-                email=email,
-                phone_number=phone_number,
-                password_hash=make_password(password),
-                verification_token=verification_token,
-                expires_at=expires_at
+            return render(request, 'furfeast/signup.html')
+        
+        # Check rate limit: max 3 signup attempts in 24 hours
+        twenty_four_hours_ago = timezone.now() - timedelta(hours=24)
+        recent_attempts = PendingRegistration.objects.filter(
+            email=email,
+            created_at__gte=twenty_four_hours_ago
+        ).count()
+        
+        if recent_attempts >= 3:
+            messages.error(request, 'Too many signup attempts. Please try again after 24 hours.')
+            return render(request, 'furfeast/signup.html')
+        
+        from django.contrib.auth.hashers import make_password
+        
+        # Create pending registration
+        verification_token = str(uuid.uuid4())
+        expires_at = timezone.now() + timedelta(hours=24)
+        
+        pending_reg = PendingRegistration.objects.create(
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            phone_number=phone_number,
+            password_hash=make_password(password),
+            verification_token=verification_token,
+            expires_at=expires_at
+        )
+        
+        # Send verification email
+        verification_url = request.build_absolute_uri(f'/verify-email/{verification_token}/')
+        try:
+            send_mail(
+                'Verify your FurFeast account',
+                f'Click here to verify your account: {verification_url}\n\nThis link expires in 24 hours.',
+                settings.DEFAULT_FROM_EMAIL,
+                [email],
+                fail_silently=False,
             )
-            
-            # Send verification email
-            verification_url = request.build_absolute_uri(f'/verify-email/{verification_token}/')
-            try:
-                send_mail(
-                    'Verify your FurFeast account',
-                    f'Click here to verify your account: {verification_url}\n\nThis link expires in 24 hours.',
-                    settings.DEFAULT_FROM_EMAIL,
-                    [email],
-                    fail_silently=False,
-                )
-                messages.success(request, 'Please check your email to verify your account. 📧')
-            except Exception as e:
-                # If email fails, delete pending registration
-                pending_reg.delete()
-                messages.error(request, 'Failed to send verification email. Please try again.')
-            
-            return redirect('login')
+            messages.success(request, 'Please check your email to verify your account. 📧')
+        except Exception as e:
+            pending_reg.delete()
+            messages.error(request, 'Failed to send verification email. Please try again.')
+        
+        return redirect('login')
             
     return render(request, 'furfeast/signup.html')
 
@@ -981,16 +995,15 @@ def verify_email(request, token):
             first_name=pending_reg.first_name,
             last_name=pending_reg.last_name
         )
-        user.password = pending_reg.password_hash  # Use the hashed password
+        user.password = pending_reg.password_hash
         user.is_active = True
         user.save()
         
-        # Create user profile
-        UserProfile.objects.create(
-            user=user,
-            phone_number=pending_reg.phone_number,
-            email_verified=True
-        )
+        # Update user profile (created by signal)
+        profile, created = UserProfile.objects.get_or_create(user=user)
+        profile.phone_number = pending_reg.phone_number or ''
+        profile.email_verified = True
+        profile.save()
         
         # Delete pending registration
         pending_reg.delete()
@@ -1366,6 +1379,7 @@ def test_notification_api(request):
 
 # Notification API endpoints
 @login_required
+@never_cache
 def notifications_api(request):
     """API endpoint to get user notifications"""
     seven_days_ago = timezone.now() - timedelta(days=7)
@@ -1376,18 +1390,22 @@ def notifications_api(request):
     
     unread_count = notifications.filter(is_read=False).count()
     
-    return JsonResponse({
+    response = JsonResponse({
         'count': unread_count,
         'notifications': [{
             'id': n.id,
             'title': n.title,
-            'message': n.message,
+            'message': 'You have got message from Seller' if n.notification_type == 'message' else n.message,
             'link': n.link,
             'is_read': n.is_read,
             'notification_type': n.notification_type,
-            'created_at': n.created_at.strftime('%b %d, %Y at %I:%M %p')
+            'created_at': timezone.localtime(n.created_at).strftime('%b %d, %Y at %I:%M %p')
         } for n in notifications[:20]]
     })
+    response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response['Pragma'] = 'no-cache'
+    response['Expires'] = '0'
+    return response
 
 @login_required
 @require_POST
@@ -1403,24 +1421,39 @@ def mark_notification_read(request, notification_id):
 
 @login_required
 @require_POST
+@never_cache
 def clear_all_notifications(request):
     """Delete all notifications for the user"""
     Notification.objects.filter(user=request.user).delete()
-    return JsonResponse({'success': True})
+    response = JsonResponse({'success': True})
+    response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response['Pragma'] = 'no-cache'
+    response['Expires'] = '0'
+    return response
 
 @login_required
+@never_cache
 def customer_chat(request):
     """Customer chat with seller"""
+    from .models import ChatRoom
     context = get_context_data(request)
-    chat_messages = CustomerMessage.objects.filter(user=request.user).order_by('created_at')
-    CustomerMessage.objects.filter(user=request.user, is_from_admin=True, is_read=False).update(is_read=True)
+    chat_room, created = ChatRoom.objects.get_or_create(customer=request.user)
+    chat_messages = chat_room.messages.all()
+    chat_room.messages.filter(is_from_admin=True, is_read=False).update(is_read=True)
+    context['chat_room'] = chat_room
     context['chat_messages'] = chat_messages
-    return render(request, 'furfeast/customer_chat.html', context)
+    
+    response = render(request, 'furfeast/customer_chat.html', context)
+    response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response['Pragma'] = 'no-cache'
+    response['Expires'] = '0'
+    return response
 
 @login_required
 @require_POST
 def send_customer_message(request):
     """Send message from customer to seller"""
+    from .models import ChatRoom
     try:
         message = request.POST.get('message', '').strip()
         image = request.FILES.get('image')
@@ -1428,8 +1461,9 @@ def send_customer_message(request):
         if not message and not image:
             return JsonResponse({'success': False, 'error': 'Message or image required'})
         
+        chat_room, _ = ChatRoom.objects.get_or_create(customer=request.user)
         CustomerMessage.objects.create(
-            user=request.user,
+            chat_room=chat_room,
             message=message,
             image=image,
             is_from_admin=False
@@ -1442,17 +1476,12 @@ def send_customer_message(request):
 @login_required
 def get_customer_messages(request):
     """Get new messages for customer"""
+    from .models import ChatRoom
     after_id = request.GET.get('after', 0)
-    messages = CustomerMessage.objects.filter(
-        user=request.user,
-        id__gt=after_id
-    ).order_by('created_at')
+    chat_room, _ = ChatRoom.objects.get_or_create(customer=request.user)
+    messages = chat_room.messages.filter(id__gt=after_id).order_by('created_at')
     
-    CustomerMessage.objects.filter(
-        user=request.user,
-        is_from_admin=True,
-        is_read=False
-    ).update(is_read=True)
+    chat_room.messages.filter(is_from_admin=True, is_read=False).update(is_read=True)
     Notification.objects.filter(user=request.user, notification_type='message', is_read=False).update(is_read=True)
     
     return JsonResponse({
@@ -1470,7 +1499,10 @@ def get_customer_messages(request):
 @login_required
 def customer_unread_message_count(request):
     """Count unread admin messages for customer"""
-    count = CustomerMessage.objects.filter(user=request.user, is_from_admin=True, is_read=False).count()
+    from .models import ChatRoom
+    try:
+        chat_room = ChatRoom.objects.get(customer=request.user)
+        count = chat_room.messages.filter(is_from_admin=True, is_read=False).count()
+    except ChatRoom.DoesNotExist:
+        count = 0
     return JsonResponse({'count': count})
-
-

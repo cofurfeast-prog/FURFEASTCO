@@ -60,3 +60,27 @@
     </div>
 </div>
 {% endblock %}
+
+{% block extra_js %}
+<script>
+// WebSocket for real-time inbox updates
+const ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/ws/chat/`);
+
+ws.onopen = () => console.log('Inbox WebSocket connected');
+
+ws.onmessage = (e) => {
+    const data = JSON.parse(e.data);
+    
+    // Only reload when CUSTOMER sends message (not admin)
+    if (data.type === 'message' && !data.is_from_admin) {
+        // Reload after short delay to ensure DB is updated
+        setTimeout(() => {
+            window.location.reload();
+        }, 500);
+    }
+};
+
+ws.onerror = (error) => console.error('Inbox WebSocket error:', error);
+ws.onclose = () => console.log('Inbox WebSocket disconnected');
+</script>
+{% endblock %}

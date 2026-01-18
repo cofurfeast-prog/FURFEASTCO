@@ -27,7 +27,7 @@
                 </div>
             </div>
             {% for msg in chat_messages %}
-            <div class="flex {% if msg.is_from_admin %}justify-start{% else %}justify-end{% endif %}">
+            <div class="flex {% if msg.is_from_admin %}justify-start{% else %}justify-end{% endif %}" data-msg-id="{{ msg.id }}">
                 <div class="max-w-[85%] sm:max-w-xs md:max-w-md {% if msg.is_from_admin %}bg-white{% else %}bg-primary text-white{% endif %} rounded-lg px-3 sm:px-4 py-2 sm:py-3 shadow break-words">
                     {% if msg.image %}
                     <img src="{{ msg.image.url }}" alt="Attachment" class="rounded mb-2 max-w-full">
@@ -126,26 +126,45 @@ removeImageBtn.addEventListener('click', () => {
     imagePreview.classList.add('hidden');
 });
 
-ws.onopen = () => console.log('Customer connected to chat');
+ws.onopen = () => {
+    console.log('WebSocket connected');
+    loadMessagesFromDB();
+};
 
-ws.onmessage = (e) => {
-    const data = JSON.parse(e.data);
-    console.log('Customer received:', data);
+ws.onerror = (error) => console.error('WebSocket error:', error);
+
+ws.onclose = () => console.log('WebSocket disconnected');
+
+let isLoadingMessages = false;
+
+function loadMessagesFromDB() {
+    if (isLoadingMessages) return;
+    isLoadingMessages = true;
     
-    // Handle typing indicator
-    if (data.typing !== undefined) {
-        if (data.is_admin && data.typing) {
-            typingIndicator.classList.remove('hidden');
-            statusText.textContent = 'Typing...';
+    fetch('/api/chat-messages/')
+        .then(res => {
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            return res.json();
+        })
+        .then(messages => {
+            const existingIds = Array.from(document.querySelectorAll('[data-msg-id]')).map(el => String(el.getAttribute('data-msg-id')));
+            
+            messages.forEach(msg => {
+                if (!existingIds.includes(String(msg.id))) {
+                    renderMessage(msg);
+                }
+            });
+            
             chatMessages.scrollTop = chatMessages.scrollHeight;
-        } else {
-            typingIndicator.classList.add('hidden');
-            statusText.textContent = "We're here to help!";
-        }
-        return;
-    }
-    
-    const msg = data;
+            isLoadingMessages = false;
+        })
+        .catch(err => {
+            console.error('Load error:', err);
+            isLoadingMessages = false;
+        });
+}
+
+function renderMessage(msg) {
     if (document.querySelector(`[data-msg-id="${msg.id}"]`)) return;
     
     const empty = chatMessages.querySelector('.text-center');
@@ -157,6 +176,14 @@ ws.onmessage = (e) => {
     
     const bubble = document.createElement('div');
     bubble.className = `max-w-[85%] sm:max-w-xs md:max-w-md ${msg.is_from_admin ? 'bg-white' : 'bg-primary text-white'} rounded-lg px-3 sm:px-4 py-2 sm:py-3 shadow break-words`;
+    
+    if (msg.image) {
+        const img = document.createElement('img');
+        img.src = msg.image;
+        img.alt = 'Attachment';
+        img.className = 'rounded mb-2 max-w-full';
+        bubble.appendChild(img);
+    }
     
     if (msg.message) {
         const p = document.createElement('p');
@@ -172,33 +199,87 @@ ws.onmessage = (e) => {
     
     div.appendChild(bubble);
     chatMessages.appendChild(div);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+ws.onmessage = (e) => {
+    const data = JSON.parse(e.data);
+    
+    if (data.typing !== undefined) {
+        if (data.is_admin && data.typing) {
+            typingIndicator.classList.remove('hidden');
+            statusText.textContent = 'Typing...';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        } else {
+            typingIndicator.classList.add('hidden');
+            statusText.textContent = "We're here to help!";
+        }
+        return;
+    }
+    
+    if (data.type === 'message') {
+        const msg = {
+            id: data.message_id,
+            message: data.message,
+            image: data.image,
+            is_from_admin: data.is_from_admin,
+            created_at: data.created_at
+        };
+        renderMessage(msg);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
 };
 
 // Send typing indicator
 messageInput.addEventListener('input', () => {
     clearTimeout(typingTimeout);
-    ws.send(JSON.stringify({typing: true}));
+    ws.send(JSON.stringify({type: 'typing', typing: true}));
     typingTimeout = setTimeout(() => {
-        ws.send(JSON.stringify({typing: false}));
+        ws.send(JSON.stringify({type: 'typing', typing: false}));
     }, 1000);
 });
 
-chatForm.addEventListener('submit', (e) => {
+chatForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const msg = messageInput.value.trim();
-    if (!msg) return;
+    const imageFile = imageInput.files[0];
+    if (!msg && !imageFile) return;
+    
     clearTimeout(typingTimeout);
-    ws.send(JSON.stringify({message: msg, typing: false}));
-    messageInput.value = '';
+    
+    const formData = new FormData();
+    if (msg) formData.append('message', msg);
+    if (imageFile) formData.append('image', imageFile);
+    formData.append('csrfmiddlewaretoken', document.querySelector('[name=csrfmiddlewaretoken]').value);
+    
+    try {
+        const response = await fetch('/api/send-customer-message/', {
+            method: 'POST',
+            body: formData
+        });
+        const result = await response.json();
+        
+        if (result.success) {
+            renderMessage(result.message);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            // Send full message via WebSocket for instant rendering
+            ws.send(JSON.stringify({
+                type: 'message',
+                message: result.message.message,
+                image: result.message.image,
+                message_id: result.message.id,
+                created_at: result.message.created_at
+            }));
+            messageInput.value = '';
+            selectedImage = null;
+            imageInput.value = '';
+            imagePreview.classList.add('hidden');
+        }
+    } catch (error) {
+        console.error('Send error:', error);
+    }
 });
 
-ws.onerror = (error) => console.error('WebSocket error:', error);
-ws.onclose = () => {
-    console.log('WebSocket disconnected. Reconnecting in 3s...');
-    setTimeout(() => location.reload(), 3000);
-};
-
-chatMessages.scrollTop = chatMessages.scrollHeight;
+// Load messages on page load
+loadMessagesFromDB();
 </script>
 {% endblock %}

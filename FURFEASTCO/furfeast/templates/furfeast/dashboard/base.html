@@ -266,18 +266,29 @@
                 });
             
             // Update chat message counter
-            fetch(window.location.origin + '/dashboard/chat-message-count/')
-                .then(response => response.json())
-                .then(data => {
-                    const counter = document.getElementById('chat-counter');
-                    if (counter && data.count > 0) {
-                        counter.textContent = data.count;
-                        counter.classList.remove('hidden');
-                    }
-                })
-                .catch(error => {
-                    console.log('Could not fetch chat message count:', error);
-                });
+            function updateChatCounter() {
+                fetch(window.location.origin + '/dashboard/chat-message-count/')
+                    .then(response => response.json())
+                    .then(data => {
+                        const counter = document.getElementById('chat-counter');
+                        if (counter) {
+                            if (data.count > 0) {
+                                counter.textContent = data.count;
+                                counter.classList.remove('hidden');
+                            } else {
+                                counter.classList.add('hidden');
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.log('Could not fetch chat message count:', error);
+                    });
+            }
+            
+            updateChatCounter();
+            
+            // Update counter every 10 seconds
+            setInterval(updateChatCounter, 10000);
         });
     </script>
 </body>

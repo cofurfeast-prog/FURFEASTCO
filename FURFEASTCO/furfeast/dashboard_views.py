@@ -10,6 +10,7 @@ from django.core.exceptions import ValidationError
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
+from django.views.decorators.cache import never_cache
 from django.db import models
 import json
 from .models import Product, FlashSale, PromoCode, Blog, AboutUs, MassEmailCampaign, Order, HeroImage, FurFeastFamily, Notification, ContactMessage, CustomerMessage
@@ -1212,59 +1213,48 @@ def chat_message_count(request):
 
 @user_passes_test(is_admin)
 def customer_messages_list(request):
-    """List all customers with messages"""
-    from django.db.models import Max, Count, Q
+    """List all customers with messages - sorted by most recent"""
+    from .models import ChatRoom
+    from django.db.models import Count, Q
     
-    customers = User.objects.filter(
-        customer_messages__isnull=False
-    ).annotate(
-        last_message_time=Max('customer_messages__created_at'),
-        unread_count=Count('customer_messages', filter=Q(customer_messages__is_read=False, customer_messages__is_from_admin=False))
-    ).order_by('-last_message_time').distinct()
+    chat_rooms = ChatRoom.objects.annotate(
+        unread_count=Count('messages', filter=Q(
+            messages__is_read=False, 
+            messages__is_from_admin=False
+        ))
+    ).order_by('-updated_at')
     
     customer_data = []
-    for customer in customers:
-        last_msg = CustomerMessage.objects.filter(user=customer).order_by('-created_at').first()
-        if last_msg:
-            customer_data.append({
-                'user': customer,
-                'last_message': last_msg.message[:50] if last_msg.message else '📷 Image',
-                'last_message_time': last_msg.created_at,
-                'last_message_from_admin': last_msg.is_from_admin,
-                'last_message_read': last_msg.is_read,
-                'unread_count': customer.customer_messages.filter(is_read=False, is_from_admin=False).count()
-            })
+    for chat_room in chat_rooms:
+        last_msg = chat_room.messages.order_by('-created_at').first()
+        customer_data.append({
+            'user': chat_room.customer,
+            'chat_room_id': chat_room.id,
+            'last_message': last_msg.message[:50] if last_msg and last_msg.message else ('📷 Image' if last_msg else 'No messages yet'),
+            'last_message_time': last_msg.created_at if last_msg else chat_room.created_at,
+            'last_message_from_admin': last_msg.is_from_admin if last_msg else False,
+            'unread_count': chat_room.unread_count,
+            'has_unread': chat_room.has_unread_messages
+        })
     
     return render(request, 'furfeast/dashboard/customer_messages_list.html', {'customers': customer_data})
 
 @user_passes_test(is_admin)
+@never_cache
 def customer_chat_detail(request, user_id):
-    """Chat with specific customer"""
+    """Chat with specific customer - loads messages from DB on page load"""
+    from .models import ChatRoom
     customer = get_object_or_404(User, id=user_id)
+    chat_room, _ = ChatRoom.objects.get_or_create(customer=customer)
+    chat_messages = chat_room.messages.all()
+    chat_room.messages.filter(is_from_admin=False, is_read=False).update(is_read=True)
     
-    if request.method == 'POST':
-        message = request.POST.get('message', '').strip()
-        image = request.FILES.get('image')
-        
-        if message or image:
-            CustomerMessage.objects.create(
-                user=customer,
-                message=message,
-                image=image,
-                is_from_admin=True,
-                is_read=False
-            )
-            messages.success(request, 'Message sent')
-        return redirect('dashboard_customer_chat_detail', user_id=user_id)
-    
-    chat_messages = CustomerMessage.objects.filter(user=customer).order_by('created_at')
-    print(f'DEBUG: Loading chat for {customer.username}, found {chat_messages.count()} messages')
-    for msg in chat_messages:
-        print(f'  - {msg.id}: {"ADM" if msg.is_from_admin else "CUS"} "{msg.message[:30]}"')
-    # Mark customer messages as read (this will update the counter)
-    CustomerMessage.objects.filter(user=customer, is_from_admin=False, is_read=False).update(is_read=True)
-    
-    return render(request, 'furfeast/dashboard/customer_chat_detail.html', {
+    response = render(request, 'furfeast/dashboard/customer_chat_detail.html', {
         'customer': customer,
+        'chat_room': chat_room,
         'chat_messages': chat_messages
     })
+    response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response['Pragma'] = 'no-cache'
+    response['Expires'] = '0'
+    return response

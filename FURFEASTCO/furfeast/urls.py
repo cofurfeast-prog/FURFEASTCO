@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views, dashboard_views
+from . import views, dashboard_views, api_views
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -145,3 +145,11 @@ urlpatterns = [
 # Serve static and media files in production
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# WhatsApp-style Chat API
+urlpatterns += [
+    path('api/chat-messages/', api_views.get_chat_messages, name='api_get_chat_messages'),
+    path('api/chat-messages/<int:customer_id>/', api_views.get_chat_messages, name='api_get_chat_messages_customer'),
+    path('api/send-customer-message/', api_views.api_send_customer_message, name='api_send_customer_message'),
+    path('api/send-admin-message/', api_views.api_send_admin_message, name='api_send_admin_message'),
+]

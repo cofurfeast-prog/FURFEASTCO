@@ -408,8 +408,24 @@ class Notification(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.title}"
 
+class ChatRoom(models.Model):
+    """Chat room for customer-admin conversations"""
+    customer = models.OneToOneField(User, on_delete=models.CASCADE, related_name='chat_room')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['-updated_at']
+    
+    def __str__(self):
+        return f"Chat: {self.customer.username}"
+    
+    @property
+    def has_unread_messages(self):
+        return self.messages.filter(is_from_admin=True, is_read=False).exists()
+
 class CustomerMessage(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='customer_messages')
+    chat_room = models.ForeignKey(ChatRoom, on_delete=models.CASCADE, related_name='messages', null=True, blank=True)
     message = models.TextField()
     image = models.ImageField(upload_to='chat/', null=True, blank=True)
     is_from_admin = models.BooleanField(default=False)
@@ -422,14 +438,12 @@ class CustomerMessage(models.Model):
     def clean(self):
         from django.core.exceptions import ValidationError
         if self.image:
-            # Check file size (1MB = 1048576 bytes)
             if self.image.size > 1048576:
                 raise ValidationError('Image size must be less than 1MB')
-            # Check file extension
             import os
             ext = os.path.splitext(self.image.name)[1].lower()
             if ext not in ['.jpg', '.jpeg', '.png']:
                 raise ValidationError('Only JPEG and PNG images are allowed')
     
     def __str__(self):
-        return f"{self.user.username} - {'Admin' if self.is_from_admin else 'Customer'} - {self.created_at}"
+        return f"{self.chat_room.customer.username} - {'Admin' if self.is_from_admin else 'Customer'} - {self.created_at}"
