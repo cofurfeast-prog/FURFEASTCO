@@ -42,6 +42,42 @@ CSRF_COOKIE_SAMESITE = 'Lax'
 SESSION_COOKIE_SECURE = False
 SESSION_COOKIE_SAMESITE = 'Lax'
 
+# --- Google Cloud Storage Settings ---
+GS_BUCKET_NAME = os.getenv('GS_BUCKET_NAME')
+
+if GS_BUCKET_NAME:  # Only apply GCS settings if the bucket name is defined
+    # Static files (CSS, JavaScript, images)
+    STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+    STATIC_URL = f'https://storage.googleapis.com/{GS_BUCKET_NAME}/static/'
+    
+    # Media files (user-uploaded content)
+    DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+    MEDIA_URL = f'https://storage.googleapis.com/{GS_BUCKET_NAME}/media/'
+    
+    # Set default permissions for uploaded files to be publicly readable
+    GS_DEFAULT_ACL = 'publicRead'
+    
+    # Update STORAGES configuration for Django 4.2+
+    STORAGES = {
+        "default": {
+            "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+        },
+    }
+else:
+    # Fallback to existing Supabase storage
+    STORAGES = {
+        "default": {
+            "BACKEND": "furfeast.storage.SupabaseStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
+# --- End Google Cloud Storage Settings ---
+
 # Static files settings for production
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
@@ -207,15 +243,7 @@ CACHE_MIDDLEWARE_KEY_PREFIX = 'furfeast'
 
 # Media files settings are handled by STORAGES['default']
 
-# Modern Storage Configuration (Django 4.2+)
-STORAGES = {
-    "default": {
-        "BACKEND": "furfeast.storage.SupabaseStorage",
-    },
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
+
 
 # Legacy settings (kept for compatibility or reference, but STORAGES takes precedence)
 # DEFAULT_FILE_STORAGE = 'furfeast.storage.SupabaseStorage'
