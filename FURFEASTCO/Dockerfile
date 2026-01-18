@@ -25,6 +25,7 @@ ENV DJANGO_SETTINGS_MODULE=FURFEASTCO.production
 ENV PYTHONPATH=/app
 ENV PYTHONUNBUFFERED=1
 
-EXPOSE 8000
+# Google Cloud Run uses PORT environment variable
+EXPOSE $PORT
 
 CMD ["./start.sh"]
