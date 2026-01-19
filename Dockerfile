@@ -27,6 +27,6 @@ ENV PYTHONPATH=/app
 ENV PYTHONUNBUFFERED=1
 
 # Expose port 8000 for Cloud Run
-EXPOSE 8000
+EXPOSE 8080
 
 CMD ["/start.sh"]
