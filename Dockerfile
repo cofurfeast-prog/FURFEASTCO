@@ -26,7 +26,7 @@ ENV DJANGO_SETTINGS_MODULE=FURFEASTCO.production
 ENV PYTHONPATH=/app
 ENV PYTHONUNBUFFERED=1
 
-# Expose port 8080 for Cloud Run
-EXPOSE 8080
+# Expose port 8000 for Cloud Run
+EXPOSE 8000
 
 CMD ["/start.sh"]
