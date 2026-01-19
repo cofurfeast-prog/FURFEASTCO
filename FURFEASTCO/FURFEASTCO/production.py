@@ -3,16 +3,16 @@ from .settings import *
 
 DEBUG = False
 ALLOWED_HOSTS = [
-    "taj8z613n2jd7-furfeastco.prod2.defang.dev",
-    "taj8z613n2jd7-furfeastco--8000.prod2.defang.dev",
+    "furfeastco-h2mw7nen5q-km.a.run.app",
+    "*.a.run.app",
     "localhost",
     "127.0.0.1",
 ]
 
-# CSRF settings for Defang deployment
+# CSRF settings for Cloud Run deployment
 CSRF_TRUSTED_ORIGINS = [
-    'https://taj8z613n2jd7-furfeastco.prod2.defang.dev',
-    'https://*.defang.dev',
+    'https://furfeastco-h2mw7nen5q-km.a.run.app',
+    'https://*.a.run.app',
 ]
 
 # Use environment variables with fallbacks
