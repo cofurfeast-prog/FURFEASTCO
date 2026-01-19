@@ -36,6 +36,8 @@ ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = [
     'https://taj8z613n2jd7-furfeastco--8000.prod2.defang.dev',
     'https://*.defang.dev',
+    'https://*.australia-southeast2.run.app',
+    'https://furfeastco-168900719564.australia-southeast2.run.app',
 ]
 CSRF_COOKIE_SECURE = False
 CSRF_COOKIE_SAMESITE = 'Lax'
