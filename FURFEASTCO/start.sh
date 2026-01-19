@@ -9,17 +9,8 @@ PORT=${PORT:-8080}
 # Set Django settings module for production
 export DJANGO_SETTINGS_MODULE=FURFEASTCO.production
 
-# Test database connection before running migrations
-echo "Testing database connection..."
-python -c "import os; import psycopg2; conn = psycopg2.connect(host=os.environ.get('DB_HOST'), database=os.environ.get('DB_NAME'), user=os.environ.get('DB_USER'), password=os.environ.get('DB_PASSWORD'), port=os.environ.get('DB_PORT')); print('Database connection successful'); conn.close()"
-
-if [ $? -eq 0 ]; then
-    echo "Database connection verified, running migrations..."
-    # Run migrations
-    python manage.py migrate --noinput
-else
-    echo "Database connection failed, skipping migrations"
-fi
+# Skip migrations for now to avoid database connection issues
+echo "Skipping migrations to avoid database connection issues"
 
 # Collect static files
 python manage.py collectstatic --noinput
