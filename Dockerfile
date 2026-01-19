@@ -17,15 +17,16 @@ COPY FURFEASTCO/ .
 # Create necessary directories
 RUN mkdir -p /app/staticfiles /app/media
 
-# Make start script executable
-RUN chmod +x start.sh
+# Copy and make start script executable
+COPY FURFEASTCO/start.sh /start.sh
+RUN chmod +x /start.sh
 
 # Set environment variables
 ENV DJANGO_SETTINGS_MODULE=FURFEASTCO.production
 ENV PYTHONPATH=/app
 ENV PYTHONUNBUFFERED=1
 
-# Google Cloud Run uses PORT environment variable
-EXPOSE $PORT
+# Expose port 8080 for Cloud Run
+EXPOSE 8080
 
-CMD ["./start.sh"]
+CMD ["/start.sh"]

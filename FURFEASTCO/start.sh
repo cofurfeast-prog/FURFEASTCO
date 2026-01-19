@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
-# Get PORT from environment or default to 8000
-PORT=${PORT:-8000}
+# Get PORT from environment or default to 8080
+PORT=${PORT:-8080}
 
 # Run migrations
 python manage.py migrate --noinput
@@ -9,5 +9,5 @@ python manage.py migrate --noinput
 # Collect static files
 python manage.py collectstatic --noinput
 
-# Start Daphne server on the PORT specified by Google Cloud Run
-daphne -b 0.0.0.0 -p $PORT FURFEASTCO.asgi:application
+# Start Gunicorn server on the PORT specified by Google Cloud Run
+gunicorn FURFEASTCO.wsgi:application --bind 0.0.0.0:$PORT
