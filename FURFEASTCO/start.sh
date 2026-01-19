@@ -3,7 +3,7 @@
 # Unbuffer logs for Cloud Run
 export PYTHONUNBUFFERED=1
 
-# Get PORT from environment or default to 8000
+# Get PORT from environment or default to 8080
 PORT=${PORT:-8080}
 
 # Set Django settings module for production
