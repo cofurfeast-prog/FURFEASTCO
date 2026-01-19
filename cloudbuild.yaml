@@ -21,6 +21,9 @@ steps:
       - '--platform'
       - '${_PLATFORM}'
       - '--allow-unauthenticated'
+      - '--timeout=300s'
+      - '--memory=1Gi'
+      - '--cpu=1'
 
 images:
   - 'gcr.io/${PROJECT_ID}/furfeastco:$COMMIT_SHA'
