@@ -7,8 +7,7 @@ export PYTHONUNBUFFERED=1
 PORT=${PORT:-8080}
 
 # Set Django settings module for production
-export DJANGO_SETTINGS_MODULE=FURFEASTCO.production
-
+export DJANGO_SETTINGS_MODULE=FURFEASTCO.FURFEASTCO.settings
 # Skip migrations for now to avoid database connection issues
 echo "Skipping migrations to avoid database connection issues"
 
