@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Unbuffer logs for Cloud Run
+export PYTHONUNBUFFERED=1
+
 # Get PORT from environment or default to 8080
 PORT=${PORT:-8080}
 
@@ -13,4 +16,4 @@ python manage.py migrate --noinput
 python manage.py collectstatic --noinput
 
 # Start Gunicorn server on the PORT specified by Google Cloud Run
-gunicorn FURFEASTCO.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 120
+exec gunicorn FURFEASTCO.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 120
