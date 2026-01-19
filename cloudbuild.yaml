@@ -1,0 +1,29 @@
+steps:
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/${PROJECT_ID}/furfeastco:$COMMIT_SHA', '.']
+  
+  # Push to Container Registry (1st Gen - Global)
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/${PROJECT_ID}/furfeastco:$COMMIT_SHA']
+  
+  # Deploy to Cloud Run (still in australia-southeast2)
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - '${_SERVICE_NAME}'
+      - '--image'
+      - 'gcr.io/${PROJECT_ID}/furfeastco:$COMMIT_SHA'
+      - '--region'
+      - '${_DEPLOY_REGION}'  # australia-southeast2
+      - '--platform'
+      - '${_PLATFORM}'
+      - '--allow-unauthenticated'
+      - '--timeout=300s'
+      - '--memory=1Gi'
+      - '--cpu=1'
+
+images:
+  - 'gcr.io/${PROJECT_ID}/furfeastco:$COMMIT_SHA'

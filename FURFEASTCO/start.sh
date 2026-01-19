@@ -9,11 +9,11 @@ PORT=${PORT:-8000}
 # Set Django settings module for production
 export DJANGO_SETTINGS_MODULE=FURFEASTCO.production
 
-# Run migrations
-python manage.py migrate --noinput
+# Skip migrations for now to avoid database connection issues
+echo "Skipping migrations to avoid database connection issues"
 
 # Collect static files
 python manage.py collectstatic --noinput
 
-# Start Gunicorn server on the PORT specified by Google Cloud Run
-exec gunicorn FURFEASTCO.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 120
+# Start Gunicorn server with optimized settings for Cloud Run
+exec gunicorn FURFEASTCO.wsgi:application --bind 0.0.0.0:$PORT --workers 1 --timeout 300 --keep-alive 2 --max-requests 1000 --max-requests-jitter 50
