@@ -3,9 +3,9 @@ options:
 
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'australia-southeast2-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/furfeastco', '.']
+    args: ['build', '-t', 'australia-southeast2-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/furfeastco:latest', '.']
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'australia-southeast2-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/furfeastco']
+    args: ['push', 'australia-southeast2-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/furfeastco:latest']
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
@@ -13,7 +13,7 @@ steps:
       - 'deploy'
       - '${_SERVICE_NAME}'
       - '--image'
-      - 'australia-southeast2-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/furfeastco'
+      - 'australia-southeast2-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/furfeastco:latest'
       - '--region'
       - '${_DEPLOY_REGION}'
       - '--platform'
@@ -24,4 +24,4 @@ steps:
       - '--cpu=1'
 
 images:
-  - 'australia-southeast2-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/furfeastco'
+  - 'australia-southeast2-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/furfeastco:latest'
