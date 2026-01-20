@@ -3,11 +3,21 @@
 # Unbuffer logs for Cloud Run
 export PYTHONUNBUFFERED=1
 
-# Get PORT from environment or default to 8080
-PORT=${PORT:-8080}
+# Get PORT from environment or default to 8000
+PORT=${PORT:-8000}
+
+# Debug: Print all environment variables (except secrets)
+echo "=== Starting on port: $PORT ==="
+echo "DB_HOST: $DB_HOST"
+echo "ALLOWED_HOSTS: $ALLOWED_HOSTS"
+echo "DJANGO_SETTINGS_MODULE: $DJANGO_SETTINGS_MODULE"
+echo "PYTHONPATH: $PYTHONPATH"
 
 # Set Django settings module for production
 export DJANGO_SETTINGS_MODULE=FURFEASTCO.production
+
+# Ensure Python can find the Django project
+export PYTHONPATH=/app:$PYTHONPATH
 
 # Skip migrations for now to avoid database connection issues
 echo "Skipping migrations to avoid database connection issues"
