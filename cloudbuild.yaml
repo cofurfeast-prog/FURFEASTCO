@@ -1,27 +1,26 @@
-options:
-  logging: CLOUD_LOGGING_ONLY
-
 steps:
+  # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'australia-southeast2-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/furfeastco:latest', '.']
+    args: ['build', '-t', 'australia-southeast2-docker.pkg.dev/project-e66945a9-799e-4142-bd5/cloud-run-source-deploy/furfeastco:$COMMIT_SHA', '.']
+  
+  # Push to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'australia-southeast2-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/furfeastco:latest']
+    args: ['push', 'australia-southeast2-docker.pkg.dev/project-e66945a9-799e-4142-bd5/cloud-run-source-deploy/furfeastco:$COMMIT_SHA']
+  
+  # Deploy to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
       - 'run'
       - 'deploy'
-      - '${_SERVICE_NAME}'
+      - 'furfeastco'
       - '--image'
-      - 'australia-southeast2-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/furfeastco:latest'
+      - 'australia-southeast2-docker.pkg.dev/project-e66945a9-799e-4142-bd5/cloud-run-source-deploy/furfeastco:$COMMIT_SHA'
       - '--region'
-      - '${_DEPLOY_REGION}'
+      - 'australia-southeast2'
       - '--platform'
-      - '${_PLATFORM}'
+      - 'managed'
       - '--allow-unauthenticated'
-      - '--timeout=300s'
-      - '--memory=1Gi'
-      - '--cpu=1'
 
 images:
-  - 'australia-southeast2-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/furfeastco:latest'
+  - 'australia-southeast2-docker.pkg.dev/project-e66945a9-799e-4142-bd5/cloud-run-source-deploy/furfeastco:$COMMIT_SHA'
