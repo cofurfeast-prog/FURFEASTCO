@@ -1,51 +1,66 @@
 #!/bin/sh
 
-# Unbuffer logs for Cloud Run
 export PYTHONUNBUFFERED=1
-
-# Get PORT from environment or default to 8000
 PORT=${PORT:-8000}
 
-# Debug: Print all environment variables (except secrets)
-echo "=== Starting on port: $PORT ==="
-echo "DB_HOST: $DB_HOST"
-echo "ALLOWED_HOSTS: $ALLOWED_HOSTS"
-echo "DJANGO_SETTINGS_MODULE: $DJANGO_SETTINGS_MODULE"
-echo "PYTHONPATH: $PYTHONPATH"
-
-# Debug filesystem
+echo "=== CLOUDRUN DEBUG MODE (NO DATABASE) ==="
+echo "Starting on port: $PORT"
 echo "Current directory: $(pwd)"
-echo "Checking for manage.py..."
-if [ -f "manage.py" ]; then
-    echo "manage.py found!"
-else
-    echo "ERROR: manage.py not found!"
-    ls -la
-    exit 1
+ls -la
+
+# Use temporary settings without database
+export DJANGO_SETTINGS_MODULE=FURFEASTCO.temp_settings
+
+# Skip all database operations
+echo "Skipping database operations..."
+
+# Create a simple test view if it doesn't exist
+cat > /tmp/test_view.py << 'EOF'
+from django.http import HttpResponse
+from django.urls import path
+
+def home(request):
+    return HttpResponse("""
+    <h1>✅ FURFEASTCO is running on Cloud Run!</h1>
+    <p>App is working without database</p>
+    <ul>
+        <li><a href="/health/">Health Check</a></li>
+        <li><a href="/test/">Test Page</a></li>
+        <li><a href="/admin/">Admin (won't work without DB)</a></li>
+    </ul>
+    """)
+
+def health_check(request):
+    return HttpResponse("OK", status=200)
+
+def test_view(request):
+    return HttpResponse("Test page is working!")
+
+# Create minimal URL patterns
+urlpatterns = [
+    path('', home, name='home'),
+    path('health/', health_check, name='health_check'),
+    path('test/', test_view, name='test'),
+    path('admin/', home, name='admin_placeholder'),
+]
+EOF
+
+# Temporarily replace your urls.py with a simple version
+if [ -f "FURFEASTCO/urls.py" ]; then
+    cp FURFEASTCO/urls.py FURFEASTCO/urls.py.backup
+    cat /tmp/test_view.py > FURFEASTCO/urls.py
+    echo "Using temporary URL configuration"
 fi
 
-# Set Django settings module for production
-export DJANGO_SETTINGS_MODULE=FURFEASTCO.production
+# Collect static files (skip if fails)
+python manage.py collectstatic --noinput 2>/dev/null || echo "Collectstatic skipped"
 
-# Ensure Python can find the Django project
-export PYTHONPATH=/app:$PYTHONPATH
-
-# Collect static files
-echo "Collecting static files..."
-python manage.py collectstatic --noinput
-
-# Try running migrations (optional - remove if DB connection fails)
-echo "Running migrations..."
-python manage.py migrate --noinput || echo "Migrations failed, continuing anyway..."
-
-# Start Gunicorn server with optimized settings for Cloud Run
-echo "Starting Gunicorn on port $PORT..."
+# Start Gunicorn with minimal settings
+echo "🚀 Starting Gunicorn on port $PORT..."
 exec gunicorn FURFEASTCO.wsgi:application \
     --bind 0.0.0.0:$PORT \
     --workers 1 \
     --timeout 300 \
-    --keep-alive 2 \
-    --max-requests 1000 \
-    --max-requests-jitter 50 \
     --access-logfile - \
-    --error-logfile -
+    --error-logfile - \
+    --log-level debug

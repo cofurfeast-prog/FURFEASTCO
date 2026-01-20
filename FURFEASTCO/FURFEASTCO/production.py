@@ -14,17 +14,14 @@ CSRF_TRUSTED_ORIGINS = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'postgres'),
-        'USER': os.environ.get('DB_USER', 'postgres.wivxshghrwmgxstaowjl'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', '301197997Mom@'),
-        'HOST': os.environ.get('DB_HOST', 'aws-1-ap-northeast-2.pooler.supabase.com'),
-        'PORT': os.environ.get('DB_PORT', '5432'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT', 5432),
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
         'OPTIONS': {
-            'sslmode': 'require',
-            'connect_timeout': 10,
+            'sslmode': 'require',  # Force SSL
         },
-        'CONN_MAX_AGE': 0,  # Disable persistent connections for stability
-        'CONN_HEALTH_CHECKS': True,
     }
 }
 
