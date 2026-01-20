@@ -1,0 +1,35 @@
+# Exclude local, CI, docs, and dev files from Antigravity deploy bundle
+
+# Git / docker ignore files
+.git/
+.gitignore
+.dockerignore
+
+# Node stuff (if you don't build frontend during deploy)
+node_modules/
+package-lock.json
+
+# CI / build triggers / docs / notes
+cloudbuild.yaml
+cloudbuild-test.txt
+deploy-trigger.txt
+trigger_build.txt
+README.md
+chat_functions_fix.txt
+
+# Local scripts and cleanup
+*.bat
+master
+CLEANUP_NOW.bat
+cleanup_for_deploy.bat
+push_to_github.bat
+
+# Local/defang/compose configs
+amazonq/
+.defang/
+defang.yaml
+compose.yaml
+
+# Misc (adjust as needed)
+*.log
+*.tmp

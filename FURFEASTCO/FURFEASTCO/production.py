@@ -2,7 +2,7 @@ import os
 from .settings import *
 
 DEBUG = False
-ALLOWED_HOSTS = ['furfeastco-168900719564.australia-southeast2.run.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['furfeastco-168900719564.australia-southeast2.run.app', '.run.app', 'localhost', '127.0.0.1']
 
 # CSRF settings for Cloud Run deployment
 CSRF_TRUSTED_ORIGINS = [
