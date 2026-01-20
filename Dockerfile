@@ -18,7 +18,7 @@ COPY FURFEASTCO/ .
 RUN mkdir -p /app/staticfiles /app/media
 
 # Copy and make start script executable
-COPY FURFEASTCO/start.sh /start.sh
+COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
 # Set environment variables
