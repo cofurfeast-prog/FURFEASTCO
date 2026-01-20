@@ -1,43 +1,45 @@
 """
-Temporary settings for Cloud Run deployment without database
+Temporary settings for Cloud Run debugging
 """
 import os
-from .settings import *
 
-# Cloud Run specific settings
-DEBUG = False
+# Basic Django settings
+DEBUG = True
 ALLOWED_HOSTS = ['*']
+SECRET_KEY = 'temporary-secret-key-for-cloud-run-12345'
 
-# Use SQLite database (no external connection needed)
+# Database - Simple SQLite
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/tmp/db.sqlite3',  # Temporary file
+        'NAME': '/tmp/db.sqlite3',
     }
 }
 
-# Disable database-dependent apps temporarily
+# Minimal apps
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Add your non-database apps here if any
 ]
 
-# Disable middleware that requires database
+# Minimal middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# URLs
+ROOT_URLCONF = 'FURFEASTCO.urls'
+
+# Internationalization
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_TZ = True
+
 # Static files
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = 'static/'
+STATIC_ROOT = '/app/staticfiles'
+
+# Default primary key field type
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
