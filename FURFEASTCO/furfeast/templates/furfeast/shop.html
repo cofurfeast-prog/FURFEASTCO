@@ -1,5 +1,6 @@
 {% extends 'furfeast/base.html' %}
 {% load static %}
+{% load image_url %}
 
 {% block title %}Shop All Products | FURFEAST CO.{% endblock %}
 
@@ -237,7 +238,7 @@
                             <div class="relative aspect-square overflow-hidden bg-slate-100">
                                 <a href="{% url 'product_detail' product.id %}" class="block w-full h-full">
                                     {% if product.image %}
-                                    <img src="{{ product.image.url }}" alt="{{ product.name }}"
+                                    <img src="{{ product.image|get_image_url }}" alt="{{ product.name }}"
                                         loading="lazy"
                                         decoding="async"
                                         width="300"
