@@ -100,6 +100,7 @@ if GS_BUCKET_NAME:
                 "default_acl": "publicRead",
                 "querystring_auth": False,
                 "file_overwrite": False,
+                "credentials": None,  # Use default service account credentials
             },
         },
         "staticfiles": {
