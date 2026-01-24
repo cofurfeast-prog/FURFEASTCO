@@ -1,11 +1,11 @@
 steps:
   # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'australia-southeast2-docker.pkg.dev/project-e66945a9-799e-4142-bd5/cloud-run-source-deploy/furfeastco:$COMMIT_SHA', '.']
+    args: ['build', '-t', 'australia-southeast2-docker.pkg.dev/project-e66945a9-799e-4142-bd5/cloud-run-source-deploy/furfeastco:latest', '-f', 'Dockerfile', '.']
   
   # Push to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'australia-southeast2-docker.pkg.dev/project-e66945a9-799e-4142-bd5/cloud-run-source-deploy/furfeastco:$COMMIT_SHA']
+    args: ['push', 'australia-southeast2-docker.pkg.dev/project-e66945a9-799e-4142-bd5/cloud-run-source-deploy/furfeastco:latest']
   
   # Deploy to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -15,12 +15,26 @@ steps:
       - 'deploy'
       - 'furfeastco'
       - '--image'
-      - 'australia-southeast2-docker.pkg.dev/project-e66945a9-799e-4142-bd5/cloud-run-source-deploy/furfeastco:$COMMIT_SHA'
+      - 'australia-southeast2-docker.pkg.dev/project-e66945a9-799e-4142-bd5/cloud-run-source-deploy/furfeastco:latest'
       - '--region'
       - 'australia-southeast2'
       - '--platform'
       - 'managed'
       - '--allow-unauthenticated'
+      - '--timeout'
+      - '300'
+      - '--min-instances'
+      - '1'
+      - '--max-instances'
+      - '10'
+      - '--memory'
+      - '1Gi'
+      - '--cpu'
+      - '1'
+      - '--port'
+      - '8080'
+      - '--set-env-vars'
+      - 'DJANGO_SETTINGS_MODULE=FURFEASTCO.settings,SECRET_KEY=django-insecure-u%=m_jym@7l@45gval389byel^zg#%7pian(h3p0j68y90%+q+,DEBUG=False,DB_HOST=34.129.215.28,DB_NAME=furfeast,DB_USER=furfeast-user,DB_PASSWORD=FurfeastDB2024!,DB_PORT=5432,EMAIL_HOST_USER=cofurfeast@gmail.com,EMAIL_HOST_PASSWORD=omylzdzofbxymrxv,GOOGLE_CLOUD_PROJECT=project-e66945a9-799e-4142-bd5,GS_BUCKET_NAME=furfeastco-media,GS_CREDENTIALS=default'
 
 images:
-  - 'australia-southeast2-docker.pkg.dev/project-e66945a9-799e-4142-bd5/cloud-run-source-deploy/furfeastco:$COMMIT_SHA'
+  - 'australia-southeast2-docker.pkg.dev/project-e66945a9-799e-4142-bd5/cloud-run-source-deploy/furfeastco:latest'

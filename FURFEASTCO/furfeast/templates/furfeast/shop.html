@@ -6,12 +6,12 @@
 {% block content %}
 <main>
     <!-- Page Header -->
-    <section class="bg-white py-10 md:py-16">
+    <section class="bg-background py-10 md:py-16">
         <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 text-center md:text-left">
-            <h1 class="text-3xl md:text-4xl font-heading font-extrabold text-slate-900 mb-2">
+            <h1 class="text-3xl md:text-4xl font-heading font-extrabold text-foreground mb-2">
                 Shop All Products
             </h1>
-            <p class="text-slate-600 max-w-2xl">
+            <p class="text-muted-foreground max-w-2xl">
                 Discover premium nutrition and accessories for your beloved pets. From grain-free meals to engaging
                 toys, we have everything to keep your best friend happy and healthy.
             </p>
@@ -19,7 +19,7 @@
     </section>
 
     <!-- Shop Content -->
-    <section class="py-12 bg-white">
+    <section class="py-12 bg-background">
         <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
             <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
 
@@ -27,7 +27,7 @@
                 <aside class="w-full lg:w-1/4 shrink-0 space-y-8">
                     <div class="lg:sticky lg:top-28">
                         <div class="flex items-center justify-between lg:block mb-4">
-                            <h3 class="font-bold text-slate-900 flex items-center gap-2">
+                            <h3 class="font-bold text-foreground flex items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round">
@@ -48,7 +48,7 @@
 
                         <div id="filter-content" class="hidden lg:block space-y-8 animate-fade-in">
                             <div>
-                                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Categories
+                                <h4 class="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-4">Categories
                                 </h4>
                                 <div class="space-y-2">
                                     <a href="{% url 'shop' %}" class="flex items-center gap-3 group">
@@ -64,7 +64,7 @@
                                             </svg>
                                         </div>
                                         <span
-                                            class="text-sm text-slate-700 group-hover:text-primary transition-colors {% if not category_slug %}font-bold text-primary{% endif %}">All
+                                            class="text-sm text-foreground group-hover:text-primary transition-colors {% if not category_slug %}font-bold text-primary{% endif %}">All
                                             Categories</span>
                                     </a>
                                     <a href="/shop/?category=dog-food" class="flex items-center gap-3 group">
@@ -73,7 +73,7 @@
                                             <span>🐶</span>
                                         </div>
                                         <span
-                                            class="text-sm text-slate-700 group-hover:text-primary transition-colors {% if category_slug == 'dog-food' %}font-bold text-primary{% endif %}">Dog
+                                            class="text-sm text-foreground group-hover:text-primary transition-colors {% if category_slug == 'dog-food' %}font-bold text-primary{% endif %}">Dog
                                             Food</span>
                                     </a>
                                     <a href="/shop/?category=cat-food" class="flex items-center gap-3 group">
@@ -82,7 +82,7 @@
                                             <span>🐱</span>
                                         </div>
                                         <span
-                                            class="text-sm text-slate-700 group-hover:text-primary transition-colors {% if category_slug == 'cat-food' %}font-bold text-primary{% endif %}">Cat
+                                            class="text-sm text-foreground group-hover:text-primary transition-colors {% if category_slug == 'cat-food' %}font-bold text-primary{% endif %}">Cat
                                             Food</span>
                                     </a>
                                     <a href="/shop/?category=accessories" class="flex items-center gap-3 group">
@@ -91,13 +91,13 @@
                                             <span>🎾</span>
                                         </div>
                                         <span
-                                            class="text-sm text-slate-700 group-hover:text-primary transition-colors {% if category_slug == 'accessories' %}font-bold text-primary{% endif %}">Accessories</span>
+                                            class="text-sm text-foreground group-hover:text-primary transition-colors {% if category_slug == 'accessories' %}font-bold text-primary{% endif %}">Accessories</span>
                                     </a>
                                 </div>
                             </div>
 
                             <div>
-                                <h3 class="font-bold text-slate-900 mb-4">Price Range</h3>
+                                <h3 class="font-bold text-foreground mb-4">Price Range</h3>
                                 <form method="GET" class="space-y-4">
                                     {% for key, value in request.GET.items %}
                                         {% if key != 'min_price' and key != 'max_price' %}
@@ -112,34 +112,34 @@
                                             class="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20">
                                     </div>
                                     <button type="submit"
-                                        class="w-full py-2 bg-orange-500 text-white text-sm font-semibold rounded-lg hover:bg-orange-600 transition-colors">Apply</button>
+                                        class="w-full py-2 bg-primary text-white text-sm font-semibold rounded-lg hover:bg-yellow-600 transition-colors">Apply</button>
                                 </form>
                             </div>
 
                             <div>
-                                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Rating</h4>
+                                <h4 class="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-4">Rating</h4>
                                 <div class="space-y-3">
                                     <a href="{% if rating_filter == '4' %}?{% if category_slug %}category={{ category_slug }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}{% if min_price %}&min_price={{ min_price }}{% endif %}{% if max_price %}&max_price={{ max_price }}{% endif %}{% else %}?rating=4{% if category_slug %}&category={{ category_slug }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}{% if min_price %}&min_price={{ min_price }}{% endif %}{% if max_price %}&max_price={{ max_price }}{% endif %}{% endif %}" 
-                                       class="flex items-center gap-3 cursor-pointer hover:text-orange-500 transition-colors {% if rating_filter == '4' %}text-orange-500 font-semibold{% endif %} py-2 px-2 -mx-2 rounded-lg hover:bg-orange-50">
-                                        <div class="w-5 h-5 rounded border-2 {% if rating_filter == '4' %}bg-orange-500 border-orange-500{% else %}border-slate-300{% endif %} flex items-center justify-center">
+                                       class="flex items-center gap-3 cursor-pointer hover:text-primary transition-colors {% if rating_filter == '4' %}text-primary font-semibold{% endif %} py-2 px-2 -mx-2 rounded-lg hover:bg-primary/10">
+                                        <div class="w-5 h-5 rounded border-2 {% if rating_filter == '4' %}bg-primary border-primary{% else %}border-slate-300{% endif %} flex items-center justify-center">
                                             {% if rating_filter == '4' %}
                                             <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                                                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                                             </svg>
                                             {% endif %}
                                         </div>
-                                        <span class="text-sm flex items-center gap-1">4 <span class="text-orange-400">★</span> & above</span>
+                                        <span class="text-sm flex items-center gap-1">4 <span class="text-primary">★</span> & above</span>
                                     </a>
                                     <a href="{% if rating_filter == '3' %}?{% if category_slug %}category={{ category_slug }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}{% if min_price %}&min_price={{ min_price }}{% endif %}{% if max_price %}&max_price={{ max_price }}{% endif %}{% else %}?rating=3{% if category_slug %}&category={{ category_slug }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}{% if min_price %}&min_price={{ min_price }}{% endif %}{% if max_price %}&max_price={{ max_price }}{% endif %}{% endif %}" 
-                                       class="flex items-center gap-3 cursor-pointer hover:text-orange-500 transition-colors {% if rating_filter == '3' %}text-orange-500 font-semibold{% endif %} py-2 px-2 -mx-2 rounded-lg hover:bg-orange-50">
-                                        <div class="w-5 h-5 rounded border-2 {% if rating_filter == '3' %}bg-orange-500 border-orange-500{% else %}border-slate-300{% endif %} flex items-center justify-center">
+                                       class="flex items-center gap-3 cursor-pointer hover:text-primary transition-colors {% if rating_filter == '3' %}text-primary font-semibold{% endif %} py-2 px-2 -mx-2 rounded-lg hover:bg-primary/10">
+                                        <div class="w-5 h-5 rounded border-2 {% if rating_filter == '3' %}bg-primary border-primary{% else %}border-slate-300{% endif %} flex items-center justify-center">
                                             {% if rating_filter == '3' %}
                                             <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                                                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                                             </svg>
                                             {% endif %}
                                         </div>
-                                        <span class="text-sm flex items-center gap-1">3 <span class="text-orange-400">★</span> & above</span>
+                                        <span class="text-sm flex items-center gap-1">3 <span class="text-primary">★</span> & above</span>
                                     </a>
                                 </div>
                             </div>
@@ -152,25 +152,25 @@
                     <!-- Toolbar -->
                     <div class="flex flex-wrap items-center justify-between mb-8 pb-6 border-b border-slate-100 gap-4">
                         {% if products %}
-                        <div class="text-slate-500 text-sm">Showing <span class="font-bold text-slate-900">{{ products.start_index }} - {{ products.end_index }}</span> of <span
-                                class="font-bold text-slate-900">{{ products.paginator.count }}</span> products
+                        <div class="text-muted-foreground text-sm">Showing <span class="font-bold text-foreground">{{ products.start_index }} - {{ products.end_index }}</span> of <span
+                                class="font-bold text-foreground">{{ products.paginator.count }}</span> products
                         </div>
                         {% else %}
-                        <div class="text-slate-500 text-sm"></div>
+                        <div class="text-muted-foreground text-sm"></div>
                         {% endif %}
                         <div class="flex items-center gap-4">
                             <div class="relative">
                                 <button id="sort-dropdown-btn"
-                                    class="flex items-center gap-2 text-sm font-semibold text-slate-900 bg-transparent focus:outline-none cursor-pointer">
-                                    <span class="text-sm text-slate-500">Sort by:</span>
+                                    class="flex items-center gap-2 text-sm font-semibold text-foreground bg-transparent focus:outline-none cursor-pointer">
+                                    <span class="text-sm text-muted-foreground">Sort by:</span>
                                     {% if sort_by == 'newest' %}
-                                    <span class="font-bold text-slate-900">Newest</span>
+                                    <span class="font-bold text-foreground">Newest</span>
                                     {% elif sort_by == 'price_low' %}
-                                    <span class="font-bold text-slate-900">Price: Low to High</span>
+                                    <span class="font-bold text-foreground">Price: Low to High</span>
                                     {% elif sort_by == 'price_high' %}
-                                    <span class="font-bold text-slate-900">Price: High to Low</span>
+                                    <span class="font-bold text-foreground">Price: High to Low</span>
                                     {% elif sort_by == 'rating' %}
-                                    <span class="font-bold text-slate-900">Top Rated</span>
+                                    <span class="font-bold text-foreground">Top Rated</span>
                                     {% endif %}
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -180,21 +180,21 @@
                                     </svg>
                                 </button>
                                 <div id="sort-dropdown-menu"
-                                    class="absolute z-10 left-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-slate-100 py-2 hidden">
+                                    class="absolute z-10 left-0 mt-2 w-48 bg-background rounded-xl shadow-lg border border-green-600 py-2 hidden">
                                     <a href="?sort=newest{% if current_category %}&category={{ current_category.slug }}{% endif %}"
-                                        class="block px-4 py-2 text-sm text-slate-600 hover:bg-orange-50 hover:text-orange-500 font-medium transition-colors {% if sort_by == 'newest' %}bg-orange-50 text-orange-500{% endif %}">
+                                        class="block px-4 py-2 text-sm text-muted-foreground hover:bg-primary/10 hover:text-primary font-medium transition-colors {% if sort_by == 'newest' %}bg-primary/10 text-primary{% endif %}">
                                         Newest
                                     </a>
                                     <a href="?sort=price_low{% if current_category %}&category={{ current_category.slug }}{% endif %}"
-                                        class="block px-4 py-2 text-sm text-slate-600 hover:bg-orange-50 hover:text-orange-500 font-medium transition-colors {% if sort_by == 'price_low' %}bg-orange-50 text-orange-500{% endif %}">
+                                        class="block px-4 py-2 text-sm text-muted-foreground hover:bg-primary/10 hover:text-primary font-medium transition-colors {% if sort_by == 'price_low' %}bg-primary/10 text-primary{% endif %}">
                                         Price: Low to High
                                     </a>
                                     <a href="?sort=price_high{% if current_category %}&category={{ current_category.slug }}{% endif %}"
-                                        class="block px-4 py-2 text-sm text-slate-600 hover:bg-orange-50 hover:text-orange-500 font-medium transition-colors {% if sort_by == 'price_high' %}bg-orange-50 text-orange-500{% endif %}">
+                                        class="block px-4 py-2 text-sm text-muted-foreground hover:bg-primary/10 hover:text-primary font-medium transition-colors {% if sort_by == 'price_high' %}bg-primary/10 text-primary{% endif %}">
                                         Price: High to Low
                                     </a>
                                     <a href="?sort=rating{% if current_category %}&category={{ current_category.slug }}{% endif %}"
-                                        class="block px-4 py-2 text-sm text-slate-600 hover:bg-orange-50 hover:text-orange-500 font-medium transition-colors {% if sort_by == 'rating' %}bg-orange-50 text-orange-500{% endif %}">
+                                        class="block px-4 py-2 text-sm text-muted-foreground hover:bg-primary/10 hover:text-primary font-medium transition-colors {% if sort_by == 'rating' %}bg-primary/10 text-primary{% endif %}">
                                         Top Rated
                                     </a>
                                 </div>
@@ -202,7 +202,7 @@
                             <div class="h-6 w-px bg-slate-100 mx-2"></div>
                             <div class="flex items-center gap-1">
                                 <button
-                                    class="w-9 h-9 flex items-center justify-center rounded-lg bg-slate-900 text-white shadow-md">
+                                    class="w-9 h-9 flex items-center justify-center rounded-lg bg-primary text-white shadow-md">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round">
@@ -329,8 +329,8 @@
                                     <line x1="12" y1="16" x2="12.01" y2="16" />
                                 </svg>
                             </div>
-                            <h3 class="text-xl font-bold text-slate-900 mb-2">Oops! No product at this time.</h3>
-                            <p class="text-slate-500">Please check back later or browse other categories.</p>
+                            <h3 class="text-xl font-bold text-foreground mb-2">Oops! No product at this time.</h3>
+                            <p class="text-muted-foreground">Please check back later or browse other categories.</p>
                         </div>
                         {% endfor %}
                     </div>

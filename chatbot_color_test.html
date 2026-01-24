@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Color Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f0f0f0;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid;
+        }
+        .pass { background: #d4edda; border-color: #28a745; }
+        .fail { background: #f8d7da; border-color: #dc3545; }
+        .chatbot-preview {
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🤖 Chatbot Color Test</h1>
+        
+        <div class="chatbot-preview">
+            <div style="background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); color: white; padding: 16px;">
+                <h3>FurFeast Bot</h3>
+            </div>
+            
+            <!-- Test Messages Container -->
+            <div id="test-messages" style="height: 200px; overflow-y: auto; padding: 16px; background: white;">
+                <div style="background: white; padding: 12px; border-radius: 12px; border-left: 4px solid #f97316; margin-bottom: 12px;">
+                    <p style="margin: 0; font-size: 14px; color: black;">Hello! I'm FurFeast Bot 🐾 How can I help you today?</p>
+                </div>
+                
+                <div style="display: flex; justify-content: flex-end; margin-bottom: 12px;">
+                    <div style="background: #f97316; color: white; padding: 12px; border-radius: 12px; max-width: 250px;">
+                        <p style="margin: 0; font-size: 14px;">Test user message</p>
+                    </div>
+                </div>
+                
+                <div style="background: white; padding: 12px; border-radius: 12px; border-left: 4px solid #f97316; margin-bottom: 12px;">
+                    <p style="margin: 0; font-size: 14px; color: black;">This is a test bot response with black text on white background.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="test-results">
+            <h2>Test Results:</h2>
+        </div>
+        
+        <button onclick="runColorTests()" style="background: #f97316; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Run Color Tests</button>
+    </div>
+
+    <script>
+        function runColorTests() {
+            const results = document.getElementById('test-results');
+            const tests = [];
+            
+            // Test 1: Messages container background
+            const messagesContainer = document.getElementById('test-messages');
+            const bgColor = window.getComputedStyle(messagesContainer).backgroundColor;
+            tests.push({
+                name: 'Messages Container Background',
+                expected: 'white (rgb(255, 255, 255))',
+                actual: bgColor,
+                pass: bgColor === 'rgb(255, 255, 255)' || bgColor === 'white'
+            });
+            
+            // Test 2: Bot message text color
+            const botMessages = messagesContainer.querySelectorAll('p');
+            let textColorTest = false;
+            botMessages.forEach(p => {
+                const textColor = window.getComputedStyle(p).color;
+                if (textColor === 'rgb(0, 0, 0)' || textColor === 'black') {
+                    textColorTest = true;
+                }
+            });
+            tests.push({
+                name: 'Bot Message Text Color',
+                expected: 'black (rgb(0, 0, 0))',
+                actual: textColorTest ? 'black' : 'not black',
+                pass: textColorTest
+            });
+            
+            // Test 3: Bot message background
+            const botMessageBg = messagesContainer.querySelector('div[style*="background: white"]');
+            const botBgColor = botMessageBg ? window.getComputedStyle(botMessageBg).backgroundColor : 'not found';
+            tests.push({
+                name: 'Bot Message Background',
+                expected: 'white (rgb(255, 255, 255))',
+                actual: botBgColor,
+                pass: botBgColor === 'rgb(255, 255, 255)' || botBgColor === 'white'
+            });
+            
+            // Test 4: User message visibility
+            const userMessage = messagesContainer.querySelector('div[style*="background: #f97316"]');
+            const userBgColor = userMessage ? window.getComputedStyle(userMessage).backgroundColor : 'not found';
+            tests.push({
+                name: 'User Message Background',
+                expected: 'orange (#f97316)',
+                actual: userBgColor,
+                pass: userBgColor.includes('249, 115, 22') || userBgColor === '#f97316'
+            });
+            
+            // Display results
+            let html = '<h2>Test Results:</h2>';
+            tests.forEach(test => {
+                const className = test.pass ? 'pass' : 'fail';
+                const icon = test.pass ? '✅' : '❌';
+                html += `
+                    <div class="test-result ${className}">
+                        <strong>${icon} ${test.name}</strong><br>
+                        Expected: ${test.expected}<br>
+                        Actual: ${test.actual}
+                    </div>
+                `;
+            });
+            
+            const passedTests = tests.filter(t => t.pass).length;
+            const totalTests = tests.length;
+            
+            html += `
+                <div class="test-result ${passedTests === totalTests ? 'pass' : 'fail'}">
+                    <strong>Summary: ${passedTests}/${totalTests} tests passed</strong>
+                </div>
+            `;
+            
+            results.innerHTML = html;
+        }
+        
+        // Auto-run tests on load
+        window.addEventListener('load', runColorTests);
+    </script>
+</body>
+</html>

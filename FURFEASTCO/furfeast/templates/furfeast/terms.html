@@ -3,22 +3,22 @@
 {% block title %}Terms & Conditions - FURFEAST CO.{% endblock %}
 
 {% block content %}
-<div class="min-h-screen bg-white py-8 sm:py-12">
+<div class="min-h-screen bg-background py-8 sm:py-12">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="bg-card rounded-2xl shadow-sm border border-green-600 overflow-hidden">
             <!-- Header -->
-            <div class="bg-gradient-to-r from-orange-500 to-orange-600 px-6 sm:px-8 py-8 sm:py-12 text-white">
+            <div class="bg-gradient-to-r from-primary to-yellow-600 px-6 sm:px-8 py-8 sm:py-12 text-white">
                 <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2">Terms & Conditions</h1>
-                <p class="text-orange-100 text-sm sm:text-base">FurFeast Co.</p>
-                <p class="text-orange-200 text-xs sm:text-sm mt-2">Effective Date: January 2026</p>
+                <p class="text-yellow-100 text-sm sm:text-base">FurFeast Co.</p>
+                <p class="text-yellow-200 text-xs sm:text-sm mt-2">Effective Date: January 2026</p>
             </div>
 
             <!-- Content -->
-            <div class="px-6 sm:px-8 py-8 sm:py-12">
+            <div class="px-6 sm:px-8 py-8 sm:py-12 bg-background text-foreground">
                 <div class="prose prose-slate max-w-none">
-                    <p class="text-slate-600 mb-6 text-sm sm:text-base leading-relaxed">
+                    <p class="text-muted-foreground mb-6 text-sm sm:text-base leading-relaxed">
                         Welcome to FurFeast Co. ("we," "us," "our"). These Terms & Conditions ("Terms") govern your use of 
-                        <a href="https://taj8z613n2jd7-furfeastco.prod2.defang.dev/" class="text-orange-600 hover:text-orange-700">https://taj8z613n2jd7-furfeastco.prod2.defang.dev/</a>
+                        <a href="https://taj8z613n2jd7-furfeastco.prod2.defang.dev/" class="text-primary hover:text-yellow-600">https://taj8z613n2jd7-furfeastco.prod2.defang.dev/</a>
                         (the "Website"), and your purchase of products ("Products") from us. By using this Website or placing an order, you agree to these Terms — so read them carefully.
                     </p>
 
@@ -151,12 +151,12 @@
                     </div>
 
                     <!-- Footer -->
-                    <div class="mt-12 pt-8 border-t border-slate-200">
-                        <div class="bg-slate-50 rounded-lg p-4 sm:p-6">
-                            <p class="text-slate-600 text-xs sm:text-sm text-center">
+                    <div class="mt-12 pt-8 border-t border-green-600">
+                        <div class="bg-card rounded-lg p-4 sm:p-6">
+                            <p class="text-muted-foreground text-xs sm:text-sm text-center">
                                 Last updated: January 2026 | 
-                                <a href="{% url 'contact' %}" class="text-orange-600 hover:text-orange-700">Contact Us</a> | 
-                                <a href="{% url 'index' %}" class="text-orange-600 hover:text-orange-700">Back to Home</a>
+                                <a href="{% url 'contact' %}" class="text-primary hover:text-yellow-600">Contact Us</a> | 
+                                <a href="{% url 'index' %}" class="text-primary hover:text-yellow-600">Back to Home</a>
                             </p>
                         </div>
                     </div>

@@ -16,7 +16,7 @@ from django.core.cache import cache
 from datetime import timedelta
 import json
 import uuid
-from .models import Product, Cart, CartItem, Wishlist, Blog, FlashSale, PromoCode, UserProfile, Order, OrderItem, AboutUs, FurFeastFamily, PendingRegistration, Review, ContactMessage, Notification, CustomerMessage
+from .models import Product, Cart, CartItem, Wishlist, Blog, FlashSale, PromoCode, UserProfile, Order, OrderItem, AboutUs, FurFeastFamily, PendingRegistration, Review, ContactMessage, Notification, CustomerMessage, ChatBotIntent, ChatBotSession, ChatBotConversation
 from decimal import Decimal, InvalidOperation
 
 # Health check view for debugging
@@ -52,20 +52,24 @@ def get_context_data(request):
         'notification_count': 0,
     }
     
-    if request.user.is_authenticated:
-        # Always get fresh counts - no caching for user data
-        cart, created = Cart.objects.get_or_create(user=request.user)
-        context['cart_count'] = cart.items.count()
-        context['wishlist_count'] = Wishlist.objects.filter(user=request.user).count()
-        context['notification_count'] = Notification.objects.filter(user=request.user, is_read=False).count()
-    
-    # Only cache global promo code (not user-specific)
-    promo = cache.get('header_promo')
-    if not promo:
-        now = timezone.now()
-        promo = PromoCode.objects.filter(active=True, valid_to__gt=now).first()
-        cache.set('header_promo', promo, 900)  # 15 minutes
-    context['header_promo'] = promo
+    try:
+        if request.user.is_authenticated:
+            # Always get fresh counts - no caching for user data
+            cart, created = Cart.objects.get_or_create(user=request.user)
+            context['cart_count'] = cart.items.count()
+            context['wishlist_count'] = Wishlist.objects.filter(user=request.user).count()
+            context['notification_count'] = Notification.objects.filter(user=request.user, is_read=False).count()
+        
+        # Only cache global promo code (not user-specific)
+        promo = cache.get('header_promo')
+        if not promo:
+            now = timezone.now()
+            promo = PromoCode.objects.filter(active=True, valid_to__gt=now).first()
+            cache.set('header_promo', promo, 900)  # 15 minutes
+        context['header_promo'] = promo
+    except Exception as e:
+        # Return basic context if database fails
+        pass
         
     return context
 
@@ -73,6 +77,17 @@ def get_context_data(request):
 
 def index(request):
     """Simple homepage that works without database"""
+    context = {
+        'cart_count': 0,
+        'wishlist_count': 0,
+        'notification_count': 0,
+        'flash_sale': None,
+        'promo_codes': [],
+        'hero_images': [],
+        'featured_products': [],
+        'customer_reviews': [],
+    }
+    
     try:
         context = get_context_data(request)
         now = timezone.now()
@@ -99,8 +114,8 @@ def index(request):
         
         return render(request, 'furfeast/index.html', context)
     except Exception as e:
-        # Fallback for database connection issues
-        return HttpResponse(f"FurFeast is live! 🚀<br><br>Database connection issue: {str(e)}")
+        # For development - render template with empty context instead of error message
+        return render(request, 'furfeast/index.html', context)
 
 @vary_on_headers('Cookie')
 @cache_page(60 * 3)  # Cache for 3 minutes, varies by user
@@ -1511,3 +1526,121 @@ def customer_unread_message_count(request):
     except ChatRoom.DoesNotExist:
         count = 0
     return JsonResponse({'count': count})
+
+# Chatbot Views
+
+def chatbot_widget(request):
+    """Render chatbot widget"""
+    context = get_context_data(request)
+    return render(request, 'furfeast/improved_chatbot_widget.html', context)
+
+@csrf_exempt
+@require_POST
+def chatbot_message(request):
+    """Process chatbot message"""
+    from .chatbot import chatbot
+    import json
+    
+    try:
+        data = json.loads(request.body)
+        message = data.get('message', '').strip()
+        session_id = data.get('session_id')
+        
+        if not message:
+            return JsonResponse({'error': 'Message is required'}, status=400)
+        
+        user = request.user if request.user.is_authenticated else None
+        result = chatbot.process_message(message, user, session_id)
+        
+        return JsonResponse({
+            'response': result['response'],
+            'intent': result['intent'],
+            'session_id': result['session_id']
+        })
+        
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+def chatbot_history(request, session_id):
+    """Get chatbot conversation history"""
+    from .models import ChatBotSession
+    
+    try:
+        session = ChatBotSession.objects.get(session_id=session_id)
+        conversations = session.conversations.all()[:20]
+        
+        return JsonResponse({
+            'conversations': [{
+                'user_message': conv.user_message,
+                'bot_response': conv.bot_response,
+                'created_at': conv.created_at.isoformat()
+            } for conv in conversations]
+        })
+        
+    except ChatBotSession.DoesNotExist:
+        return JsonResponse({'conversations': []})
+
+# Chatbot Testing Views
+
+def chatbot_test_view(request):
+    """Test view for chatbot responsiveness across different devices"""
+    context = {
+        'title': 'Chatbot Test - FurFeast',
+        'test_devices': [
+            {'name': 'iPhone SE', 'width': 375, 'height': 667},
+            {'name': 'iPhone 12', 'width': 390, 'height': 844},
+            {'name': 'Samsung Galaxy S21', 'width': 360, 'height': 800},
+            {'name': 'iPad', 'width': 768, 'height': 1024},
+            {'name': 'iPad Pro', 'width': 1024, 'height': 1366},
+            {'name': 'Desktop', 'width': 1920, 'height': 1080},
+        ]
+    }
+    return render(request, 'furfeast/chatbot_test.html', context)
+
+@csrf_exempt
+@require_POST
+def chatbot_test_message(request):
+    """Test endpoint for chatbot messages"""
+    try:
+        data = json.loads(request.body)
+        message = data.get('message', '')
+        
+        # Simulate different types of responses for testing
+        test_responses = {
+            'hello': 'Hello! Welcome to FurFeast! 🐾 How can I help you today?',
+            'products': 'We have a wide range of premium pet food and accessories:\n• Dog Food (Dry & Wet)\n• Cat Food (Dry & Wet)\n• Treats & Snacks\n• Toys & Accessories\n• Health & Wellness Products',
+            'shipping': 'Our shipping rates are:\n• Standard Delivery (3-5 days): $5.99\n• Express Delivery (1-2 days): $12.99\n• Free shipping on orders over $50!',
+            'payment': 'We accept:\n• Credit/Debit Cards (Visa, MasterCard, American Express)\n• PayPal\n• Apple Pay\n• Google Pay\n• Bank Transfer',
+            'support': 'You can reach our support team:\n📞 Phone: 1-800-FURFEAST\n📧 Email: support@furfeast.com\n💬 Live Chat: Available 24/7\n🕒 Business Hours: Mon-Fri 9AM-6PM EST',
+        }
+        
+        # Find appropriate response
+        message_lower = message.lower()
+        response = None
+        
+        for keyword, reply in test_responses.items():
+            if keyword in message_lower:
+                response = reply
+                break
+        
+        if not response:
+            if len(message) > 100:
+                response = "I understand you have a detailed question. Let me connect you with our support team for personalized assistance!"
+            elif any(word in message_lower for word in ['help', 'assist', 'support']):
+                response = "I'm here to help! You can ask me about our products, shipping, payments, or anything else related to FurFeast."
+            else:
+                response = f"Thanks for your message: '{message}'. I'm still learning, but I can help you with information about our products, shipping, payments, and support. What would you like to know?"
+        
+        return JsonResponse({
+            'response': response,
+            'session_id': 'test_session_123',
+            'timestamp': '2024-01-01T12:00:00Z'
+        })
+        
+    except Exception as e:
+        return JsonResponse({
+            'error': 'Sorry, I encountered an error processing your message.',
+            'details': str(e)
+        }, status=500)

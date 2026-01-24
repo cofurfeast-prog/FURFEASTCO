@@ -28,7 +28,7 @@
             </div>
             {% for msg in chat_messages %}
             <div class="flex {% if msg.is_from_admin %}justify-start{% else %}justify-end{% endif %}" data-msg-id="{{ msg.id }}">
-                <div class="max-w-[85%] sm:max-w-xs md:max-w-md {% if msg.is_from_admin %}bg-white{% else %}bg-primary text-white{% endif %} rounded-lg px-3 sm:px-4 py-2 sm:py-3 shadow break-words">
+                <div class="max-w-[85%] sm:max-w-xs md:max-w-md {% if msg.is_from_admin %}bg-slate-100{% else %}bg-orange-500 text-white{% endif %} rounded-lg px-3 sm:px-4 py-2 sm:py-3 shadow break-words">
                     {% if msg.image %}
                     <img src="{{ msg.image.url }}" alt="Attachment" class="rounded mb-2 max-w-full">
                     {% endif %}
@@ -175,7 +175,7 @@ function renderMessage(msg) {
     div.setAttribute('data-msg-id', msg.id);
     
     const bubble = document.createElement('div');
-    bubble.className = `max-w-[85%] sm:max-w-xs md:max-w-md ${msg.is_from_admin ? 'bg-white' : 'bg-primary text-white'} rounded-lg px-3 sm:px-4 py-2 sm:py-3 shadow break-words`;
+    bubble.className = `max-w-[85%] sm:max-w-xs md:max-w-md ${msg.is_from_admin ? 'bg-slate-100' : 'bg-orange-500 text-white'} rounded-lg px-3 sm:px-4 py-2 sm:py-3 shadow break-words`;
     
     if (msg.image) {
         const img = document.createElement('img');

@@ -4,21 +4,21 @@
 {% block title %}Returns & Refund Policy - FURFEAST CO.{% endblock %}
 
 {% block content %}
-<div class="min-h-screen bg-white py-8 sm:py-12">
+<div class="min-h-screen bg-background py-8 sm:py-12">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
         <div class="text-center mb-8 sm:mb-12">
-            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
                 🐾 FurFeast Co. Returns & Refund Policy
             </h1>
-            <p class="text-lg text-gray-600">
+            <p class="text-lg text-muted-foreground">
                 <strong>Effective Date:</strong> January 2026
             </p>
         </div>
 
         <!-- Introduction -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-8 p-6 sm:p-8">
-            <p class="text-lg text-gray-700 leading-relaxed">
+        <div class="bg-card rounded-lg shadow-sm border border-green-600 mb-8 p-6 sm:p-8 bg-background text-foreground">
+            <p class="text-lg text-foreground leading-relaxed">
                 At FurFeast Co., we take pride in delivering high-quality pet food and accessories. If you're not fully satisfied with your purchase, we make returns easy, fair, and safe for both you and your pets.
             </p>
         </div>
@@ -26,8 +26,8 @@
         <!-- Policy Sections -->
         <div class="space-y-8">
             <!-- 1. Eligibility for Returns -->
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-                <div class="bg-green-500 text-white px-6 py-4">
+            <div class="bg-card rounded-lg shadow-sm border border-green-600 overflow-hidden">
+                <div class="bg-primary text-white px-6 py-4">
                     <h2 class="text-xl sm:text-2xl font-bold">
                         1. Eligibility for Returns
                     </h2>
@@ -46,8 +46,8 @@
             </div>
 
             <!-- 2. Non-Returnable Items -->
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-                <div class="bg-red-500 text-white px-6 py-4">
+            <div class="bg-card rounded-lg shadow-sm border border-green-600 overflow-hidden">
+                <div class="bg-background text-foreground px-6 py-4">
                     <h2 class="text-xl sm:text-2xl font-bold">
                         2. Non-Returnable Items
                     </h2>
@@ -151,8 +151,8 @@
                 <div class="mt-6 pt-6 border-t border-slate-200">
                     <p class="text-slate-600 text-xs sm:text-sm text-center">
                         Last updated: January 2026 | 
-                        <a href="{% url 'contact' %}" class="text-orange-600 hover:text-orange-700">Contact Us</a> | 
-                        <a href="{% url 'index' %}" class="text-orange-600 hover:text-orange-700">Back to Home</a>
+                        <a href="{% url 'contact' %}" class="text-primary hover:text-yellow-600">Contact Us</a> | 
+                        <a href="{% url 'index' %}" class="text-primary hover:text-yellow-600">Back to Home</a>
                     </p>
                 </div>
             </div>

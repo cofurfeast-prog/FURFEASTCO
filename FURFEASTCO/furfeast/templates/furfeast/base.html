@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
     <title>{% block title %}FURFEAST CO. — Premium Pet Food & Accessories{% endblock %}</title>
     
     <!-- Preload critical resources -->
@@ -19,8 +20,8 @@
         .font-heading{font-family:'Nunito',Arial,sans-serif}
         
         /* Critical above-the-fold styles */
-        .bg-primary{background-color:#f97316}
-        .text-primary{color:#f97316}
+        .bg-primary{background-color:#d4a23f}
+        .text-primary{color:#d4a23f}
         .sticky{position:sticky}
         .top-0{top:0}
         .z-50{z-index:50}
@@ -61,7 +62,7 @@
     <style>
         /* Global Glow & Blur Utilities */
         .shadow-glow {
-            box-shadow: 0 0 30px rgba(249, 115, 22, 0.3);
+            box-shadow: 0 0 30px rgba(212, 162, 63, 0.3);
         }
 
         .backdrop-blur-md {
@@ -100,9 +101,9 @@
         }
 
         .toast.info {
-            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            background: linear-gradient(135deg, #d4a23f 0%, #b8912e 100%);
             color: white;
-            border-left: 4px solid #c2410c;
+            border-left: 4px solid #9a7b26;
         }
 
         /* FurFeast Custom Modal */
@@ -146,13 +147,13 @@
     data-authenticated="{% if user.is_authenticated %}true{% else %}false{% endif %}">
     {% if header_promo %}
     <!-- Top Promo Bar -->
-    <div class="bg-[#f97316] text-white text-center py-2 text-[10px] sm:text-xs font-medium px-4">
+    <div class="bg-background text-foreground text-center py-2 text-[10px] sm:text-xs font-medium px-4">
         🐾 Receive ${{ header_promo.discount_amount }} OFF on your order! Use code: <span
             class="font-bold">FURFEAST20</span>
     </div>
     {% else %}
     <!-- Fallback Promo Bar -->
-    <div class="bg-[#f97316] text-white text-center py-2 text-[10px] sm:text-xs font-medium px-4">
+    <div class="bg-background text-foreground text-center py-2 text-[10px] sm:text-xs font-medium px-4">
         🐾 Get $10 OFF on your order! Use code: <span class="font-bold">FURFEAST10</span>
     </div>
     {% endif %}
@@ -162,7 +163,7 @@
 
     {% if user.is_staff %}
     <div class="bg-slate-900 text-white text-center py-2 px-4">
-        <a href="{% url 'dashboard_home' %}" class="text-orange-400 hover:text-orange-300 font-semibold">← Back to
+        <a href="{% url 'dashboard_home' %}" class="text-primary hover:text-yellow-300 font-semibold">← Back to
             Dashboard</a>
     </div>
     {% endif %}
@@ -171,6 +172,9 @@
     {% endblock %}
 
     <div id="shopify-section-footer"></div>
+
+    <!-- Improved Responsive Chatbot Widget -->
+    {% include 'furfeast/improved_chatbot_widget.html' %}
 
     <!-- Defer non-critical JavaScript -->
     <script defer src="{% static 'js/components.js' %}"></script>
@@ -191,6 +195,8 @@
     {% endif %}
 
     {% block extra_js %}{% endblock %}
+
+
 </body>
 
 </html>

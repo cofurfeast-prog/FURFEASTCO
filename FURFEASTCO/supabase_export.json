@@ -1,0 +1,766 @@
+{
+  "users": [
+    {
+      "id": 17,
+      "username": "walkeralone913_15",
+      "email": "walkeralone913@gmail.com",
+      "first_name": "Ram",
+      "last_name": "Sharma",
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-01-15T16:13:08.648440+00:00"
+    },
+    {
+      "id": 18,
+      "username": "ctara9816_16",
+      "email": "ctara9816@gmail.com",
+      "first_name": "Tara",
+      "last_name": "chauhan",
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-01-15T16:15:15.904695+00:00"
+    },
+    {
+      "id": 3,
+      "username": "Puja Chaulagain",
+      "email": "adminpuja@gmail.com",
+      "first_name": "",
+      "last_name": "",
+      "is_active": true,
+      "is_staff": true,
+      "date_joined": "2026-01-03T08:40:11.897040+00:00"
+    },
+    {
+      "id": 20,
+      "username": "yokinol609_18",
+      "email": "yokinol609@atinjo.com",
+      "first_name": "Ram",
+      "last_name": "Sharma",
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-01-15T16:20:09.656025+00:00"
+    },
+    {
+      "id": 4,
+      "username": "test",
+      "email": "test@gmail.com",
+      "first_name": "test",
+      "last_name": "test",
+      "is_active": false,
+      "is_staff": false,
+      "date_joined": "2026-01-03T13:55:38.260004+00:00"
+    },
+    {
+      "id": 19,
+      "username": "yokinol609",
+      "email": "yokinol609@atinjo.com",
+      "first_name": "Ram",
+      "last_name": "Sharma",
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-01-15T16:17:12.058666+00:00"
+    },
+    {
+      "id": 6,
+      "username": "test1",
+      "email": "test1@gmail.com",
+      "first_name": "test",
+      "last_name": "test",
+      "is_active": false,
+      "is_staff": false,
+      "date_joined": "2026-01-03T13:57:16.442243+00:00"
+    },
+    {
+      "id": 21,
+      "username": "5hycm",
+      "email": "5hycm@virgilian.com",
+      "first_name": "Hari ",
+      "last_name": "Bahadur",
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-01-15T16:30:01.299772+00:00"
+    },
+    {
+      "id": 22,
+      "username": "ctara9816_20",
+      "email": "ctara9816@gmail.com",
+      "first_name": "Tara",
+      "last_name": "chauhan",
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-01-15T16:30:51.564214+00:00"
+    },
+    {
+      "id": 5,
+      "username": "nishakatuwal.77",
+      "email": "nishakatuwal.77@gmail.com",
+      "first_name": "Nisha",
+      "last_name": "KC",
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-01-03T13:56:52.996765+00:00"
+    },
+    {
+      "id": 9,
+      "username": "ctara9816_8",
+      "email": "ctara9816@gmail.com",
+      "first_name": "Tara",
+      "last_name": "chauhan",
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-01-15T15:50:17.603386+00:00"
+    },
+    {
+      "id": 7,
+      "username": "paypal_test_user",
+      "email": "test@example.com",
+      "first_name": "",
+      "last_name": "",
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-01-07T15:30:31.387356+00:00"
+    },
+    {
+      "id": 10,
+      "username": "ctara9816_9",
+      "email": "ctara9816@gmail.com",
+      "first_name": "Tara",
+      "last_name": "chauhan",
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-01-15T15:50:18.171682+00:00"
+    },
+    {
+      "id": 11,
+      "username": "ctara9816_10",
+      "email": "ctara9816@gmail.com",
+      "first_name": "Tara",
+      "last_name": "chauhan",
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-01-15T15:50:21.415008+00:00"
+    },
+    {
+      "id": 13,
+      "username": "ctara9816_11",
+      "email": "ctara9816@gmail.com",
+      "first_name": "Tara",
+      "last_name": "chauhan",
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-01-15T15:50:53.336782+00:00"
+    },
+    {
+      "id": 14,
+      "username": "ctara9816_12",
+      "email": "ctara9816@gmail.com",
+      "first_name": "Tara",
+      "last_name": "chauhan",
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-01-15T15:55:22.135322+00:00"
+    },
+    {
+      "id": 15,
+      "username": "walkeralone913",
+      "email": "walkeralone913@gmail.com",
+      "first_name": "Ram",
+      "last_name": "Sharma",
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-01-15T16:09:29.940104+00:00"
+    },
+    {
+      "id": 23,
+      "username": "walkeralone913_21",
+      "email": "walkeralone913@gmail.com",
+      "first_name": "Ram",
+      "last_name": "Sharma",
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-01-15T16:31:20.211444+00:00"
+    },
+    {
+      "id": 16,
+      "username": "walkeralone913_14",
+      "email": "walkeralone913@gmail.com",
+      "first_name": "Ram",
+      "last_name": "Sharma",
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-01-15T16:09:40.036242+00:00"
+    },
+    {
+      "id": 1,
+      "username": "rajeshilamion",
+      "email": "rajeshilamion@gmail.com",
+      "first_name": "Rajesh",
+      "last_name": "KC",
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2025-12-31T15:45:42.653604+00:00"
+    },
+    {
+      "id": 8,
+      "username": "ctara9816",
+      "email": "ctara9816@gmail.com",
+      "first_name": "Tara",
+      "last_name": "chauhan",
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-01-15T15:50:16.863620+00:00"
+    },
+    {
+      "id": 2,
+      "username": "admin",
+      "email": "adminfurfeastco@gmail.com",
+      "first_name": "",
+      "last_name": "",
+      "is_active": true,
+      "is_staff": true,
+      "date_joined": "2025-12-31T15:54:48.312125+00:00"
+    }
+  ],
+  "profiles": [
+    {
+      "id": 18,
+      "user_id": 14,
+      "phone_number": null,
+      "address": null,
+      "city": null,
+      "postal_code": null,
+      "country": "Nepal",
+      "email_verified": false
+    },
+    {
+      "id": 20,
+      "user_id": 15,
+      "phone_number": null,
+      "address": null,
+      "city": null,
+      "postal_code": null,
+      "country": "Nepal",
+      "email_verified": false
+    },
+    {
+      "id": 22,
+      "user_id": 16,
+      "phone_number": null,
+      "address": null,
+      "city": null,
+      "postal_code": null,
+      "country": "Nepal",
+      "email_verified": false
+    },
+    {
+      "id": 1,
+      "user_id": 1,
+      "phone_number": "+1 202-555-0147",
+      "address": null,
+      "city": null,
+      "postal_code": null,
+      "country": "Nepal",
+      "email_verified": true
+    },
+    {
+      "id": 3,
+      "user_id": 3,
+      "phone_number": null,
+      "address": null,
+      "city": null,
+      "postal_code": null,
+      "country": "Nepal",
+      "email_verified": false
+    },
+    {
+      "id": 4,
+      "user_id": 4,
+      "phone_number": null,
+      "address": null,
+      "city": null,
+      "postal_code": null,
+      "country": "Nepal",
+      "email_verified": false
+    },
+    {
+      "id": 6,
+      "user_id": 6,
+      "phone_number": null,
+      "address": null,
+      "city": null,
+      "postal_code": null,
+      "country": "Nepal",
+      "email_verified": false
+    },
+    {
+      "id": 24,
+      "user_id": 17,
+      "phone_number": null,
+      "address": null,
+      "city": null,
+      "postal_code": null,
+      "country": "Nepal",
+      "email_verified": false
+    },
+    {
+      "id": 2,
+      "user_id": 2,
+      "phone_number": null,
+      "address": null,
+      "city": null,
+      "postal_code": null,
+      "country": "Nepal",
+      "email_verified": false
+    },
+    {
+      "id": 26,
+      "user_id": 18,
+      "phone_number": null,
+      "address": null,
+      "city": null,
+      "postal_code": null,
+      "country": "Nepal",
+      "email_verified": false
+    },
+    {
+      "id": 7,
+      "user_id": 7,
+      "phone_number": null,
+      "address": null,
+      "city": null,
+      "postal_code": null,
+      "country": "Nepal",
+      "email_verified": false
+    },
+    {
+      "id": 30,
+      "user_id": 20,
+      "phone_number": "9813141546",
+      "address": null,
+      "city": null,
+      "postal_code": null,
+      "country": "Nepal",
+      "email_verified": true
+    },
+    {
+      "id": 28,
+      "user_id": 19,
+      "phone_number": null,
+      "address": null,
+      "city": null,
+      "postal_code": null,
+      "country": "Nepal",
+      "email_verified": false
+    },
+    {
+      "id": 31,
+      "user_id": 21,
+      "phone_number": "9846434998",
+      "address": null,
+      "city": null,
+      "postal_code": null,
+      "country": "Nepal",
+      "email_verified": true
+    },
+    {
+      "id": 9,
+      "user_id": 9,
+      "phone_number": null,
+      "address": null,
+      "city": null,
+      "postal_code": null,
+      "country": "Nepal",
+      "email_verified": false
+    },
+    {
+      "id": 32,
+      "user_id": 22,
+      "phone_number": "9840091927",
+      "address": null,
+      "city": null,
+      "postal_code": null,
+      "country": "Nepal",
+      "email_verified": true
+    },
+    {
+      "id": 11,
+      "user_id": 10,
+      "phone_number": null,
+      "address": null,
+      "city": null,
+      "postal_code": null,
+      "country": "Nepal",
+      "email_verified": false
+    },
+    {
+      "id": 33,
+      "user_id": 23,
+      "phone_number": "+9779813100055",
+      "address": null,
+      "city": null,
+      "postal_code": null,
+      "country": "Nepal",
+      "email_verified": true
+    },
+    {
+      "id": 14,
+      "user_id": 11,
+      "phone_number": null,
+      "address": null,
+      "city": null,
+      "postal_code": null,
+      "country": "Nepal",
+      "email_verified": false
+    },
+    {
+      "id": 5,
+      "user_id": 5,
+      "phone_number": null,
+      "address": null,
+      "city": null,
+      "postal_code": null,
+      "country": "Nepal",
+      "email_verified": true
+    },
+    {
+      "id": 16,
+      "user_id": 13,
+      "phone_number": null,
+      "address": null,
+      "city": null,
+      "postal_code": null,
+      "country": "Nepal",
+      "email_verified": false
+    },
+    {
+      "id": 8,
+      "user_id": 8,
+      "phone_number": null,
+      "address": null,
+      "city": null,
+      "postal_code": null,
+      "country": "Nepal",
+      "email_verified": false
+    }
+  ],
+  "products": [
+    {
+      "id": 14,
+      "name": "Cat Cradle ",
+      "description": "A comfy and fluffy cradle for your beloved cat.",
+      "price": "100.00",
+      "category": "accessories",
+      "stock": 10,
+      "is_out_of_stock": false,
+      "is_bestseller": true,
+      "rating": 5.0,
+      "created_at": "2026-01-03T07:57:02.915324+00:00"
+    },
+    {
+      "id": 13,
+      "name": "Friksies",
+      "description": "Cat centric.",
+      "price": "20.00",
+      "category": "cat-food",
+      "stock": 50,
+      "is_out_of_stock": false,
+      "is_bestseller": false,
+      "rating": 4.0,
+      "created_at": "2026-01-01T04:56:12.846647+00:00"
+    },
+    {
+      "id": 12,
+      "name": "Pedigree",
+      "description": "Nutritious and Healthy.",
+      "price": "20.00",
+      "category": "dog-food",
+      "stock": 15,
+      "is_out_of_stock": false,
+      "is_bestseller": true,
+      "rating": 4.5,
+      "created_at": "2026-01-01T04:55:15.993443+00:00"
+    },
+    {
+      "id": 11,
+      "name": "Retractable Dog Leash",
+      "description": "Retractable dog leash",
+      "price": "35.00",
+      "category": "accessories",
+      "stock": 0,
+      "is_out_of_stock": true,
+      "is_bestseller": false,
+      "rating": 4.0,
+      "created_at": "2026-01-01T04:52:45.944656+00:00"
+    },
+    {
+      "id": 10,
+      "name": "Cat Bell",
+      "description": "A cute bell for cat.",
+      "price": "25.00",
+      "category": "accessories",
+      "stock": 25,
+      "is_out_of_stock": false,
+      "is_bestseller": false,
+      "rating": 3.5,
+      "created_at": "2026-01-01T04:51:19.160298+00:00"
+    },
+    {
+      "id": 9,
+      "name": "Dog Toy",
+      "description": "Playing for dog.",
+      "price": "20.00",
+      "category": "accessories",
+      "stock": 10,
+      "is_out_of_stock": false,
+      "is_bestseller": true,
+      "rating": 4.0,
+      "created_at": "2026-01-01T04:47:09.538986+00:00"
+    },
+    {
+      "id": 8,
+      "name": "Dog Churpi",
+      "description": "Tasty",
+      "price": "20.00",
+      "category": "dog-food",
+      "stock": 10,
+      "is_out_of_stock": false,
+      "is_bestseller": false,
+      "rating": 5.0,
+      "created_at": "2026-01-01T03:59:27.262525+00:00"
+    },
+    {
+      "id": 7,
+      "name": "Cat candy ",
+      "description": "gffb",
+      "price": "10.00",
+      "category": "cat-food",
+      "stock": 10,
+      "is_out_of_stock": false,
+      "is_bestseller": true,
+      "rating": 4.5,
+      "created_at": "2025-12-31T18:13:19.426668+00:00"
+    }
+  ],
+  "orders": [
+    {
+      "id": 5,
+      "user_id": 1,
+      "order_id": "FF4BAE20B0",
+      "total_amount": "20.00",
+      "status": "delivered",
+      "payment_status": "paid",
+      "created_at": "2026-01-10T15:41:26.641712+00:00",
+      "shipping_address": "San Francisco"
+    },
+    {
+      "id": 4,
+      "user_id": 1,
+      "order_id": "FF8202FC37",
+      "total_amount": "20.00",
+      "status": "delivered",
+      "payment_status": "paid",
+      "created_at": "2026-01-10T15:28:54.232362+00:00",
+      "shipping_address": null
+    },
+    {
+      "id": 3,
+      "user_id": 1,
+      "order_id": "FF8CA98A82",
+      "total_amount": "20.00",
+      "status": "delivered",
+      "payment_status": "paid",
+      "created_at": "2026-01-10T15:22:09.455239+00:00",
+      "shipping_address": null
+    },
+    {
+      "id": 2,
+      "user_id": 1,
+      "order_id": "FFB054D5BE",
+      "total_amount": "10.00",
+      "status": "delivered",
+      "payment_status": "paid",
+      "created_at": "2026-01-10T14:26:00.833840+00:00",
+      "shipping_address": null
+    },
+    {
+      "id": 6,
+      "user_id": 1,
+      "order_id": "FF99A6AFDE",
+      "total_amount": "25.00",
+      "status": "processing",
+      "payment_status": "unpaid",
+      "created_at": "2026-01-10T15:53:04.796254+00:00",
+      "shipping_address": "San Francisco"
+    },
+    {
+      "id": 8,
+      "user_id": 5,
+      "order_id": "FF6152576E",
+      "total_amount": "10.00",
+      "status": "delivered",
+      "payment_status": "paid",
+      "created_at": "2026-01-11T04:13:25.309841+00:00",
+      "shipping_address": "Sunset View"
+    },
+    {
+      "id": 1,
+      "user_id": 1,
+      "order_id": "FF79212DDD",
+      "total_amount": "20.00",
+      "status": "shipped",
+      "payment_status": "unpaid",
+      "created_at": "2026-01-10T09:40:27.784535+00:00",
+      "shipping_address": null
+    },
+    {
+      "id": 7,
+      "user_id": 5,
+      "order_id": "FFF04DD562",
+      "total_amount": "20.00",
+      "status": "delivered",
+      "payment_status": "paid",
+      "created_at": "2026-01-11T04:02:54.057201+00:00",
+      "shipping_address": "San Francisco"
+    }
+  ],
+  "order_items": [
+    {
+      "id": 1,
+      "order_id": 1,
+      "product_id": 13,
+      "quantity": 1,
+      "price": "20.00"
+    },
+    {
+      "id": 2,
+      "order_id": 2,
+      "product_id": 7,
+      "quantity": 1,
+      "price": "10.00"
+    },
+    {
+      "id": 3,
+      "order_id": 3,
+      "product_id": 8,
+      "quantity": 1,
+      "price": "20.00"
+    },
+    {
+      "id": 4,
+      "order_id": 4,
+      "product_id": 13,
+      "quantity": 1,
+      "price": "20.00"
+    },
+    {
+      "id": 5,
+      "order_id": 5,
+      "product_id": 12,
+      "quantity": 1,
+      "price": "20.00"
+    },
+    {
+      "id": 6,
+      "order_id": 6,
+      "product_id": 10,
+      "quantity": 1,
+      "price": "25.00"
+    },
+    {
+      "id": 7,
+      "order_id": 7,
+      "product_id": 12,
+      "quantity": 1,
+      "price": "20.00"
+    },
+    {
+      "id": 8,
+      "order_id": 8,
+      "product_id": 7,
+      "quantity": 1,
+      "price": "10.00"
+    }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "product_id": 12,
+      "user_id": 1,
+      "rating": 4,
+      "comment": "Very Nice Product. Really Liked it",
+      "created_at": "2026-01-11T15:07:03.988522+00:00"
+    },
+    {
+      "id": 2,
+      "product_id": 7,
+      "user_id": 5,
+      "rating": 5,
+      "comment": "Cat candy is a great product. Our family cat likes it very much and its his favourite candy now.",
+      "created_at": "2026-01-11T16:30:57.600728+00:00"
+    },
+    {
+      "id": 3,
+      "product_id": 14,
+      "user_id": 1,
+      "rating": 5,
+      "comment": "Amazing quality! My dog absolutely loves this food. Highly recommended for all pet parents.",
+      "created_at": "2026-01-11T16:49:13.417962+00:00"
+    },
+    {
+      "id": 4,
+      "product_id": 13,
+      "user_id": 4,
+      "rating": 4,
+      "comment": "Great product with excellent nutritional value. My cat has been healthier since switching to this.",
+      "created_at": "2026-01-11T16:49:13.735370+00:00"
+    },
+    {
+      "id": 5,
+      "product_id": 12,
+      "user_id": 6,
+      "rating": 5,
+      "comment": "Outstanding service and premium quality products. FurFeast never disappoints us and our pets.",
+      "created_at": "2026-01-11T16:49:14.036636+00:00"
+    },
+    {
+      "id": 6,
+      "product_id": 11,
+      "user_id": 5,
+      "rating": 4,
+      "comment": "Very satisfied with the purchase. Fast delivery and my pet loves the taste of this food.",
+      "created_at": "2026-01-11T16:49:14.339177+00:00"
+    },
+    {
+      "id": 7,
+      "product_id": 10,
+      "user_id": 7,
+      "rating": 5,
+      "comment": "Best pet food brand I've tried! My pets are more energetic and their coat looks shinier.",
+      "created_at": "2026-01-11T16:49:14.640569+00:00"
+    },
+    {
+      "id": 8,
+      "product_id": 9,
+      "user_id": 1,
+      "rating": 4,
+      "comment": "Excellent value for money. The ingredients are natural and my pets digest it well.",
+      "created_at": "2026-01-11T16:49:14.943758+00:00"
+    },
+    {
+      "id": 9,
+      "product_id": 8,
+      "user_id": 4,
+      "rating": 5,
+      "comment": "My dog's favorite! He gets so excited when he sees the FurFeast bag. Quality is top-notch.",
+      "created_at": "2026-01-11T16:49:15.253899+00:00"
+    },
+    {
+      "id": 10,
+      "product_id": 7,
+      "user_id": 6,
+      "rating": 4,
+      "comment": "Good product overall. My cat is picky but she actually enjoys this food. Will order again.",
+      "created_at": "2026-01-11T16:49:15.555897+00:00"
+    }
+  ]
+}

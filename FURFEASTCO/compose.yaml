@@ -2,21 +2,20 @@ services:
   furfeastco:
     build: .
     ports:
-      - mode: ingress
-        target: 8000
+      - "8080:8080"
     environment:
       DEBUG: "False"
-      ALLOWED_HOSTS: "taj8z613n2jd7-furfeastco.prod2.defang.dev,localhost,127.0.0.1"
-      DB_NAME: "postgres"
-      DB_USER: "postgres.wivxshghrwmgxstaowjl"
-      DB_PASSWORD: "301197997Mom@"
-      DB_HOST: "aws-1-ap-northeast-2.pooler.supabase.com"
-      DB_PORT: "5432"
+      DJANGO_SETTINGS_MODULE: "FURFEASTCO.settings"
       SECRET_KEY: "django-insecure-u%=m_jym@7l@45gval389byel^zg#%7pian(h3p0j68y90%+q+"
-      SUPABASE_URL: "https://wivxshghrwmgxstaowjl.supabase.co"
-      SUPABASE_SERVICE_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndpdnhzaGdocndtZ3hzdGFvd2psIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2NzE4NDU2MSwiZXhwIjoyMDgyNzYwNTYxfQ.F62rm6cFzBccK477VyqFVSjXCzCeW4ZmsTQ1LJYrOvY"
+      DEBUG: "False"
+      DB_HOST: "34.129.215.28"
+      DB_NAME: "furfeast"
+      DB_USER: "furfeast-user"
+      DB_PASSWORD: "FurfeastDB2024!"
+      DB_PORT: "5432"
       EMAIL_HOST_USER: "cofurfeast@gmail.com"
       EMAIL_HOST_PASSWORD: "omylzdzofbxymrxv"
+      GS_BUCKET_NAME: "furfeastco-media"
     deploy:
       resources:
         reservations:

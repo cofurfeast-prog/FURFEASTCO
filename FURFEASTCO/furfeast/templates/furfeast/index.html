@@ -1,5 +1,6 @@
 {% extends 'furfeast/base.html' %}
 {% load static %}
+{% load image_filters %}
 
 {% block title %}FURFEAST CO. — Premium Pet Food & Accessories | Natural and Nutritious{% endblock %}
 
@@ -11,7 +12,7 @@
     </section>
 
     <!-- Promo Badges -->
-    <section class="py-8 md:py-12 bg-white">
+    <section class="py-8 md:py-12 bg-background">
         <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="flex flex-col items-center text-center group">
@@ -23,8 +24,8 @@
                                 d="M10 17h4V5H2v12h3m15 0h1v-3.34a1 1 0 0 0-.293-.707L17.414 9.66a1 1 0 0 0-.707-.293H15V17h4zm-5-3h5m-4 7a2 2 0 1 1-4 0m13 0a2 2 0 1 1-4 0" />
                         </svg>
                     </div>
-                    <h3 class="font-bold text-slate-800">Free Shipping</h3>
-                    <p class="text-sm text-slate-500">On all orders over $50</p>
+                    <h3 class="font-bold text-foreground">Free Shipping</h3>
+                    <p class="text-sm text-muted-foreground">On all orders over $50</p>
                 </div>
                 <div class="flex flex-col items-center text-center group">
                     <div
@@ -35,8 +36,8 @@
                             <path d="m9 12 2 2 4-4" />
                         </svg>
                     </div>
-                    <h3 class="font-bold text-slate-800">Premium Quality</h3>
-                    <p class="text-sm text-slate-500">Vet-approved products</p>
+                    <h3 class="font-bold text-foreground">Premium Quality</h3>
+                    <p class="text-sm text-muted-foreground">Vet-approved products</p>
                 </div>
                 <div class="flex flex-col items-center text-center group">
                     <div
@@ -47,8 +48,8 @@
                                 d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 0C1.46 6.7 1.33 10.28 4 13l8 8 8-8c2.67-2.72 2.54-6.3 0-8.42Z" />
                         </svg>
                     </div>
-                    <h3 class="font-bold text-slate-800">Made with Love</h3>
-                    <p class="text-sm text-slate-500">Because they're family</p>
+                    <h3 class="font-bold text-foreground">Made with Love</h3>
+                    <p class="text-sm text-muted-foreground">Because they're family</p>
                 </div>
                 <div class="flex flex-col items-center text-center group">
                     <div
@@ -60,15 +61,15 @@
                             <line x1="12" x2="12" y1="3" y2="15" />
                         </svg>
                     </div>
-                    <h3 class="font-bold text-slate-800">Easy Returns</h3>
-                    <p class="text-sm text-slate-500">30-day money back guarantee</p>
+                    <h3 class="font-bold text-foreground">Easy Returns</h3>
+                    <p class="text-sm text-muted-foreground">30-day money back guarantee</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Flash Sale Banner Section -->
-    <section class="py-8 md:py-16 bg-primary relative overflow-hidden">
+    <section class="py-8 md:py-16 bg-background relative overflow-hidden">
         <!-- Decorative Elements -->
         <div class="absolute inset-0 opacity-10 pointer-events-none">
             <div class="absolute top-0 left-1/4 w-64 h-64 bg-white rounded-full blur-3xl animate-pulse-slow"></div>
@@ -92,7 +93,7 @@
                         {% if flash_sale.category %}{{ flash_sale.get_category_display }}{% elif flash_sale.product %}{{ flash_sale.product.name }}{% else %}select items{% endif %}!
                     </p>
                     <a href="{% if flash_sale.category %}/shop/?category={{ flash_sale.category }}{% elif flash_sale.product %}/shop/?q={{ flash_sale.product.name }}{% else %}/shop/{% endif %}"
-                        class="inline-block bg-white text-primary font-bold px-10 py-4 rounded-full hover:bg-white/90 hover:scale-105 transition-all shadow-xl text-lg">
+                        class="inline-block bg-white text-background font-bold px-10 py-4 rounded-full hover:bg-white/90 hover:scale-105 transition-all shadow-xl text-lg">
                         Shop the Sale
                     </a>
                     {% else %}
@@ -104,7 +105,7 @@
                         Stay tuned for amazing deals on premium pet products!
                     </p>
                     <a href="/shop/"
-                        class="inline-block bg-white text-primary font-bold px-10 py-4 rounded-full hover:bg-white/90 hover:scale-105 transition-all shadow-xl text-lg">
+                        class="inline-block bg-white text-background font-bold px-10 py-4 rounded-full hover:bg-white/90 hover:scale-105 transition-all shadow-xl text-lg">
                         Browse Collection
                     </a>
                     {% endif %}
@@ -120,14 +121,14 @@
                         <div class="flex flex-col items-center">
                             <div
                                 class="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-2xl flex items-center justify-center shadow-2xl">
-                                <span id="days" class="text-2xl sm:text-3xl font-extrabold text-primary">00</span>
+                                <span id="days" class="text-2xl sm:text-3xl font-extrabold text-background">00</span>
                             </div>
                             <span class="text-[10px] text-white/80 font-bold mt-2 uppercase tracking-widest">DAYS</span>
                         </div>
                         <div class="flex flex-col items-center">
                             <div
                                 class="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-2xl flex items-center justify-center shadow-2xl">
-                                <span id="hours" class="text-2xl sm:text-3xl font-extrabold text-primary">00</span>
+                                <span id="hours" class="text-2xl sm:text-3xl font-extrabold text-background">00</span>
                             </div>
                             <span
                                 class="text-[10px] text-white/80 font-bold mt-2 uppercase tracking-widest">HOURS</span>
@@ -135,14 +136,14 @@
                         <div class="flex flex-col items-center">
                             <div
                                 class="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-2xl flex items-center justify-center shadow-2xl">
-                                <span id="minutes" class="text-2xl sm:text-3xl font-extrabold text-primary">00</span>
+                                <span id="minutes" class="text-2xl sm:text-3xl font-extrabold text-background">00</span>
                             </div>
                             <span class="text-[10px] text-white/80 font-bold mt-2 uppercase tracking-widest">MINS</span>
                         </div>
                         <div class="flex flex-col items-center">
                             <div
                                 class="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-2xl flex items-center justify-center shadow-2xl">
-                                <span id="seconds" class="text-2xl sm:text-3xl font-extrabold text-primary">00</span>
+                                <span id="seconds" class="text-2xl sm:text-3xl font-extrabold text-background">00</span>
                             </div>
                             <span class="text-[10px] text-white/80 font-bold mt-2 uppercase tracking-widest">SECS</span>
                         </div>
@@ -155,21 +156,21 @@
 
     <!-- Active Discounts Section -->
     {% if promo_codes %}
-    <section class="py-12 md:py-16 bg-[#1a1208] overflow-hidden">
+    <section class="py-12 md:py-16 bg-background overflow-hidden">
         <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
             <!-- Header with lines -->
             <div class="flex items-center justify-center gap-6 mb-12">
-                <div class="h-[1px] bg-[#f97316] opacity-30 w-12 sm:w-24"></div>
-                <h2 class="text-xs sm:text-sm font-bold text-[#f97316] uppercase tracking-[0.4em] whitespace-nowrap">
+                <div class="h-[1px] bg-primary opacity-30 w-12 sm:w-24"></div>
+                <h2 class="text-xs sm:text-sm font-bold text-primary uppercase tracking-[0.4em] whitespace-nowrap">
                     Active Discounts</h2>
-                <div class="h-[1px] bg-[#f97316] opacity-30 w-12 sm:w-24"></div>
+                <div class="h-[1px] bg-primary opacity-30 w-12 sm:w-24"></div>
             </div>
 
             <div class="flex flex-col items-center gap-8">
                 {% for promo in promo_codes %}
                 <div class="w-full max-w-3xl px-4">
                     <div
-                        class="bg-[#0a0a0a] border-2 border-dashed border-[#f97316] rounded-[2.5rem] p-8 sm:p-12 flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-8 transition-all duration-300">
+                        class="bg-background border-2 border-dashed border-primary rounded-[2.5rem] p-8 sm:p-12 flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-8 transition-all duration-300">
                         <div class="flex-1 text-center sm:text-left min-w-0">
                             <span
                                 class="block text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 sm:mb-3">USE
@@ -181,8 +182,8 @@
                         <div class="hidden sm:block h-16 sm:h-20 w-px bg-white/10 mx-6 sm:mx-10 shrink-0"></div>
                         <div class="text-center sm:text-left shrink-0">
                             <span
-                                class="block text-[10px] sm:text-xs font-bold text-[#f97316] uppercase tracking-widest mb-2 sm:mb-3">SAVE</span>
-                            <h3 class="text-3xl sm:text-4xl lg:text-5xl font-black text-[#f97316] whitespace-nowrap">${{ promo.discount_amount }}</h3>
+                                class="block text-[10px] sm:text-xs font-bold text-primary uppercase tracking-widest mb-2 sm:mb-3">SAVE</span>
+                            <h3 class="text-3xl sm:text-4xl lg:text-5xl font-black text-primary whitespace-nowrap">${{ promo.discount_amount }}</h3>
                         </div>
                     </div>
                 </div>
@@ -194,13 +195,13 @@
 
     <!-- Featured Products -->
     {% if featured_products %}
-    <section class="py-16 md:py-20 bg-white">
+    <section class="py-16 md:py-20 bg-background">
         <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
                 <div>
-                    <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4 font-heading tracking-tight">
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-foreground mb-4 font-heading tracking-tight">
                         Featured Products</h2>
-                    <p class="text-slate-500 text-lg">Handpicked favorites for your beloved pets</p>
+                    <p class="text-muted-foreground text-lg">Handpicked favorites for your beloved pets</p>
                 </div>
                 <a href="{% url 'shop' %}"
                     class="text-primary font-bold flex items-center gap-2 hover:gap-3 transition-all">
@@ -214,7 +215,7 @@
                     <div class="relative aspect-square overflow-hidden bg-slate-100">
                         <a href="{% url 'product_detail' product.id %}">
                             {% if product.image %}
-                            <img src="{{ product.image.url }}" alt="{{ product.name }}"
+                            <img src="{{ product.image|safe_image_url }}" alt="{{ product.name }}"
                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                             {% else %}
                             <div class="w-full h-full flex items-center justify-center text-slate-400">No Image</div>
@@ -280,12 +281,12 @@
     {% endif %}
 
     <!-- Customer Reviews Section -->
-    <section class="py-12 md:py-16 bg-gradient-to-br from-slate-50 to-slate-100">
+    <section class="py-12 md:py-16 bg-background">
         <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
             <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4 font-heading tracking-tight">
+                <h2 class="text-3xl md:text-5xl font-extrabold text-foreground mb-4 font-heading tracking-tight">
                     What Pet Parents Say</h2>
-                <p class="text-slate-600 text-lg max-w-2xl mx-auto">Real stories from our happy customers and their beloved pets</p>
+                <p class="text-muted-foreground text-lg max-w-2xl mx-auto">Real stories from our happy customers and their beloved pets</p>
             </div>
 
             <!-- Reviews Slider -->
@@ -374,29 +375,29 @@
             </div>
 
             <!-- Trust Indicators -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mt-16 pt-12 border-t border-slate-200">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mt-16 pt-12 border-t border-green-600">
                 <div>
                     <div class="text-3xl font-extrabold text-primary mb-2">10k+</div>
-                    <p class="text-slate-600 font-medium">Happy Pet Parents</p>
+                    <p class="text-muted-foreground font-medium">Happy Pet Parents</p>
                 </div>
                 <div>
                     <div class="text-3xl font-extrabold text-primary mb-2">4.9</div>
-                    <p class="text-slate-600 font-medium">Average Rating</p>
+                    <p class="text-muted-foreground font-medium">Average Rating</p>
                 </div>
                 <div>
                     <div class="text-3xl font-extrabold text-primary mb-2">50k+</div>
-                    <p class="text-slate-600 font-medium">Orders Delivered</p>
+                    <p class="text-muted-foreground font-medium">Orders Delivered</p>
                 </div>
                 <div>
                     <div class="text-3xl font-extrabold text-primary mb-2">99%</div>
-                    <p class="text-slate-600 font-medium">Satisfaction Rate</p>
+                    <p class="text-muted-foreground font-medium">Satisfaction Rate</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Newsletter Section -->
-    <section class="py-16 md:py-20 bg-slate-900 relative overflow-hidden">
+    <section class="py-16 md:py-20 bg-background relative overflow-hidden">
         <div class="absolute right-0 bottom-0 w-1/3 h-full bg-primary/5 rounded-l-full blur-3xl"></div>
         <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 relative">
             <div class="max-w-3xl mx-auto text-center">
@@ -409,7 +410,7 @@
                     <input type="email" name="email" placeholder="Enter your email address" required
                         class="flex-1 bg-white/10 border border-white/20 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-primary transition-colors">
                     <button type="submit"
-                        class="bg-primary text-white font-bold px-10 py-4 rounded-2xl hover:bg-orange-600 transition-all shadow-xl shadow-primary/20">
+                        class="bg-primary text-white font-bold px-10 py-4 rounded-2xl hover:bg-yellow-600 transition-all shadow-xl shadow-primary/20">
                         Join Family
                     </button>
                 </form>
@@ -417,6 +418,9 @@
         </div>
     </section>
 </main>
+
+
+
 {% endblock %}
 
 {% block extra_js %}
@@ -425,9 +429,9 @@
 const heroImages = [
     {% for hero in hero_images %}
     {
-        image: "{{ hero.image.url }}",
-        desktop_image: {% if hero.desktop_image %}"{{ hero.desktop_image.url }}"{% else %}"{{ hero.image.url }}"{% endif %},
-        mobile_image: {% if hero.mobile_image %}"{{ hero.mobile_image.url }}"{% else %}"{{ hero.image.url }}"{% endif %},
+        image: {% if hero.image %}"{{ hero.image|safe_image_url }}"{% else %}""{% endif %},
+        desktop_image: {% if hero.desktop_image %}"{{ hero.desktop_image|safe_image_url }}"{% elif hero.image %}"{{ hero.image|safe_image_url }}"{% else %}""{% endif %},
+        mobile_image: {% if hero.mobile_image %}"{{ hero.mobile_image|safe_image_url }}"{% elif hero.image %}"{{ hero.image|safe_image_url }}"{% else %}""{% endif %},
         headline: "{{ hero.headline|escapejs }}",
         subheadline: "{{ hero.subheadline|escapejs }}",
         cta_text: "{{ hero.cta_text|escapejs }}",
@@ -471,4 +475,6 @@ const heroImages = [
         updateCountdown();
     }
 </script>
+
+
 {% endblock %}

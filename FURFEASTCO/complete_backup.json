@@ -1,0 +1,3484 @@
+[
+{
+  "model": "auth.permission",
+  "pk": 1,
+  "fields": {
+    "name": "Can add log entry",
+    "content_type": 1,
+    "codename": "add_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 2,
+  "fields": {
+    "name": "Can change log entry",
+    "content_type": 1,
+    "codename": "change_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 3,
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": 1,
+    "codename": "delete_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 4,
+  "fields": {
+    "name": "Can view log entry",
+    "content_type": 1,
+    "codename": "view_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 5,
+  "fields": {
+    "name": "Can add permission",
+    "content_type": 2,
+    "codename": "add_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 6,
+  "fields": {
+    "name": "Can change permission",
+    "content_type": 2,
+    "codename": "change_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 7,
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": 2,
+    "codename": "delete_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 8,
+  "fields": {
+    "name": "Can view permission",
+    "content_type": 2,
+    "codename": "view_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 9,
+  "fields": {
+    "name": "Can add group",
+    "content_type": 3,
+    "codename": "add_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 10,
+  "fields": {
+    "name": "Can change group",
+    "content_type": 3,
+    "codename": "change_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 11,
+  "fields": {
+    "name": "Can delete group",
+    "content_type": 3,
+    "codename": "delete_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 12,
+  "fields": {
+    "name": "Can view group",
+    "content_type": 3,
+    "codename": "view_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 13,
+  "fields": {
+    "name": "Can add user",
+    "content_type": 4,
+    "codename": "add_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 14,
+  "fields": {
+    "name": "Can change user",
+    "content_type": 4,
+    "codename": "change_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 15,
+  "fields": {
+    "name": "Can delete user",
+    "content_type": 4,
+    "codename": "delete_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 16,
+  "fields": {
+    "name": "Can view user",
+    "content_type": 4,
+    "codename": "view_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 17,
+  "fields": {
+    "name": "Can add content type",
+    "content_type": 5,
+    "codename": "add_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 18,
+  "fields": {
+    "name": "Can change content type",
+    "content_type": 5,
+    "codename": "change_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 19,
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": 5,
+    "codename": "delete_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 20,
+  "fields": {
+    "name": "Can view content type",
+    "content_type": 5,
+    "codename": "view_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 21,
+  "fields": {
+    "name": "Can add session",
+    "content_type": 6,
+    "codename": "add_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 22,
+  "fields": {
+    "name": "Can change session",
+    "content_type": 6,
+    "codename": "change_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 23,
+  "fields": {
+    "name": "Can delete session",
+    "content_type": 6,
+    "codename": "delete_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 24,
+  "fields": {
+    "name": "Can view session",
+    "content_type": 6,
+    "codename": "view_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 25,
+  "fields": {
+    "name": "Can add promo code",
+    "content_type": 7,
+    "codename": "add_promocode"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 26,
+  "fields": {
+    "name": "Can change promo code",
+    "content_type": 7,
+    "codename": "change_promocode"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 27,
+  "fields": {
+    "name": "Can delete promo code",
+    "content_type": 7,
+    "codename": "delete_promocode"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 28,
+  "fields": {
+    "name": "Can view promo code",
+    "content_type": 7,
+    "codename": "view_promocode"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 29,
+  "fields": {
+    "name": "Can add cart",
+    "content_type": 8,
+    "codename": "add_cart"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 30,
+  "fields": {
+    "name": "Can change cart",
+    "content_type": 8,
+    "codename": "change_cart"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 31,
+  "fields": {
+    "name": "Can delete cart",
+    "content_type": 8,
+    "codename": "delete_cart"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 32,
+  "fields": {
+    "name": "Can view cart",
+    "content_type": 8,
+    "codename": "view_cart"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 33,
+  "fields": {
+    "name": "Can add product",
+    "content_type": 9,
+    "codename": "add_product"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 34,
+  "fields": {
+    "name": "Can change product",
+    "content_type": 9,
+    "codename": "change_product"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 35,
+  "fields": {
+    "name": "Can delete product",
+    "content_type": 9,
+    "codename": "delete_product"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 36,
+  "fields": {
+    "name": "Can view product",
+    "content_type": 9,
+    "codename": "view_product"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 37,
+  "fields": {
+    "name": "Can add flash sale",
+    "content_type": 10,
+    "codename": "add_flashsale"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 38,
+  "fields": {
+    "name": "Can change flash sale",
+    "content_type": 10,
+    "codename": "change_flashsale"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 39,
+  "fields": {
+    "name": "Can delete flash sale",
+    "content_type": 10,
+    "codename": "delete_flashsale"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 40,
+  "fields": {
+    "name": "Can view flash sale",
+    "content_type": 10,
+    "codename": "view_flashsale"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 41,
+  "fields": {
+    "name": "Can add cart item",
+    "content_type": 11,
+    "codename": "add_cartitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 42,
+  "fields": {
+    "name": "Can change cart item",
+    "content_type": 11,
+    "codename": "change_cartitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 43,
+  "fields": {
+    "name": "Can delete cart item",
+    "content_type": 11,
+    "codename": "delete_cartitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 44,
+  "fields": {
+    "name": "Can view cart item",
+    "content_type": 11,
+    "codename": "view_cartitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 45,
+  "fields": {
+    "name": "Can add product image",
+    "content_type": 12,
+    "codename": "add_productimage"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 46,
+  "fields": {
+    "name": "Can change product image",
+    "content_type": 12,
+    "codename": "change_productimage"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 47,
+  "fields": {
+    "name": "Can delete product image",
+    "content_type": 12,
+    "codename": "delete_productimage"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 48,
+  "fields": {
+    "name": "Can view product image",
+    "content_type": 12,
+    "codename": "view_productimage"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 49,
+  "fields": {
+    "name": "Can add review",
+    "content_type": 13,
+    "codename": "add_review"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 50,
+  "fields": {
+    "name": "Can change review",
+    "content_type": 13,
+    "codename": "change_review"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 51,
+  "fields": {
+    "name": "Can delete review",
+    "content_type": 13,
+    "codename": "delete_review"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 52,
+  "fields": {
+    "name": "Can view review",
+    "content_type": 13,
+    "codename": "view_review"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 53,
+  "fields": {
+    "name": "Can add wishlist",
+    "content_type": 14,
+    "codename": "add_wishlist"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 54,
+  "fields": {
+    "name": "Can change wishlist",
+    "content_type": 14,
+    "codename": "change_wishlist"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 55,
+  "fields": {
+    "name": "Can delete wishlist",
+    "content_type": 14,
+    "codename": "delete_wishlist"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 56,
+  "fields": {
+    "name": "Can view wishlist",
+    "content_type": 14,
+    "codename": "view_wishlist"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 57,
+  "fields": {
+    "name": "Can add blog",
+    "content_type": 15,
+    "codename": "add_blog"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 58,
+  "fields": {
+    "name": "Can change blog",
+    "content_type": 15,
+    "codename": "change_blog"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 59,
+  "fields": {
+    "name": "Can delete blog",
+    "content_type": 15,
+    "codename": "delete_blog"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 60,
+  "fields": {
+    "name": "Can view blog",
+    "content_type": 15,
+    "codename": "view_blog"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 61,
+  "fields": {
+    "name": "Can add user profile",
+    "content_type": 16,
+    "codename": "add_userprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 62,
+  "fields": {
+    "name": "Can change user profile",
+    "content_type": 16,
+    "codename": "change_userprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 63,
+  "fields": {
+    "name": "Can delete user profile",
+    "content_type": 16,
+    "codename": "delete_userprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 64,
+  "fields": {
+    "name": "Can view user profile",
+    "content_type": 16,
+    "codename": "view_userprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 65,
+  "fields": {
+    "name": "Can add order",
+    "content_type": 17,
+    "codename": "add_order"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 66,
+  "fields": {
+    "name": "Can change order",
+    "content_type": 17,
+    "codename": "change_order"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 67,
+  "fields": {
+    "name": "Can delete order",
+    "content_type": 17,
+    "codename": "delete_order"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 68,
+  "fields": {
+    "name": "Can view order",
+    "content_type": 17,
+    "codename": "view_order"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 69,
+  "fields": {
+    "name": "Can add order item",
+    "content_type": 18,
+    "codename": "add_orderitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 70,
+  "fields": {
+    "name": "Can change order item",
+    "content_type": 18,
+    "codename": "change_orderitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 71,
+  "fields": {
+    "name": "Can delete order item",
+    "content_type": 18,
+    "codename": "delete_orderitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 72,
+  "fields": {
+    "name": "Can view order item",
+    "content_type": 18,
+    "codename": "view_orderitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 73,
+  "fields": {
+    "name": "Can add about us",
+    "content_type": 19,
+    "codename": "add_aboutus"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 74,
+  "fields": {
+    "name": "Can change about us",
+    "content_type": 19,
+    "codename": "change_aboutus"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 75,
+  "fields": {
+    "name": "Can delete about us",
+    "content_type": 19,
+    "codename": "delete_aboutus"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 76,
+  "fields": {
+    "name": "Can view about us",
+    "content_type": 19,
+    "codename": "view_aboutus"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 77,
+  "fields": {
+    "name": "Can add mass email campaign",
+    "content_type": 20,
+    "codename": "add_massemailcampaign"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 78,
+  "fields": {
+    "name": "Can change mass email campaign",
+    "content_type": 20,
+    "codename": "change_massemailcampaign"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 79,
+  "fields": {
+    "name": "Can delete mass email campaign",
+    "content_type": 20,
+    "codename": "delete_massemailcampaign"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 80,
+  "fields": {
+    "name": "Can view mass email campaign",
+    "content_type": 20,
+    "codename": "view_massemailcampaign"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 81,
+  "fields": {
+    "name": "Can add business target",
+    "content_type": 21,
+    "codename": "add_businesstarget"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 82,
+  "fields": {
+    "name": "Can change business target",
+    "content_type": 21,
+    "codename": "change_businesstarget"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 83,
+  "fields": {
+    "name": "Can delete business target",
+    "content_type": 21,
+    "codename": "delete_businesstarget"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 84,
+  "fields": {
+    "name": "Can view business target",
+    "content_type": 21,
+    "codename": "view_businesstarget"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 85,
+  "fields": {
+    "name": "Can add hero image",
+    "content_type": 22,
+    "codename": "add_heroimage"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 86,
+  "fields": {
+    "name": "Can change hero image",
+    "content_type": 22,
+    "codename": "change_heroimage"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 87,
+  "fields": {
+    "name": "Can delete hero image",
+    "content_type": 22,
+    "codename": "delete_heroimage"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 88,
+  "fields": {
+    "name": "Can view hero image",
+    "content_type": 22,
+    "codename": "view_heroimage"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 89,
+  "fields": {
+    "name": "Can add fur feast family",
+    "content_type": 23,
+    "codename": "add_furfeastfamily"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 90,
+  "fields": {
+    "name": "Can change fur feast family",
+    "content_type": 23,
+    "codename": "change_furfeastfamily"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 91,
+  "fields": {
+    "name": "Can delete fur feast family",
+    "content_type": 23,
+    "codename": "delete_furfeastfamily"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 92,
+  "fields": {
+    "name": "Can view fur feast family",
+    "content_type": 23,
+    "codename": "view_furfeastfamily"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 93,
+  "fields": {
+    "name": "Can add pending registration",
+    "content_type": 24,
+    "codename": "add_pendingregistration"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 94,
+  "fields": {
+    "name": "Can change pending registration",
+    "content_type": 24,
+    "codename": "change_pendingregistration"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 95,
+  "fields": {
+    "name": "Can delete pending registration",
+    "content_type": 24,
+    "codename": "delete_pendingregistration"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 96,
+  "fields": {
+    "name": "Can view pending registration",
+    "content_type": 24,
+    "codename": "view_pendingregistration"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 97,
+  "fields": {
+    "name": "Can add notification",
+    "content_type": 25,
+    "codename": "add_notification"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 98,
+  "fields": {
+    "name": "Can change notification",
+    "content_type": 25,
+    "codename": "change_notification"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 99,
+  "fields": {
+    "name": "Can delete notification",
+    "content_type": 25,
+    "codename": "delete_notification"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 100,
+  "fields": {
+    "name": "Can view notification",
+    "content_type": 25,
+    "codename": "view_notification"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 101,
+  "fields": {
+    "name": "Can add contact message",
+    "content_type": 26,
+    "codename": "add_contactmessage"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 102,
+  "fields": {
+    "name": "Can change contact message",
+    "content_type": 26,
+    "codename": "change_contactmessage"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 103,
+  "fields": {
+    "name": "Can delete contact message",
+    "content_type": 26,
+    "codename": "delete_contactmessage"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 104,
+  "fields": {
+    "name": "Can view contact message",
+    "content_type": 26,
+    "codename": "view_contactmessage"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 105,
+  "fields": {
+    "name": "Can add customer message",
+    "content_type": 27,
+    "codename": "add_customermessage"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 106,
+  "fields": {
+    "name": "Can change customer message",
+    "content_type": 27,
+    "codename": "change_customermessage"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 107,
+  "fields": {
+    "name": "Can delete customer message",
+    "content_type": 27,
+    "codename": "delete_customermessage"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 108,
+  "fields": {
+    "name": "Can view customer message",
+    "content_type": 27,
+    "codename": "view_customermessage"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 109,
+  "fields": {
+    "name": "Can add chat room",
+    "content_type": 28,
+    "codename": "add_chatroom"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 110,
+  "fields": {
+    "name": "Can change chat room",
+    "content_type": 28,
+    "codename": "change_chatroom"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 111,
+  "fields": {
+    "name": "Can delete chat room",
+    "content_type": 28,
+    "codename": "delete_chatroom"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 112,
+  "fields": {
+    "name": "Can view chat room",
+    "content_type": 28,
+    "codename": "view_chatroom"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 113,
+  "fields": {
+    "name": "Can add chat bot intent",
+    "content_type": 29,
+    "codename": "add_chatbotintent"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 114,
+  "fields": {
+    "name": "Can change chat bot intent",
+    "content_type": 29,
+    "codename": "change_chatbotintent"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 115,
+  "fields": {
+    "name": "Can delete chat bot intent",
+    "content_type": 29,
+    "codename": "delete_chatbotintent"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 116,
+  "fields": {
+    "name": "Can view chat bot intent",
+    "content_type": 29,
+    "codename": "view_chatbotintent"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 117,
+  "fields": {
+    "name": "Can add chat bot conversation",
+    "content_type": 30,
+    "codename": "add_chatbotconversation"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 118,
+  "fields": {
+    "name": "Can change chat bot conversation",
+    "content_type": 30,
+    "codename": "change_chatbotconversation"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 119,
+  "fields": {
+    "name": "Can delete chat bot conversation",
+    "content_type": 30,
+    "codename": "delete_chatbotconversation"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 120,
+  "fields": {
+    "name": "Can view chat bot conversation",
+    "content_type": 30,
+    "codename": "view_chatbotconversation"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 121,
+  "fields": {
+    "name": "Can add chat bot session",
+    "content_type": 31,
+    "codename": "add_chatbotsession"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 122,
+  "fields": {
+    "name": "Can change chat bot session",
+    "content_type": 31,
+    "codename": "change_chatbotsession"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 123,
+  "fields": {
+    "name": "Can delete chat bot session",
+    "content_type": 31,
+    "codename": "delete_chatbotsession"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 124,
+  "fields": {
+    "name": "Can view chat bot session",
+    "content_type": 31,
+    "codename": "view_chatbotsession"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$mgmLE54tHiHEeVcZs2diY1$pPFzzN1Qm2/mNjab23RkF3ikM2lKY3vonKN9P4LgDPc=",
+    "last_login": "2026-01-24T06:02:47.708Z",
+    "is_superuser": false,
+    "username": "rajeshilamion",
+    "first_name": "Rajesh",
+    "last_name": "KC",
+    "email": "rajeshilamion@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-31T15:45:42.653Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$3qi8XBjDp6BA56EN5X26Li$9tNH2nnPuhpsGxkVksRPisVq5uir8YSMS2MbliVI2wo=",
+    "last_login": "2026-01-24T06:26:20.385Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "adminfurfeastco@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-12-31T15:54:48.312Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$aDmTm9ti5Y93k8iTEu1AwT$W1H5eiW1uS/qsw/V1ndCIW5O1dPRft6RNL7UCLU2X6s=",
+    "last_login": "2026-01-03T09:02:57.740Z",
+    "is_superuser": false,
+    "username": "Puja Chaulagain",
+    "first_name": "",
+    "last_name": "",
+    "email": "adminpuja@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-01-03T08:40:11.897Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$iqUZXWqCAKyXEc3TSnpdqG$mQWaulyA9yz7q93Pk62RNKRLTBfqmJwkATBTIEqwSic=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "test",
+    "first_name": "test",
+    "last_name": "test",
+    "email": "test@gmail.com",
+    "is_staff": false,
+    "is_active": false,
+    "date_joined": "2026-01-03T13:55:38.260Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$szrCvH6mOxlDkvG7iqlurH$EwAkGeJtvNeINCm9liJjJDgf+wAYXQImUCC4zJTw9Gs=",
+    "last_login": "2026-01-18T11:55:30.832Z",
+    "is_superuser": false,
+    "username": "nishakatuwal.77",
+    "first_name": "Nisha",
+    "last_name": "KC",
+    "email": "nishakatuwal.77@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-03T13:56:52.996Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$umM9teAQ7qJC8WNXBCOoyW$+4dPhzaB6suSSuCnQye+24qbZOln+u2hnDTsk+Ctiw8=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "test1",
+    "first_name": "test",
+    "last_name": "test",
+    "email": "test1@gmail.com",
+    "is_staff": false,
+    "is_active": false,
+    "date_joined": "2026-01-03T13:57:16.442Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 7,
+  "fields": {
+    "password": "",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "paypal_test_user",
+    "first_name": "",
+    "last_name": "",
+    "email": "test@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-07T15:30:31.387Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 8,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$ADBMhOz2fMxHCzlIJf5O0Y$qPwazPX0DRfOxp4ljEGDP0NkiaXixiAq/9jAuChTvtk=",
+    "last_login": "2026-01-20T15:35:31.707Z",
+    "is_superuser": false,
+    "username": "ctara9816",
+    "first_name": "Tara",
+    "last_name": "chauhan",
+    "email": "ctara9816@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-15T15:50:16.863Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 9,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$ADBMhOz2fMxHCzlIJf5O0Y$qPwazPX0DRfOxp4ljEGDP0NkiaXixiAq/9jAuChTvtk=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "ctara9816_8",
+    "first_name": "Tara",
+    "last_name": "chauhan",
+    "email": "ctara9816@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-15T15:50:17.603Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 10,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$ADBMhOz2fMxHCzlIJf5O0Y$qPwazPX0DRfOxp4ljEGDP0NkiaXixiAq/9jAuChTvtk=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "ctara9816_9",
+    "first_name": "Tara",
+    "last_name": "chauhan",
+    "email": "ctara9816@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-15T15:50:18.171Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 11,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$ADBMhOz2fMxHCzlIJf5O0Y$qPwazPX0DRfOxp4ljEGDP0NkiaXixiAq/9jAuChTvtk=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "ctara9816_10",
+    "first_name": "Tara",
+    "last_name": "chauhan",
+    "email": "ctara9816@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-15T15:50:21.415Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 13,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$ADBMhOz2fMxHCzlIJf5O0Y$qPwazPX0DRfOxp4ljEGDP0NkiaXixiAq/9jAuChTvtk=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "ctara9816_11",
+    "first_name": "Tara",
+    "last_name": "chauhan",
+    "email": "ctara9816@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-15T15:50:53.336Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 14,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$ADBMhOz2fMxHCzlIJf5O0Y$qPwazPX0DRfOxp4ljEGDP0NkiaXixiAq/9jAuChTvtk=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "ctara9816_12",
+    "first_name": "Tara",
+    "last_name": "chauhan",
+    "email": "ctara9816@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-15T15:55:22.135Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 15,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$ILxgxQDMGA9Gs9CRkEPj7Z$scRwZEClDAnkEalYKXH7Df8gCdNEPI36RWsaa+QpseY=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "walkeralone913",
+    "first_name": "Ram",
+    "last_name": "Sharma",
+    "email": "walkeralone913@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-15T16:09:29.940Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 16,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$ILxgxQDMGA9Gs9CRkEPj7Z$scRwZEClDAnkEalYKXH7Df8gCdNEPI36RWsaa+QpseY=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "walkeralone913_14",
+    "first_name": "Ram",
+    "last_name": "Sharma",
+    "email": "walkeralone913@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-15T16:09:40.036Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 17,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$ILxgxQDMGA9Gs9CRkEPj7Z$scRwZEClDAnkEalYKXH7Df8gCdNEPI36RWsaa+QpseY=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "walkeralone913_15",
+    "first_name": "Ram",
+    "last_name": "Sharma",
+    "email": "walkeralone913@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-15T16:13:08.648Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 18,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$ADBMhOz2fMxHCzlIJf5O0Y$qPwazPX0DRfOxp4ljEGDP0NkiaXixiAq/9jAuChTvtk=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "ctara9816_16",
+    "first_name": "Tara",
+    "last_name": "chauhan",
+    "email": "ctara9816@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-15T16:15:15.904Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 19,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$CNlrj7X0tu3KHniatWLn2b$As4vW+u1zIl65j6enbn1Z8iolG/XUJZbovEZ5McEJbI=",
+    "last_login": "2026-01-15T16:28:05.119Z",
+    "is_superuser": false,
+    "username": "yokinol609",
+    "first_name": "Ram",
+    "last_name": "Sharma",
+    "email": "yokinol609@atinjo.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-15T16:17:12.058Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 20,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$CNlrj7X0tu3KHniatWLn2b$As4vW+u1zIl65j6enbn1Z8iolG/XUJZbovEZ5McEJbI=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "yokinol609_18",
+    "first_name": "Ram",
+    "last_name": "Sharma",
+    "email": "yokinol609@atinjo.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-15T16:20:09.656Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 21,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$bZdxcuXp3J0LrOiqsidnuP$VVGHsH+Nru90EqEWW1p+EzktPUeYFPAxK9tfwDclxY8=",
+    "last_login": "2026-01-15T16:30:25.016Z",
+    "is_superuser": false,
+    "username": "5hycm",
+    "first_name": "Hari ",
+    "last_name": "Bahadur",
+    "email": "5hycm@virgilian.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-15T16:30:01.299Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 22,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$ADBMhOz2fMxHCzlIJf5O0Y$qPwazPX0DRfOxp4ljEGDP0NkiaXixiAq/9jAuChTvtk=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "ctara9816_20",
+    "first_name": "Tara",
+    "last_name": "chauhan",
+    "email": "ctara9816@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-15T16:30:51.564Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 23,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$ILxgxQDMGA9Gs9CRkEPj7Z$scRwZEClDAnkEalYKXH7Df8gCdNEPI36RWsaa+QpseY=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "walkeralone913_21",
+    "first_name": "Ram",
+    "last_name": "Sharma",
+    "email": "walkeralone913@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-15T16:31:20.211Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 1,
+  "fields": {
+    "app_label": "admin",
+    "model": "logentry"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 2,
+  "fields": {
+    "app_label": "auth",
+    "model": "permission"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 3,
+  "fields": {
+    "app_label": "auth",
+    "model": "group"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 4,
+  "fields": {
+    "app_label": "auth",
+    "model": "user"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 5,
+  "fields": {
+    "app_label": "contenttypes",
+    "model": "contenttype"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 6,
+  "fields": {
+    "app_label": "sessions",
+    "model": "session"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 7,
+  "fields": {
+    "app_label": "furfeast",
+    "model": "promocode"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 8,
+  "fields": {
+    "app_label": "furfeast",
+    "model": "cart"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 9,
+  "fields": {
+    "app_label": "furfeast",
+    "model": "product"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 10,
+  "fields": {
+    "app_label": "furfeast",
+    "model": "flashsale"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 11,
+  "fields": {
+    "app_label": "furfeast",
+    "model": "cartitem"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 12,
+  "fields": {
+    "app_label": "furfeast",
+    "model": "productimage"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 13,
+  "fields": {
+    "app_label": "furfeast",
+    "model": "review"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 14,
+  "fields": {
+    "app_label": "furfeast",
+    "model": "wishlist"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 15,
+  "fields": {
+    "app_label": "furfeast",
+    "model": "blog"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 16,
+  "fields": {
+    "app_label": "furfeast",
+    "model": "userprofile"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 17,
+  "fields": {
+    "app_label": "furfeast",
+    "model": "order"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 18,
+  "fields": {
+    "app_label": "furfeast",
+    "model": "orderitem"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 19,
+  "fields": {
+    "app_label": "furfeast",
+    "model": "aboutus"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 20,
+  "fields": {
+    "app_label": "furfeast",
+    "model": "massemailcampaign"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 21,
+  "fields": {
+    "app_label": "furfeast",
+    "model": "businesstarget"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 22,
+  "fields": {
+    "app_label": "furfeast",
+    "model": "heroimage"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 23,
+  "fields": {
+    "app_label": "furfeast",
+    "model": "furfeastfamily"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 24,
+  "fields": {
+    "app_label": "furfeast",
+    "model": "pendingregistration"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 25,
+  "fields": {
+    "app_label": "furfeast",
+    "model": "notification"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 26,
+  "fields": {
+    "app_label": "furfeast",
+    "model": "contactmessage"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 27,
+  "fields": {
+    "app_label": "furfeast",
+    "model": "customermessage"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 28,
+  "fields": {
+    "app_label": "furfeast",
+    "model": "chatroom"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 29,
+  "fields": {
+    "app_label": "furfeast",
+    "model": "chatbotintent"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 30,
+  "fields": {
+    "app_label": "furfeast",
+    "model": "chatbotconversation"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 31,
+  "fields": {
+    "app_label": "furfeast",
+    "model": "chatbotsession"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "9cc2nuucpw739jja17qlnlen5bx36fyu",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSHQKY9x6b7fQGYApWogKe3K-O_apAvd3nPOfYlA21rC1vMS5iTOQovT78YUH7nuIN2p3pqMra7LzHJX5EG7nFrKz8vh_h0U6uVbM1JWgweDyah0RUeD9wAO9cijNwaZtIVovWWMEQ0QOE2Gx6wyKKvF-wPFKDbt:1vbJb1:uo52j07s_y6VCF0D3yINfsWydVflolSWzTrlpJJZ22Y",
+    "expire_date": "2026-01-15T14:24:11.880Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "co9lcvn7howc8n7pbju2a5iq0eofhcav",
+  "fields": {
+    "session_data": ".eJxVjDEOAiEQRe9CbQggjGBp7xkIAzOyaiBZdivj3XWTLbT9773_EjGtS43roDlORZyFEYffDVN-UNtAuad26zL3tswTyk2ROx3y2gs9L7v7d1DTqN-aQ2JDWbnA2jnIyMZqZ4PxFNgrCwwK-QiakQF8VuCJTwoNamKNWbw_6aw4Qg:1vbL4Z:t0JP_ZvO6qL8NaQIkf3lCne6pQ-W2r8s3fpZcs3v-kQ",
+    "expire_date": "2026-01-15T15:58:47.007Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "evofd5d59vi60j61rwx9e3gktcfyn0d3",
+  "fields": {
+    "session_data": ".eJxVjEEOgjAQRe_StWnqMC2tS_ecoZnODIIaSCisjHdXEha6_e-9_zKZtnXIW9Ulj2IuBszpdyvED512IHeabrPleVqXsdhdsQettptFn9fD_TsYqA7fujBQbIDUJ-hDSHgOMSgyNn0KKswEVFLrnI_YOFFMgKhSoqD6wK15fwDi3Tfj:1vbHea:uFDwYS-58h1Tb5FY1UIOYMNMsomXoWXYpXnZvKQQXmw",
+    "expire_date": "2026-01-15T12:19:44.305Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "na1hr0es2l9mjy457swrmd8qrtz1zfom",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGln-Ya8p6XMGa9cfHEC2FCcV4u4QKQW0b2beiwXc1hq2kZcwJ3Zhkp1-N8L4yG0H6Y7t1nnsbV1m4rvCDzr41FN-Xg_376DiqN8acpLgpSBhLAF4QI0JbDk7S15647AUD6WQM05pBcoocDoiCiFVosLeH8zHN1o:1vbHgz:cNt4W_6Sy1Z3Iegv1CJZZhU3Vj3UAGbzXyNAZbOxjaI",
+    "expire_date": "2026-01-15T12:22:13.674Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "oknopaj697ipmx3vvgm3bqrr63fxw091",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSHQKY9x6b7fQGYApWogKe3K-O_apAvd3nPOfYlA21rC1vMS5iTOQovT78YUH7nuIN2p3pqMra7LzHJX5EG7nFrKz8vh_h0U6uVbM1JWgweDyah0RUeD9wAO9cijNwaZtIVovWWMEQ0QOE2Gx6wyKKvF-wPFKDbt:1vbJT9:024Zy9_2DpZM5BOJgmC84SNn5iPNG5uYyfWoxqXtn4U",
+    "expire_date": "2026-01-15T14:16:03.667Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "qga4x6ljnescwmhb0pp102yyuixhy8dk",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGln-Ya8p6XMGa9cfHEC2FCcV4u4QKQW0b2beiwXc1hq2kZcwJ3Zhkp1-N8L4yG0H6Y7t1nnsbV1m4rvCDzr41FN-Xg_376DiqN8acpLgpSBhLAF4QI0JbDk7S15647AUD6WQM05pBcoocDoiCiFVosLeH8zHN1o:1vbu0f:OYv0CiDdibZMsO_n-sm0hazYc84WfB2uxs4fgwW45Q8",
+    "expire_date": "2026-01-17T05:17:05.108Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "w4mdmh2a66ay8sqzcl26ex21q6j4acb2",
+  "fields": {
+    "session_data": ".eJxVjEEOgjAQRe_StWnqMC2tS_ecoZnODIIaSCisjHdXEha6_e-9_zKZtnXIW9Ulj2IuBszpdyvED512IHeabrPleVqXsdhdsQettptFn9fD_TsYqA7fujBQbIDUJ-hDSHgOMSgyNn0KKswEVFLrnI_YOFFMgKhSoqD6wK15fwDi3Tfj:1vayXw:Xlk8Q13k9uyIM1p2hqXhFnkKQrcfvudkmHKDewJ85S4",
+    "expire_date": "2026-01-14T15:55:36.307Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "z7n5c6laqru6afcztxd9et7hixzbrlkf",
+  "fields": {
+    "session_data": ".eJxVjEEOgjAQRe_StWnqMC2tS_ecoZnODIIaSCisjHdXEha6_e-9_zKZtnXIW9Ulj2IuBszpdyvED512IHeabrPleVqXsdhdsQettptFn9fD_TsYqA7fujBQbIDUJ-hDSHgOMSgyNn0KKswEVFLrnI_YOFFMgKhSoqD6wK15fwDi3Tfj:1vbE77:EoRUXCClfN9vJKsXxlKfJ1O7Lik6CQWdn2vMIkTU_Ek",
+    "expire_date": "2026-01-15T08:32:57.654Z"
+  }
+},
+{
+  "model": "furfeast.pendingregistration",
+  "pk": 2,
+  "fields": {
+    "first_name": "Maina",
+    "last_name": "Chari",
+    "email": "mainaapp777@gmail.com",
+    "phone_number": "+9779813100099",
+    "password_hash": "pbkdf2_sha256$870000$K2C0lWAQYw8yayf3RUHcwU$tuCaSjADQ4gy6G/aX3wJXjzvk45W63TAXr3CRPqo/iw=",
+    "verification_token": "a0e631c5-1903-40fd-aaf8-9fee54479307",
+    "created_at": "2026-01-15T15:52:37.303Z",
+    "expires_at": "2026-01-16T15:52:36.762Z"
+  }
+},
+{
+  "model": "furfeast.pendingregistration",
+  "pk": 4,
+  "fields": {
+    "first_name": "Ram",
+    "last_name": "Sharma",
+    "email": "mainaapp777@gmail.com3",
+    "phone_number": "9813141546",
+    "password_hash": "pbkdf2_sha256$870000$erntjyHPelyuU1wZPvOy2i$Pl1JRvQUw3GS4vtFyHeTJCV5bSpx41SK/J3EVZjlQoo=",
+    "verification_token": "8862498f-54a4-4323-a29b-c29c6d798214",
+    "created_at": "2026-01-15T16:14:16.293Z",
+    "expires_at": "2026-01-16T16:14:15.993Z"
+  }
+},
+{
+  "model": "furfeast.userprofile",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "profile_picture": "profiles/143e52a6-5a75-487e-a455-2dca600004c1_Messenger_creation_804988624904379.jpeg",
+    "phone_number": "+1 202-555-0147",
+    "address": null,
+    "city": null,
+    "postal_code": null,
+    "country": "Nepal",
+    "email_verified": true,
+    "email_verification_token": null,
+    "password_reset_token": null,
+    "password_reset_expires": null
+  }
+},
+{
+  "model": "furfeast.userprofile",
+  "pk": 2,
+  "fields": {
+    "user": 2,
+    "profile_picture": "profiles/d8f4eec9-8c68-4234-a44e-6970a94e6b99_beautiful-dog-breed-list.jpg",
+    "phone_number": null,
+    "address": null,
+    "city": null,
+    "postal_code": null,
+    "country": "Nepal",
+    "email_verified": false,
+    "email_verification_token": null,
+    "password_reset_token": null,
+    "password_reset_expires": null
+  }
+},
+{
+  "model": "furfeast.userprofile",
+  "pk": 3,
+  "fields": {
+    "user": 3,
+    "profile_picture": "",
+    "phone_number": null,
+    "address": null,
+    "city": null,
+    "postal_code": null,
+    "country": "Nepal",
+    "email_verified": false,
+    "email_verification_token": null,
+    "password_reset_token": null,
+    "password_reset_expires": null
+  }
+},
+{
+  "model": "furfeast.userprofile",
+  "pk": 4,
+  "fields": {
+    "user": 4,
+    "profile_picture": "",
+    "phone_number": null,
+    "address": null,
+    "city": null,
+    "postal_code": null,
+    "country": "Nepal",
+    "email_verified": false,
+    "email_verification_token": "5fe1528d-87c7-4f8f-b967-7c6d3a97d139",
+    "password_reset_token": null,
+    "password_reset_expires": null
+  }
+},
+{
+  "model": "furfeast.userprofile",
+  "pk": 5,
+  "fields": {
+    "user": 5,
+    "profile_picture": "profiles/e965103a-64a3-46a7-9172-f0ce81ba05c4_cutie.jpg",
+    "phone_number": null,
+    "address": null,
+    "city": null,
+    "postal_code": null,
+    "country": "Nepal",
+    "email_verified": true,
+    "email_verification_token": null,
+    "password_reset_token": null,
+    "password_reset_expires": null
+  }
+},
+{
+  "model": "furfeast.userprofile",
+  "pk": 6,
+  "fields": {
+    "user": 6,
+    "profile_picture": "",
+    "phone_number": null,
+    "address": null,
+    "city": null,
+    "postal_code": null,
+    "country": "Nepal",
+    "email_verified": false,
+    "email_verification_token": "20c92400-cb6d-4620-a90b-e45b6887c08d",
+    "password_reset_token": null,
+    "password_reset_expires": null
+  }
+},
+{
+  "model": "furfeast.userprofile",
+  "pk": 7,
+  "fields": {
+    "user": 7,
+    "profile_picture": "",
+    "phone_number": null,
+    "address": null,
+    "city": null,
+    "postal_code": null,
+    "country": "Nepal",
+    "email_verified": false,
+    "email_verification_token": null,
+    "password_reset_token": null,
+    "password_reset_expires": null
+  }
+},
+{
+  "model": "furfeast.userprofile",
+  "pk": 8,
+  "fields": {
+    "user": 8,
+    "profile_picture": "",
+    "phone_number": null,
+    "address": null,
+    "city": null,
+    "postal_code": null,
+    "country": "Nepal",
+    "email_verified": false,
+    "email_verification_token": null,
+    "password_reset_token": null,
+    "password_reset_expires": null
+  }
+},
+{
+  "model": "furfeast.userprofile",
+  "pk": 9,
+  "fields": {
+    "user": 9,
+    "profile_picture": "",
+    "phone_number": null,
+    "address": null,
+    "city": null,
+    "postal_code": null,
+    "country": "Nepal",
+    "email_verified": false,
+    "email_verification_token": null,
+    "password_reset_token": null,
+    "password_reset_expires": null
+  }
+},
+{
+  "model": "furfeast.userprofile",
+  "pk": 11,
+  "fields": {
+    "user": 10,
+    "profile_picture": "",
+    "phone_number": null,
+    "address": null,
+    "city": null,
+    "postal_code": null,
+    "country": "Nepal",
+    "email_verified": false,
+    "email_verification_token": null,
+    "password_reset_token": null,
+    "password_reset_expires": null
+  }
+},
+{
+  "model": "furfeast.userprofile",
+  "pk": 14,
+  "fields": {
+    "user": 11,
+    "profile_picture": "",
+    "phone_number": null,
+    "address": null,
+    "city": null,
+    "postal_code": null,
+    "country": "Nepal",
+    "email_verified": false,
+    "email_verification_token": null,
+    "password_reset_token": null,
+    "password_reset_expires": null
+  }
+},
+{
+  "model": "furfeast.userprofile",
+  "pk": 16,
+  "fields": {
+    "user": 13,
+    "profile_picture": "",
+    "phone_number": null,
+    "address": null,
+    "city": null,
+    "postal_code": null,
+    "country": "Nepal",
+    "email_verified": false,
+    "email_verification_token": null,
+    "password_reset_token": null,
+    "password_reset_expires": null
+  }
+},
+{
+  "model": "furfeast.userprofile",
+  "pk": 18,
+  "fields": {
+    "user": 14,
+    "profile_picture": "",
+    "phone_number": null,
+    "address": null,
+    "city": null,
+    "postal_code": null,
+    "country": "Nepal",
+    "email_verified": false,
+    "email_verification_token": null,
+    "password_reset_token": null,
+    "password_reset_expires": null
+  }
+},
+{
+  "model": "furfeast.userprofile",
+  "pk": 20,
+  "fields": {
+    "user": 15,
+    "profile_picture": "",
+    "phone_number": null,
+    "address": null,
+    "city": null,
+    "postal_code": null,
+    "country": "Nepal",
+    "email_verified": false,
+    "email_verification_token": null,
+    "password_reset_token": null,
+    "password_reset_expires": null
+  }
+},
+{
+  "model": "furfeast.userprofile",
+  "pk": 22,
+  "fields": {
+    "user": 16,
+    "profile_picture": "",
+    "phone_number": null,
+    "address": null,
+    "city": null,
+    "postal_code": null,
+    "country": "Nepal",
+    "email_verified": false,
+    "email_verification_token": null,
+    "password_reset_token": null,
+    "password_reset_expires": null
+  }
+},
+{
+  "model": "furfeast.userprofile",
+  "pk": 24,
+  "fields": {
+    "user": 17,
+    "profile_picture": "",
+    "phone_number": null,
+    "address": null,
+    "city": null,
+    "postal_code": null,
+    "country": "Nepal",
+    "email_verified": false,
+    "email_verification_token": null,
+    "password_reset_token": null,
+    "password_reset_expires": null
+  }
+},
+{
+  "model": "furfeast.userprofile",
+  "pk": 26,
+  "fields": {
+    "user": 18,
+    "profile_picture": "",
+    "phone_number": null,
+    "address": null,
+    "city": null,
+    "postal_code": null,
+    "country": "Nepal",
+    "email_verified": false,
+    "email_verification_token": null,
+    "password_reset_token": null,
+    "password_reset_expires": null
+  }
+},
+{
+  "model": "furfeast.userprofile",
+  "pk": 28,
+  "fields": {
+    "user": 19,
+    "profile_picture": "",
+    "phone_number": null,
+    "address": null,
+    "city": null,
+    "postal_code": null,
+    "country": "Nepal",
+    "email_verified": false,
+    "email_verification_token": null,
+    "password_reset_token": null,
+    "password_reset_expires": null
+  }
+},
+{
+  "model": "furfeast.userprofile",
+  "pk": 30,
+  "fields": {
+    "user": 20,
+    "profile_picture": "",
+    "phone_number": "9813141546",
+    "address": null,
+    "city": null,
+    "postal_code": null,
+    "country": "Nepal",
+    "email_verified": true,
+    "email_verification_token": null,
+    "password_reset_token": null,
+    "password_reset_expires": null
+  }
+},
+{
+  "model": "furfeast.userprofile",
+  "pk": 31,
+  "fields": {
+    "user": 21,
+    "profile_picture": "",
+    "phone_number": "9846434998",
+    "address": null,
+    "city": null,
+    "postal_code": null,
+    "country": "Nepal",
+    "email_verified": true,
+    "email_verification_token": null,
+    "password_reset_token": null,
+    "password_reset_expires": null
+  }
+},
+{
+  "model": "furfeast.userprofile",
+  "pk": 32,
+  "fields": {
+    "user": 22,
+    "profile_picture": "",
+    "phone_number": "9840091927",
+    "address": null,
+    "city": null,
+    "postal_code": null,
+    "country": "Nepal",
+    "email_verified": true,
+    "email_verification_token": null,
+    "password_reset_token": null,
+    "password_reset_expires": null
+  }
+},
+{
+  "model": "furfeast.userprofile",
+  "pk": 33,
+  "fields": {
+    "user": 23,
+    "profile_picture": "",
+    "phone_number": "+9779813100055",
+    "address": null,
+    "city": null,
+    "postal_code": null,
+    "country": "Nepal",
+    "email_verified": true,
+    "email_verification_token": null,
+    "password_reset_token": null,
+    "password_reset_expires": null
+  }
+},
+{
+  "model": "furfeast.product",
+  "pk": 7,
+  "fields": {
+    "category": "cat-food",
+    "name": "Cat candy ",
+    "slug": "cat-candy",
+    "description": "gffb",
+    "price": "10.00",
+    "original_price": "20.00",
+    "image": "products/a04f50c4-5ab1-4879-98f3-5c8ce1e64b36_biralo_candy.webp",
+    "stock": 10,
+    "is_out_of_stock": false,
+    "is_bestseller": true,
+    "rating": 4.5,
+    "created_at": "2025-12-31T18:13:19.426Z",
+    "updated_at": "2026-01-11T17:06:16.075Z"
+  }
+},
+{
+  "model": "furfeast.product",
+  "pk": 8,
+  "fields": {
+    "category": "dog-food",
+    "name": "Dog Churpi",
+    "slug": "dog-chew-churpi",
+    "description": "Tasty",
+    "price": "20.00",
+    "original_price": "10.00",
+    "image": "products/85e09328-6b80-4e9d-8006-ed33a4e1b14d_non-toxic-dog-toys-940x675.jpg",
+    "stock": 10,
+    "is_out_of_stock": false,
+    "is_bestseller": false,
+    "rating": 5.0,
+    "created_at": "2026-01-01T03:59:27.262Z",
+    "updated_at": "2026-01-01T04:38:50.268Z"
+  }
+},
+{
+  "model": "furfeast.product",
+  "pk": 9,
+  "fields": {
+    "category": "accessories",
+    "name": "Dog Toy",
+    "slug": "dog-toy",
+    "description": "Playing for dog.",
+    "price": "20.00",
+    "original_price": "25.00",
+    "image": "products/a2256eee-13dc-4cc4-add8-527e0a2f024c_dog_toy.webp",
+    "stock": 10,
+    "is_out_of_stock": false,
+    "is_bestseller": true,
+    "rating": 4.0,
+    "created_at": "2026-01-01T04:47:09.538Z",
+    "updated_at": "2026-01-11T17:57:34.571Z"
+  }
+},
+{
+  "model": "furfeast.product",
+  "pk": 10,
+  "fields": {
+    "category": "accessories",
+    "name": "Cat Bell",
+    "slug": "cat-bell",
+    "description": "A cute bell for cat.",
+    "price": "25.00",
+    "original_price": "35.00",
+    "image": "products/38410c84-8d6c-436d-a16f-23661269df58_cat_bell.jpg",
+    "stock": 25,
+    "is_out_of_stock": false,
+    "is_bestseller": false,
+    "rating": 3.5,
+    "created_at": "2026-01-01T04:51:19.160Z",
+    "updated_at": "2026-01-01T04:51:19.160Z"
+  }
+},
+{
+  "model": "furfeast.product",
+  "pk": 11,
+  "fields": {
+    "category": "accessories",
+    "name": "Retractable Dog Leash",
+    "slug": "retractable-dog-leash",
+    "description": "Retractable dog leash",
+    "price": "35.00",
+    "original_price": "40.00",
+    "image": "products/0238cb6a-4917-47b9-8f76-bf43b423b315_dog_leash.jpg",
+    "stock": 0,
+    "is_out_of_stock": true,
+    "is_bestseller": false,
+    "rating": 4.0,
+    "created_at": "2026-01-01T04:52:45.944Z",
+    "updated_at": "2026-01-12T04:01:59.894Z"
+  }
+},
+{
+  "model": "furfeast.product",
+  "pk": 12,
+  "fields": {
+    "category": "dog-food",
+    "name": "Pedigree",
+    "slug": "pedigree",
+    "description": "Nutritious and Healthy.",
+    "price": "20.00",
+    "original_price": "25.00",
+    "image": "products/7f950155-3803-485a-ad15-41a2a6550700_pedigree.jpg",
+    "stock": 15,
+    "is_out_of_stock": false,
+    "is_bestseller": true,
+    "rating": 4.5,
+    "created_at": "2026-01-01T04:55:15.993Z",
+    "updated_at": "2026-01-11T17:08:09.600Z"
+  }
+},
+{
+  "model": "furfeast.product",
+  "pk": 13,
+  "fields": {
+    "category": "cat-food",
+    "name": "Friksies",
+    "slug": "friksies",
+    "description": "Cat centric.",
+    "price": "20.00",
+    "original_price": "28.00",
+    "image": "products/d5db5414-fe90-4559-82fa-f2ecab7cb449_Friskies_Cat.webp",
+    "stock": 50,
+    "is_out_of_stock": false,
+    "is_bestseller": false,
+    "rating": 4.0,
+    "created_at": "2026-01-01T04:56:12.846Z",
+    "updated_at": "2026-01-12T02:22:18.201Z"
+  }
+},
+{
+  "model": "furfeast.product",
+  "pk": 14,
+  "fields": {
+    "category": "accessories",
+    "name": "Cat Cradle ",
+    "slug": "cat-cradle",
+    "description": "A comfy and fluffy cradle for your beloved cat.",
+    "price": "100.00",
+    "original_price": "110.00",
+    "image": "products/06364022-3911-47a3-a980-eb46f259cad4_images.jpeg",
+    "stock": 10,
+    "is_out_of_stock": false,
+    "is_bestseller": true,
+    "rating": 5.0,
+    "created_at": "2026-01-03T07:57:02.915Z",
+    "updated_at": "2026-01-11T17:36:31.626Z"
+  }
+},
+{
+  "model": "furfeast.flashsale",
+  "pk": 1,
+  "fields": {
+    "title": "2026 FurFeasty Sale Offer",
+    "category": "cat-food",
+    "product": null,
+    "discount_percentage": 15,
+    "start_time": "2025-12-31T22:42:00Z",
+    "end_time": "2026-01-31T22:42:00Z",
+    "is_active": true
+  }
+},
+{
+  "model": "furfeast.promocode",
+  "pk": 2,
+  "fields": {
+    "code": "FURFEAST20",
+    "discount_amount": "20.00",
+    "min_order_amount": "50.00",
+    "valid_from": "2026-01-01T00:14:00Z",
+    "valid_to": "2026-01-30T00:14:00Z",
+    "active": true
+  }
+},
+{
+  "model": "furfeast.review",
+  "pk": 1,
+  "fields": {
+    "product": 12,
+    "user": 1,
+    "rating": 4,
+    "comment": "Very Nice Product. Really Liked it",
+    "created_at": "2026-01-11T15:07:03.988Z"
+  }
+},
+{
+  "model": "furfeast.review",
+  "pk": 2,
+  "fields": {
+    "product": 7,
+    "user": 5,
+    "rating": 5,
+    "comment": "Cat candy is a great product. Our family cat likes it very much and its his favourite candy now.",
+    "created_at": "2026-01-11T16:30:57.600Z"
+  }
+},
+{
+  "model": "furfeast.review",
+  "pk": 3,
+  "fields": {
+    "product": 14,
+    "user": 1,
+    "rating": 5,
+    "comment": "Amazing quality! My dog absolutely loves this food. Highly recommended for all pet parents.",
+    "created_at": "2026-01-11T16:49:13.417Z"
+  }
+},
+{
+  "model": "furfeast.review",
+  "pk": 4,
+  "fields": {
+    "product": 13,
+    "user": 4,
+    "rating": 4,
+    "comment": "Great product with excellent nutritional value. My cat has been healthier since switching to this.",
+    "created_at": "2026-01-11T16:49:13.735Z"
+  }
+},
+{
+  "model": "furfeast.review",
+  "pk": 5,
+  "fields": {
+    "product": 12,
+    "user": 6,
+    "rating": 5,
+    "comment": "Outstanding service and premium quality products. FurFeast never disappoints us and our pets.",
+    "created_at": "2026-01-11T16:49:14.036Z"
+  }
+},
+{
+  "model": "furfeast.review",
+  "pk": 6,
+  "fields": {
+    "product": 11,
+    "user": 5,
+    "rating": 4,
+    "comment": "Very satisfied with the purchase. Fast delivery and my pet loves the taste of this food.",
+    "created_at": "2026-01-11T16:49:14.339Z"
+  }
+},
+{
+  "model": "furfeast.review",
+  "pk": 7,
+  "fields": {
+    "product": 10,
+    "user": 7,
+    "rating": 5,
+    "comment": "Best pet food brand I've tried! My pets are more energetic and their coat looks shinier.",
+    "created_at": "2026-01-11T16:49:14.640Z"
+  }
+},
+{
+  "model": "furfeast.review",
+  "pk": 8,
+  "fields": {
+    "product": 9,
+    "user": 1,
+    "rating": 4,
+    "comment": "Excellent value for money. The ingredients are natural and my pets digest it well.",
+    "created_at": "2026-01-11T16:49:14.943Z"
+  }
+},
+{
+  "model": "furfeast.review",
+  "pk": 9,
+  "fields": {
+    "product": 8,
+    "user": 4,
+    "rating": 5,
+    "comment": "My dog's favorite! He gets so excited when he sees the FurFeast bag. Quality is top-notch.",
+    "created_at": "2026-01-11T16:49:15.253Z"
+  }
+},
+{
+  "model": "furfeast.review",
+  "pk": 10,
+  "fields": {
+    "product": 7,
+    "user": 6,
+    "rating": 4,
+    "comment": "Good product overall. My cat is picky but she actually enjoys this food. Will order again.",
+    "created_at": "2026-01-11T16:49:15.555Z"
+  }
+},
+{
+  "model": "furfeast.cart",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "session_id": null,
+    "created_at": "2025-12-31T15:46:23.828Z",
+    "updated_at": "2025-12-31T15:46:23.828Z"
+  }
+},
+{
+  "model": "furfeast.cart",
+  "pk": 2,
+  "fields": {
+    "user": 2,
+    "session_id": null,
+    "created_at": "2025-12-31T16:06:33.349Z",
+    "updated_at": "2025-12-31T16:06:33.349Z"
+  }
+},
+{
+  "model": "furfeast.cart",
+  "pk": 3,
+  "fields": {
+    "user": 3,
+    "session_id": null,
+    "created_at": "2026-01-03T08:59:00.542Z",
+    "updated_at": "2026-01-03T08:59:00.542Z"
+  }
+},
+{
+  "model": "furfeast.cart",
+  "pk": 4,
+  "fields": {
+    "user": 5,
+    "session_id": null,
+    "created_at": "2026-01-03T13:57:50.451Z",
+    "updated_at": "2026-01-03T13:57:50.451Z"
+  }
+},
+{
+  "model": "furfeast.cart",
+  "pk": 5,
+  "fields": {
+    "user": 7,
+    "session_id": null,
+    "created_at": "2026-01-07T15:30:32.068Z",
+    "updated_at": "2026-01-07T15:30:32.068Z"
+  }
+},
+{
+  "model": "furfeast.cart",
+  "pk": 6,
+  "fields": {
+    "user": 19,
+    "session_id": null,
+    "created_at": "2026-01-15T16:20:32.017Z",
+    "updated_at": "2026-01-15T16:20:32.017Z"
+  }
+},
+{
+  "model": "furfeast.cart",
+  "pk": 7,
+  "fields": {
+    "user": 21,
+    "session_id": null,
+    "created_at": "2026-01-15T16:30:27.073Z",
+    "updated_at": "2026-01-15T16:30:27.073Z"
+  }
+},
+{
+  "model": "furfeast.cart",
+  "pk": 8,
+  "fields": {
+    "user": 8,
+    "session_id": null,
+    "created_at": "2026-01-15T16:32:11.348Z",
+    "updated_at": "2026-01-15T16:32:11.348Z"
+  }
+},
+{
+  "model": "furfeast.cartitem",
+  "pk": 35,
+  "fields": {
+    "cart": 8,
+    "product": 12,
+    "quantity": 1
+  }
+},
+{
+  "model": "furfeast.cartitem",
+  "pk": 36,
+  "fields": {
+    "cart": 1,
+    "product": 12,
+    "quantity": 1
+  }
+},
+{
+  "model": "furfeast.cartitem",
+  "pk": 37,
+  "fields": {
+    "cart": 4,
+    "product": 7,
+    "quantity": 1
+  }
+},
+{
+  "model": "furfeast.wishlist",
+  "pk": 11,
+  "fields": {
+    "user": 8,
+    "product": 12,
+    "added_at": "2026-01-15T16:36:51.056Z"
+  }
+},
+{
+  "model": "furfeast.blog",
+  "pk": 2,
+  "fields": {
+    "title": "Understanding Dogs and Their Everyday Habits",
+    "slug": "understanding-dogs-and-their-everyday-habits",
+    "content": "Dogs are not just pets; they are loyal companions, protectors, and true family members. From ancient times, humans have trusted dogs for security, hunting, and companionship. Even today, their habits tell us a lot about their emotions, health, and behavior. Understanding these habits helps us take better care of them.\r\n\r\nOne common habit of dogs is tail wagging. Many people think it always means happiness, but that’s not always true. A relaxed wag usually shows friendliness, while a stiff, fast wag can mean excitement or even anxiety. Observing body language along with the tail gives a clearer picture.\r\n\r\nDogs also love to chew. This is a natural behavior, especially in puppies. Chewing helps keep their teeth healthy and relieves stress. Instead of stopping them completely, it’s better to provide safe chew toys. This keeps their habit healthy and protects your furniture.\r\n\r\nAnother familiar habit is barking. Dogs bark to communicate. They may bark when they feel lonely, when someone approaches the house, or when they want attention. Excessive barking usually means something is missing — exercise, attention, or comfort.\r\n\r\nYou might notice dogs circling before sleeping. This comes from their wild ancestors who used to flatten grass to make a safe sleeping spot. Even though your dog sleeps on a soft bed, the instinct remains.\r\n\r\nDogs are also creatures of routine. They feel safe when they eat, walk, and sleep at regular times. A stable routine improves their behavior and overall happiness.\r\n\r\nIn the end, understanding your dog’s habits builds a stronger bond. A dog that feels understood becomes calmer, healthier, and more loyal. Treat them with patience and care, and they will return that love many times over.",
+    "image": "blog/b04618b7-71c7-47e8-a881-a617600bb671_dogs_playing.jpg",
+    "image_position_x": 0.0,
+    "image_position_y": 0.0,
+    "author": 2,
+    "writer_name": "Rajesh KC",
+    "created_at": "2026-01-13T05:51:56.923Z",
+    "is_published": true
+  }
+},
+{
+  "model": "furfeast.order",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "order_id": "FF79212DDD",
+    "paypal_payment_id": "6SC35324K1970924F",
+    "status": "shipped",
+    "payment_status": "unpaid",
+    "payment_method": "paypal",
+    "total_amount": "20.00",
+    "shipping_address": null,
+    "shipping_phone": null,
+    "shipping_city": null,
+    "shipping_postal_code": null,
+    "tracking_number": null,
+    "courier_name": null,
+    "created_at": "2026-01-10T09:40:27.784Z",
+    "updated_at": "2026-01-15T15:27:21.285Z",
+    "shipped_at": "2026-01-15T15:27:21.133Z",
+    "delivered_at": "2026-01-10T12:15:16.119Z",
+    "admin_notes": null
+  }
+},
+{
+  "model": "furfeast.order",
+  "pk": 2,
+  "fields": {
+    "user": 1,
+    "order_id": "FFB054D5BE",
+    "paypal_payment_id": "1VC69456M03169355",
+    "status": "delivered",
+    "payment_status": "paid",
+    "payment_method": "paypal",
+    "total_amount": "10.00",
+    "shipping_address": null,
+    "shipping_phone": null,
+    "shipping_city": null,
+    "shipping_postal_code": null,
+    "tracking_number": "TEST123456",
+    "courier_name": "Test Courier",
+    "created_at": "2026-01-10T14:26:00.833Z",
+    "updated_at": "2026-01-14T10:06:30.447Z",
+    "shipped_at": "2026-01-12T06:22:36.867Z",
+    "delivered_at": "2026-01-14T10:06:30.293Z",
+    "admin_notes": null
+  }
+},
+{
+  "model": "furfeast.order",
+  "pk": 3,
+  "fields": {
+    "user": 1,
+    "order_id": "FF8CA98A82",
+    "paypal_payment_id": "2W901222X4620302P",
+    "status": "delivered",
+    "payment_status": "paid",
+    "payment_method": "paypal",
+    "total_amount": "20.00",
+    "shipping_address": null,
+    "shipping_phone": null,
+    "shipping_city": null,
+    "shipping_postal_code": null,
+    "tracking_number": null,
+    "courier_name": null,
+    "created_at": "2026-01-10T15:22:09.455Z",
+    "updated_at": "2026-01-12T07:49:58.633Z",
+    "shipped_at": null,
+    "delivered_at": "2026-01-12T07:49:58.807Z",
+    "admin_notes": null
+  }
+},
+{
+  "model": "furfeast.order",
+  "pk": 4,
+  "fields": {
+    "user": 1,
+    "order_id": "FF8202FC37",
+    "paypal_payment_id": "1E2107354A428542Y",
+    "status": "delivered",
+    "payment_status": "paid",
+    "payment_method": "paypal",
+    "total_amount": "20.00",
+    "shipping_address": null,
+    "shipping_phone": null,
+    "shipping_city": null,
+    "shipping_postal_code": null,
+    "tracking_number": null,
+    "courier_name": null,
+    "created_at": "2026-01-10T15:28:54.232Z",
+    "updated_at": "2026-01-12T07:44:55.552Z",
+    "shipped_at": "2026-01-12T06:18:58.966Z",
+    "delivered_at": "2026-01-12T07:44:55.552Z",
+    "admin_notes": null
+  }
+},
+{
+  "model": "furfeast.order",
+  "pk": 5,
+  "fields": {
+    "user": 1,
+    "order_id": "FF4BAE20B0",
+    "paypal_payment_id": "3SU17429C93378443",
+    "status": "delivered",
+    "payment_status": "paid",
+    "payment_method": "paypal",
+    "total_amount": "20.00",
+    "shipping_address": "San Francisco",
+    "shipping_phone": "+1 310-555-0147",
+    "shipping_city": "San Francisco",
+    "shipping_postal_code": "90001",
+    "tracking_number": null,
+    "courier_name": null,
+    "created_at": "2026-01-10T15:41:26.641Z",
+    "updated_at": "2026-01-12T05:40:57.228Z",
+    "shipped_at": "2026-01-10T15:44:17.199Z",
+    "delivered_at": "2026-01-12T05:40:57.228Z",
+    "admin_notes": null
+  }
+},
+{
+  "model": "furfeast.order",
+  "pk": 6,
+  "fields": {
+    "user": 1,
+    "order_id": "FF99A6AFDE",
+    "paypal_payment_id": null,
+    "status": "processing",
+    "payment_status": "unpaid",
+    "payment_method": "cod",
+    "total_amount": "25.00",
+    "shipping_address": "San Francisco",
+    "shipping_phone": "+1 310-555-0147",
+    "shipping_city": "San Francisco",
+    "shipping_postal_code": "90001",
+    "tracking_number": null,
+    "courier_name": null,
+    "created_at": "2026-01-10T15:53:04.796Z",
+    "updated_at": "2026-01-14T11:22:10.211Z",
+    "shipped_at": null,
+    "delivered_at": null,
+    "admin_notes": "Pay First"
+  }
+},
+{
+  "model": "furfeast.order",
+  "pk": 7,
+  "fields": {
+    "user": 5,
+    "order_id": "FFF04DD562",
+    "paypal_payment_id": "68R8892530071314H",
+    "status": "delivered",
+    "payment_status": "paid",
+    "payment_method": "paypal",
+    "total_amount": "20.00",
+    "shipping_address": "San Francisco",
+    "shipping_phone": "+1 310-555-0147",
+    "shipping_city": "San Francisco",
+    "shipping_postal_code": "90001",
+    "tracking_number": null,
+    "courier_name": null,
+    "created_at": "2026-01-11T04:02:54.057Z",
+    "updated_at": "2026-01-15T15:27:55.232Z",
+    "shipped_at": "2026-01-15T15:14:22.095Z",
+    "delivered_at": "2026-01-15T15:27:55.089Z",
+    "admin_notes": null
+  }
+},
+{
+  "model": "furfeast.order",
+  "pk": 8,
+  "fields": {
+    "user": 5,
+    "order_id": "FF6152576E",
+    "paypal_payment_id": "8U367788R46647202",
+    "status": "delivered",
+    "payment_status": "paid",
+    "payment_method": "paypal",
+    "total_amount": "10.00",
+    "shipping_address": "Sunset View",
+    "shipping_phone": "+155-742-8899",
+    "shipping_city": "Los Angeles",
+    "shipping_postal_code": "90026",
+    "tracking_number": null,
+    "courier_name": null,
+    "created_at": "2026-01-11T04:13:25.309Z",
+    "updated_at": "2026-01-15T15:18:46.004Z",
+    "shipped_at": "2026-01-12T05:41:22.694Z",
+    "delivered_at": "2026-01-15T15:18:45.846Z",
+    "admin_notes": null
+  }
+},
+{
+  "model": "furfeast.orderitem",
+  "pk": 1,
+  "fields": {
+    "order": 1,
+    "product": 13,
+    "quantity": 1,
+    "price": "20.00"
+  }
+},
+{
+  "model": "furfeast.orderitem",
+  "pk": 2,
+  "fields": {
+    "order": 2,
+    "product": 7,
+    "quantity": 1,
+    "price": "10.00"
+  }
+},
+{
+  "model": "furfeast.orderitem",
+  "pk": 3,
+  "fields": {
+    "order": 3,
+    "product": 8,
+    "quantity": 1,
+    "price": "20.00"
+  }
+},
+{
+  "model": "furfeast.orderitem",
+  "pk": 4,
+  "fields": {
+    "order": 4,
+    "product": 13,
+    "quantity": 1,
+    "price": "20.00"
+  }
+},
+{
+  "model": "furfeast.orderitem",
+  "pk": 5,
+  "fields": {
+    "order": 5,
+    "product": 12,
+    "quantity": 1,
+    "price": "20.00"
+  }
+},
+{
+  "model": "furfeast.orderitem",
+  "pk": 6,
+  "fields": {
+    "order": 6,
+    "product": 10,
+    "quantity": 1,
+    "price": "25.00"
+  }
+},
+{
+  "model": "furfeast.orderitem",
+  "pk": 7,
+  "fields": {
+    "order": 7,
+    "product": 12,
+    "quantity": 1,
+    "price": "20.00"
+  }
+},
+{
+  "model": "furfeast.orderitem",
+  "pk": 8,
+  "fields": {
+    "order": 8,
+    "product": 7,
+    "quantity": 1,
+    "price": "10.00"
+  }
+},
+{
+  "model": "furfeast.aboutus",
+  "pk": 1,
+  "fields": {
+    "title": "About FurFeast",
+    "content": "At FurFeast Family, we believe pets are not just animals—they’re family. Just like any loved one, they deserve honest care, wholesome food, and daily attention that keeps them healthy and happy. Our journey started with a simple idea passed down through generations: feed with love, care with responsibility. That old-school belief still guides everything we do today.\r\n\r\nWe focus on quality over shortcuts. Every product we offer is chosen with one clear purpose—better nutrition and better living for your furry companions. No unnecessary fillers, no flashy promises, just food and essentials that support strong bodies, sharp minds, and joyful tails. We respect tradition, but we also move forward, using modern standards to meet today’s pet needs.\r\n\r\nFurFeast Family is built for pet parents who take responsibility seriously and love deeply. We’re here for the long run, walking alongside you through every stage of your pet’s life. Because when you feed right and care right, you don’t just raise pets—you raise family.",
+    "image": "about/e4a819d3-0981-44cd-965e-d4c4bdfd0d58_a-greying-jowly-dog-with-soft-dark-eyes.jpg",
+    "happy_pet_parents_count": "10k+",
+    "updated_at": "2026-01-03T12:40:28.424Z"
+  }
+},
+{
+  "model": "furfeast.heroimage",
+  "pk": 1,
+  "fields": {
+    "title": "Happy Dog Hero",
+    "image": "hero/465755b5-c73e-462e-adf1-6049fe893789_wmremove-transformed.jpeg",
+    "desktop_image": "hero/desktop/d6961536-4f7a-4061-9192-1a35ac17fc9d_dog_and_cat.jpg",
+    "mobile_image": "hero/mobile/66a8be1e-e25d-4013-ab11-6cb829d8de40_brandon-day-oCJuJQqvCzc-unsplash.jpg",
+    "headline": "Premium Nutritious",
+    "subheadline": "Discover our shop for your pet.",
+    "cta_text": "Shop Now",
+    "cta_link": "/shop/",
+    "align": "left",
+    "text_position_y": 50,
+    "text_position_x": 5,
+    "is_active": true,
+    "order": 0,
+    "created_at": "2026-01-04T12:58:30.008Z"
+  }
+},
+{
+  "model": "furfeast.heroimage",
+  "pk": 2,
+  "fields": {
+    "title": "A happy meal for your pet. ",
+    "image": "hero/c1c975e4-878b-4293-98e2-887a36b39585_cat_hddd.jpeg",
+    "desktop_image": "",
+    "mobile_image": "hero/mobile/ebb6e296-26d5-493c-a7df-4f14245397cf_Cat.jpg",
+    "headline": "Lab Approved foods,",
+    "subheadline": "Discover our store.",
+    "cta_text": "Shop Now",
+    "cta_link": "/shop/",
+    "align": "left",
+    "text_position_y": 50,
+    "text_position_x": 5,
+    "is_active": true,
+    "order": 1,
+    "created_at": "2026-01-04T13:48:26.467Z"
+  }
+},
+{
+  "model": "furfeast.heroimage",
+  "pk": 3,
+  "fields": {
+    "title": "The bridge of happiness.",
+    "image": "hero/fca2416f-c5a9-4d48-afd7-9b70101532d8_Cat.jpg",
+    "desktop_image": "",
+    "mobile_image": "hero/mobile/9466c444-1985-40d0-abc4-cb2eaba820a4_cutie.jpg",
+    "headline": "Tasty and healthy pet food.",
+    "subheadline": "Have a look on Himalayas best product.",
+    "cta_text": "Shop Now",
+    "cta_link": "/shop/",
+    "align": "left",
+    "text_position_y": 50,
+    "text_position_x": 5,
+    "is_active": true,
+    "order": 2,
+    "created_at": "2026-01-04T13:50:07.945Z"
+  }
+},
+{
+  "model": "furfeast.businesstarget",
+  "pk": 1,
+  "fields": {
+    "period": "month",
+    "target_amount": "57575.00",
+    "year": 2025,
+    "month": 12,
+    "week": null,
+    "created_at": "2025-12-31T18:20:25.565Z"
+  }
+},
+{
+  "model": "furfeast.businesstarget",
+  "pk": 3,
+  "fields": {
+    "period": "month",
+    "target_amount": "1000.00",
+    "year": 2026,
+    "month": 1,
+    "week": null,
+    "created_at": "2026-01-12T04:41:43.009Z"
+  }
+},
+{
+  "model": "furfeast.furfeastfamily",
+  "pk": 1,
+  "fields": {
+    "user": 2,
+    "pet_name": "Bailey ",
+    "pet_category": "dog",
+    "pet_age": "3 Years 6 Months",
+    "favourite_food": "Chicken ",
+    "additional_description": "Very fondly.",
+    "receive_expert_emails": true,
+    "joined_at": "2026-01-01T08:34:40.804Z"
+  }
+},
+{
+  "model": "furfeast.furfeastfamily",
+  "pk": 2,
+  "fields": {
+    "user": 1,
+    "pet_name": "Billu Rani",
+    "pet_category": "cat",
+    "pet_age": "1 year",
+    "favourite_food": "Fish ",
+    "additional_description": "Always purrs and has so many furs.",
+    "receive_expert_emails": true,
+    "joined_at": "2026-01-01T10:06:36.381Z"
+  }
+},
+{
+  "model": "furfeast.contactmessage",
+  "pk": 2,
+  "fields": {
+    "user": 1,
+    "first_name": "Rajesh",
+    "last_name": "KC",
+    "email": "rajeshilamion@gmail.com",
+    "subject": "Hello Developer",
+    "message": "Please update the src iframe with the new coordinates. ",
+    "created_at": "2026-01-13T04:32:44.819Z",
+    "is_read": false
+  }
+},
+{
+  "model": "furfeast.notification",
+  "pk": 109,
+  "fields": {
+    "user": 8,
+    "title": " (4) New Message from Seller",
+    "message": "",
+    "order": null,
+    "link": "/chat/",
+    "notification_type": "message",
+    "is_read": true,
+    "created_at": "2026-01-15T16:35:40.220Z"
+  }
+},
+{
+  "model": "furfeast.chatroom",
+  "pk": 1,
+  "fields": {
+    "customer": 1,
+    "created_at": "2026-01-16T14:46:33.573Z",
+    "updated_at": "2026-01-16T14:46:33.573Z"
+  }
+},
+{
+  "model": "furfeast.chatroom",
+  "pk": 2,
+  "fields": {
+    "customer": 5,
+    "created_at": "2026-01-16T14:49:26.902Z",
+    "updated_at": "2026-01-16T14:49:26.902Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 272,
+  "fields": {
+    "chat_room": 2,
+    "message": "hi",
+    "image": "",
+    "is_from_admin": false,
+    "is_read": true,
+    "created_at": "2026-01-16T14:49:32.781Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 273,
+  "fields": {
+    "chat_room": 2,
+    "message": "hello",
+    "image": "",
+    "is_from_admin": true,
+    "is_read": true,
+    "created_at": "2026-01-16T14:51:25.676Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 274,
+  "fields": {
+    "chat_room": 2,
+    "message": "hello",
+    "image": "",
+    "is_from_admin": true,
+    "is_read": true,
+    "created_at": "2026-01-16T14:51:27.348Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 275,
+  "fields": {
+    "chat_room": 2,
+    "message": "how u",
+    "image": "",
+    "is_from_admin": true,
+    "is_read": true,
+    "created_at": "2026-01-16T14:51:35.058Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 276,
+  "fields": {
+    "chat_room": 2,
+    "message": "fine nd u",
+    "image": "",
+    "is_from_admin": false,
+    "is_read": true,
+    "created_at": "2026-01-16T14:51:39.835Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 277,
+  "fields": {
+    "chat_room": 2,
+    "message": "thik",
+    "image": "",
+    "is_from_admin": true,
+    "is_read": true,
+    "created_at": "2026-01-16T14:53:43.709Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 278,
+  "fields": {
+    "chat_room": 2,
+    "message": "thik",
+    "image": "",
+    "is_from_admin": true,
+    "is_read": true,
+    "created_at": "2026-01-16T14:53:45.570Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 279,
+  "fields": {
+    "chat_room": 2,
+    "message": "ok",
+    "image": "",
+    "is_from_admin": false,
+    "is_read": true,
+    "created_at": "2026-01-16T14:54:16.750Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 281,
+  "fields": {
+    "chat_room": 2,
+    "message": "bas",
+    "image": "",
+    "is_from_admin": true,
+    "is_read": true,
+    "created_at": "2026-01-16T15:15:08.216Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 282,
+  "fields": {
+    "chat_room": 2,
+    "message": "ok",
+    "image": "",
+    "is_from_admin": false,
+    "is_read": true,
+    "created_at": "2026-01-16T15:15:19.199Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 283,
+  "fields": {
+    "chat_room": 2,
+    "message": "samman purbak yo code lai useless vanna chahey",
+    "image": "",
+    "is_from_admin": true,
+    "is_read": true,
+    "created_at": "2026-01-16T15:24:08.685Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 284,
+  "fields": {
+    "chat_room": 2,
+    "message": "me too",
+    "image": "",
+    "is_from_admin": false,
+    "is_read": true,
+    "created_at": "2026-01-16T15:24:14.678Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 285,
+  "fields": {
+    "chat_room": 2,
+    "message": "me too \\",
+    "image": "",
+    "is_from_admin": false,
+    "is_read": true,
+    "created_at": "2026-01-16T15:24:15.956Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 286,
+  "fields": {
+    "chat_room": 2,
+    "message": "k ho u",
+    "image": "",
+    "is_from_admin": false,
+    "is_read": true,
+    "created_at": "2026-01-16T15:27:00.612Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 287,
+  "fields": {
+    "chat_room": 2,
+    "message": "yo chai ne",
+    "image": "",
+    "is_from_admin": true,
+    "is_read": true,
+    "created_at": "2026-01-16T15:27:33.214Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 288,
+  "fields": {
+    "chat_room": 2,
+    "message": "baloon baba",
+    "image": "",
+    "is_from_admin": false,
+    "is_read": true,
+    "created_at": "2026-01-16T15:29:32.137Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 289,
+  "fields": {
+    "chat_room": 2,
+    "message": "angur baba",
+    "image": "",
+    "is_from_admin": true,
+    "is_read": true,
+    "created_at": "2026-01-16T15:29:49.222Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 290,
+  "fields": {
+    "chat_room": 2,
+    "message": "aba chai vayo ki k ho?",
+    "image": "",
+    "is_from_admin": false,
+    "is_read": true,
+    "created_at": "2026-01-16T15:30:18.926Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 291,
+  "fields": {
+    "chat_room": 2,
+    "message": "Para aayo jsto cha ta",
+    "image": "",
+    "is_from_admin": true,
+    "is_read": true,
+    "created_at": "2026-01-16T15:30:29.902Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 292,
+  "fields": {
+    "chat_room": 1,
+    "message": "Manual test from shell",
+    "image": "",
+    "is_from_admin": false,
+    "is_read": true,
+    "created_at": "2026-01-16T15:59:21.338Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 293,
+  "fields": {
+    "chat_room": 1,
+    "message": "Hello seller wassup",
+    "image": "",
+    "is_from_admin": false,
+    "is_read": true,
+    "created_at": "2026-01-18T09:28:16.914Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 294,
+  "fields": {
+    "chat_room": 1,
+    "message": "Hello",
+    "image": "",
+    "is_from_admin": true,
+    "is_read": true,
+    "created_at": "2026-01-18T09:28:47.810Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 295,
+  "fields": {
+    "chat_room": 1,
+    "message": "Hello",
+    "image": "",
+    "is_from_admin": true,
+    "is_read": true,
+    "created_at": "2026-01-18T09:28:48.943Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 296,
+  "fields": {
+    "chat_room": 1,
+    "message": "Khana vayo?",
+    "image": "",
+    "is_from_admin": false,
+    "is_read": true,
+    "created_at": "2026-01-18T09:32:17.749Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 297,
+  "fields": {
+    "chat_room": 1,
+    "message": "Yes bro",
+    "image": "",
+    "is_from_admin": true,
+    "is_read": true,
+    "created_at": "2026-01-18T09:32:29.621Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 298,
+  "fields": {
+    "chat_room": 1,
+    "message": "Thik xa vnec",
+    "image": "",
+    "is_from_admin": false,
+    "is_read": true,
+    "created_at": "2026-01-18T09:32:43.936Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 299,
+  "fields": {
+    "chat_room": 1,
+    "message": "Message duii patak gacja kina hola",
+    "image": "chat/81a1441f-279d-454e-a66a-73a4efee3990_Screenshot_2026-01-18-15-15-02-002_com.android.chrome.jpg",
+    "is_from_admin": true,
+    "is_read": true,
+    "created_at": "2026-01-18T09:33:10.315Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 300,
+  "fields": {
+    "chat_room": 1,
+    "message": "Message duii patak gacja kina hola",
+    "image": "chat/d2f1899b-2dc9-4295-823d-2754d5c9b94a_Screenshot_2026-01-18-15-15-02-002_com.android.chrome.jpg",
+    "is_from_admin": true,
+    "is_read": true,
+    "created_at": "2026-01-18T09:33:13.972Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 301,
+  "fields": {
+    "chat_room": 1,
+    "message": "Message duii patak gacja kina hola",
+    "image": "chat/e4286083-7081-4720-ac45-6a2bb411e77b_Screenshot_2026-01-18-15-15-02-002_com.android.chrome.jpg",
+    "is_from_admin": true,
+    "is_read": true,
+    "created_at": "2026-01-18T09:33:14.690Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 302,
+  "fields": {
+    "chat_room": 1,
+    "message": "Message duii patak gacja kina hola",
+    "image": "chat/68a72214-41ac-457e-b097-d0fc24ec3e2a_Screenshot_2026-01-18-15-15-02-002_com.android.chrome.jpg",
+    "is_from_admin": true,
+    "is_read": true,
+    "created_at": "2026-01-18T09:33:14.759Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 303,
+  "fields": {
+    "chat_room": 1,
+    "message": "Images are successfully sent",
+    "image": "",
+    "is_from_admin": false,
+    "is_read": true,
+    "created_at": "2026-01-18T09:34:09.643Z"
+  }
+},
+{
+  "model": "furfeast.customermessage",
+  "pk": 304,
+  "fields": {
+    "chat_room": 1,
+    "message": "Hello brother samana aayo?",
+    "image": "",
+    "is_from_admin": true,
+    "is_read": true,
+    "created_at": "2026-01-18T10:16:03.904Z"
+  }
+},
+{
+  "model": "furfeast.chatbotintent",
+  "pk": 1,
+  "fields": {
+    "name": "product_search",
+    "keywords": [
+      "search",
+      "find",
+      "looking for",
+      "need",
+      "want"
+    ],
+    "response_template": 

@@ -1,0 +1,1884 @@
+[
+  {
+    "insertId": "6974cc380005dd90626a9642",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:42:16.386177587Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "169.254.169.126 - - [24/Jan/2026:19:27:16 +0545] \"HEAD / HTTP/1.1\" 500 1835 \"-\" \"curl/8.16.0\"",
+    "timestamp": "2026-01-24T13:42:16.384400Z"
+  },
+  {
+    "httpRequest": {
+      "latency": "1.583982005s",
+      "protocol": "HTTP/1.1",
+      "remoteIp": "2400:1a00:5b43:f7af:e86e:ed9f:ab11:8459",
+      "requestMethod": "HEAD",
+      "requestSize": "298",
+      "requestUrl": "https://furfeastco-168900719564.australia-southeast2.run.app/",
+      "responseSize": "378",
+      "serverIp": "2600:1900:4244:200::",
+      "status": 500,
+      "userAgent": "curl/8.16.0"
+    },
+    "insertId": "6974cc380005df6d309dfc61",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Frequests",
+    "receiveTimestamp": "2026-01-24T13:42:16.387109880Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "severity": "ERROR",
+    "spanId": "df2609f4ec867db0",
+    "timestamp": "2026-01-24T13:42:14.794466Z",
+    "trace": "projects/project-e66945a9-799e-4142-bd5/traces/cdcee5385bb12eecde400ce871aa0eaf",
+    "traceSampled": true
+  },
+  {
+    "insertId": "-xssp6gd1zvc",
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/cloudaudit.googleapis.com%2Fsystem_event",
+    "protoPayload": {
+      "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+      "methodName": "/Services.ReplaceService",
+      "resourceName": "namespaces/project-e66945a9-799e-4142-bd5/services/furfeastco",
+      "response": {
+        "@type": "type.googleapis.com/google.cloud.run.v1.Service",
+        "apiVersion": "serving.knative.dev/v1",
+        "kind": "Service",
+        "metadata": {
+          "annotations": {
+            "run.googleapis.com/build-enable-automatic-updates": "false",
+            "run.googleapis.com/build-id": "d8441609-2a70-4200-a9dc-83de168a8686",
+            "run.googleapis.com/build-image-uri": "australia-southeast2-docker.pkg.dev/project-e66945a9-799e-4142-bd5/cloud-run-source-deploy/furfeastco",
+            "run.googleapis.com/build-name": "projects/168900719564/locations/australia-southeast2/builds/d8441609-2a70-4200-a9dc-83de168a8686",
+            "run.googleapis.com/build-source-location": "gs://run-sources-project-e66945a9-799e-4142-bd5-australia-southeast2/services/furfeastco/1769255768.530307-f0ed40fbaa9248e489f0b0a231fbd52d.zip#1769255772203245",
+            "run.googleapis.com/client-name": "gcloud",
+            "run.googleapis.com/client-version": "552.0.0",
+            "run.googleapis.com/ingress": "all",
+            "run.googleapis.com/ingress-status": "all",
+            "run.googleapis.com/maxScale": "3",
+            "run.googleapis.com/operation-id": "398bfc10-96af-43fc-9a1b-a3491c884560",
+            "run.googleapis.com/urls": "[\"https://furfeastco-168900719564.australia-southeast2.run.app\",\"https://furfeastco-h2mw7nen5q-km.a.run.app\"]",
+            "serving.knative.dev/creator": "cofurfeast@gmail.com",
+            "serving.knative.dev/lastModifier": "cofurfeast@gmail.com"
+          },
+          "creationTimestamp": "2026-01-20T11:07:39.196185Z",
+          "generation": 54,
+          "labels": {
+            "cloud.googleapis.com/location": "australia-southeast2",
+            "run.googleapis.com/satisfiesPzs": "true"
+          },
+          "name": "furfeastco",
+          "namespace": "168900719564",
+          "resourceVersion": "AAZJImztizA",
+          "selfLink": "/apis/serving.knative.dev/v1/namespaces/168900719564/services/furfeastco",
+          "uid": "5588584f-e08b-48e6-87b9-c74dee03801c"
+        },
+        "spec": {
+          "template": {
+            "metadata": {
+              "annotations": {
+                "autoscaling.knative.dev/maxScale": "10",
+                "run.googleapis.com/client-name": "gcloud",
+                "run.googleapis.com/client-version": "552.0.0",
+                "run.googleapis.com/startup-cpu-boost": "true"
+              },
+              "labels": {
+                "client.knative.dev/nonce": "jbquvfowoq",
+                "run.googleapis.com/startupProbeType": "Default"
+              }
+            },
+            "spec": {
+              "containerConcurrency": 80,
+              "containers": [
+                {
+                  "env": [
+                    {
+                      "name": "DJANGO_SETTINGS_MODULE",
+                      "value": "FURFEASTCO.settings"
+                    },
+                    {
+                      "name": "SECRET_KEY",
+                      "value": "django-insecure-u%=m_jym@7l@45gval389byel^zg#%7pian(h3p0j68y90%+q+"
+                    },
+                    {
+                      "name": "DEBUG",
+                      "value": "False"
+                    },
+                    {
+                      "name": "DB_HOST",
+                      "value": "34.129.215.28"
+                    },
+                    {
+                      "name": "DB_NAME",
+                      "value": "furfeast"
+                    },
+                    {
+                      "name": "DB_USER",
+                      "value": "furfeast-user"
+                    },
+                    {
+                      "name": "DB_PASSWORD",
+                      "value": "FurfeastDB2024!"
+                    },
+                    {
+                      "name": "DB_PORT",
+                      "value": "5432"
+                    },
+                    {
+                      "name": "EMAIL_HOST_USER",
+                      "value": "cofurfeast@gmail.com"
+                    },
+                    {
+                      "name": "EMAIL_HOST_PASSWORD",
+                      "value": "omylzdzofbxymrxv"
+                    },
+                    {
+                      "name": "GS_BUCKET_NAME",
+                      "value": "furfeastco-media"
+                    },
+                    {
+                      "name": "GOOGLE_CLOUD_PROJECT",
+                      "value": "project-e66945a9-799e-4142-bd5"
+                    }
+                  ],
+                  "image": "australia-southeast2-docker.pkg.dev/project-e66945a9-799e-4142-bd5/cloud-run-source-deploy/furfeastco:latest",
+                  "ports": [
+                    {
+                      "containerPort": 8080,
+                      "name": "http1"
+                    }
+                  ],
+                  "resources": {
+                    "limits": {
+                      "cpu": "2",
+                      "memory": "2Gi"
+                    }
+                  },
+                  "startupProbe": {
+                    "failureThreshold": 1,
+                    "periodSeconds": 240,
+                    "tcpSocket": {
+                      "port": 8080
+                    },
+                    "timeoutSeconds": 240
+                  }
+                }
+              ],
+              "serviceAccountName": "168900719564-compute@developer.gserviceaccount.com",
+              "timeoutSeconds": 600
+            }
+          },
+          "traffic": [
+            {
+              "latestRevision": true,
+              "percent": 100
+            }
+          ]
+        },
+        "status": {
+          "address": {
+            "url": "https://furfeastco-h2mw7nen5q-km.a.run.app"
+          },
+          "conditions": [
+            {
+              "lastTransitionTime": "2026-01-24T13:41:05.486640Z",
+              "status": "True",
+              "type": "Ready"
+            },
+            {
+              "lastTransitionTime": "2026-01-24T13:40:54.819505Z",
+              "status": "True",
+              "type": "ConfigurationsReady"
+            },
+            {
+              "lastTransitionTime": "2026-01-24T13:41:05.461088Z",
+              "status": "True",
+              "type": "RoutesReady"
+            }
+          ],
+          "latestCreatedRevisionName": "furfeastco-00054-nj9",
+          "latestReadyRevisionName": "furfeastco-00054-nj9",
+          "observedGeneration": 54,
+          "traffic": [
+            {
+              "latestRevision": true,
+              "percent": 100,
+              "revisionName": "furfeastco-00054-nj9"
+            }
+          ],
+          "url": "https://furfeastco-h2mw7nen5q-km.a.run.app"
+        }
+      },
+      "serviceName": "run.googleapis.com",
+      "status": {
+        "message": "Ready condition status changed to True for Service furfeastco."
+      }
+    },
+    "receiveTimestamp": "2026-01-24T13:41:05.667645011Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "severity": "INFO",
+    "timestamp": "2026-01-24T13:41:05.497296Z"
+  },
+  {
+    "insertId": "-ikv3i6d1u5u",
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/cloudaudit.googleapis.com%2Fsystem_event",
+    "protoPayload": {
+      "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+      "methodName": "/Services.ReplaceService",
+      "resourceName": "namespaces/project-e66945a9-799e-4142-bd5/revisions/furfeastco-00054-nj9",
+      "response": {
+        "@type": "type.googleapis.com/google.cloud.run.v1.Revision",
+        "apiVersion": "serving.knative.dev/v1",
+        "kind": "Revision",
+        "metadata": {
+          "annotations": {
+            "autoscaling.knative.dev/maxScale": "10",
+            "run.googleapis.com/client-name": "gcloud",
+            "run.googleapis.com/client-version": "552.0.0",
+            "run.googleapis.com/operation-id": "398bfc10-96af-43fc-9a1b-a3491c884560",
+            "run.googleapis.com/startup-cpu-boost": "true",
+            "serving.knative.dev/creator": "cofurfeast@gmail.com"
+          },
+          "creationTimestamp": "2026-01-24T13:40:54.289659Z",
+          "generation": 1,
+          "labels": {
+            "client.knative.dev/nonce": "jbquvfowoq",
+            "cloud.googleapis.com/location": "australia-southeast2",
+            "run.googleapis.com/satisfiesPzs": "true",
+            "run.googleapis.com/startupProbeType": "Default",
+            "serving.knative.dev/configuration": "furfeastco",
+            "serving.knative.dev/configurationGeneration": "54",
+            "serving.knative.dev/route": "furfeastco",
+            "serving.knative.dev/service": "furfeastco",
+            "serving.knative.dev/serviceUid": "5588584f-e08b-48e6-87b9-c74dee03801c"
+          },
+          "name": "furfeastco-00054-nj9",
+          "namespace": "168900719564",
+          "ownerReferences": [
+            {
+              "apiVersion": "serving.knative.dev/v1",
+              "blockOwnerDeletion": true,
+              "controller": true,
+              "kind": "Configuration",
+              "name": "furfeastco",
+              "uid": "3ca975eb-cd36-44e0-ab78-8ffbf4c19e26"
+            }
+          ],
+          "resourceVersion": "AAZJImzJND4",
+          "selfLink": "/apis/serving.knative.dev/v1/namespaces/168900719564/revisions/furfeastco-00054-nj9",
+          "uid": "1229e01f-fa0d-46c3-ae9f-bc3b84aac4f7"
+        },
+        "spec": {
+          "containerConcurrency": 80,
+          "containers": [
+            {
+              "env": [
+                {
+                  "name": "DJANGO_SETTINGS_MODULE",
+                  "value": "FURFEASTCO.settings"
+                },
+                {
+                  "name": "SECRET_KEY",
+                  "value": "django-insecure-u%=m_jym@7l@45gval389byel^zg#%7pian(h3p0j68y90%+q+"
+                },
+                {
+                  "name": "DEBUG",
+                  "value": "False"
+                },
+                {
+                  "name": "DB_HOST",
+                  "value": "34.129.215.28"
+                },
+                {
+                  "name": "DB_NAME",
+                  "value": "furfeast"
+                },
+                {
+                  "name": "DB_USER",
+                  "value": "furfeast-user"
+                },
+                {
+                  "name": "DB_PASSWORD",
+                  "value": "FurfeastDB2024!"
+                },
+                {
+                  "name": "DB_PORT",
+                  "value": "5432"
+                },
+                {
+                  "name": "EMAIL_HOST_USER",
+                  "value": "cofurfeast@gmail.com"
+                },
+                {
+                  "name": "EMAIL_HOST_PASSWORD",
+                  "value": "omylzdzofbxymrxv"
+                },
+                {
+                  "name": "GS_BUCKET_NAME",
+                  "value": "furfeastco-media"
+                },
+                {
+                  "name": "GOOGLE_CLOUD_PROJECT",
+                  "value": "project-e66945a9-799e-4142-bd5"
+                }
+              ],
+              "image": "australia-southeast2-docker.pkg.dev/project-e66945a9-799e-4142-bd5/cloud-run-source-deploy/furfeastco@sha256:f7f67d66805c4cf4d916ee9ec60c304244de05044d609f08db531dbd68c49ad5",
+              "name": "furfeastco-1",
+              "ports": [
+                {
+                  "containerPort": 8080,
+                  "name": "http1"
+                }
+              ],
+              "resources": {
+                "limits": {
+                  "cpu": "2",
+                  "memory": "2Gi"
+                }
+              },
+              "startupProbe": {
+                "failureThreshold": 1,
+                "periodSeconds": 240,
+                "tcpSocket": {
+                  "port": 8080
+                },
+                "timeoutSeconds": 240
+              }
+            }
+          ],
+          "serviceAccountName": "168900719564-compute@developer.gserviceaccount.com",
+          "timeoutSeconds": 600
+        },
+        "status": {
+          "conditions": [
+            {
+              "lastTransitionTime": "2026-01-24T13:41:03.105086Z",
+              "message": "Deploying revision succeeded in 8.81s.",
+              "status": "True",
+              "type": "Ready"
+            },
+            {
+              "lastTransitionTime": "2026-01-24T13:41:03.066942Z",
+              "message": "Containers became healthy in 5.47s.",
+              "status": "True",
+              "type": "ContainerHealthy"
+            },
+            {
+              "lastTransitionTime": "2026-01-24T13:40:54.750483Z",
+              "message": "Container image import completed.",
+              "status": "True",
+              "type": "ContainerReady"
+            },
+            {
+              "lastTransitionTime": "2026-01-24T13:40:57.323882Z",
+              "message": "Provisioning imported containers completed in 2.57s. Checking container health. This will wait for up to 4m for the configured startup probe, including an initial delay of 0s.",
+              "status": "True",
+              "type": "ResourcesAvailable"
+            }
+          ],
+          "containerStatuses": [
+            {
+              "imageDigest": "australia-southeast2-docker.pkg.dev/project-e66945a9-799e-4142-bd5/cloud-run-source-deploy/furfeastco@sha256:f7f67d66805c4cf4d916ee9ec60c304244de05044d609f08db531dbd68c49ad5",
+              "name": "furfeastco-1"
+            }
+          ],
+          "imageDigest": "australia-southeast2-docker.pkg.dev/project-e66945a9-799e-4142-bd5/cloud-run-source-deploy/furfeastco@sha256:f7f67d66805c4cf4d916ee9ec60c304244de05044d609f08db531dbd68c49ad5",
+          "logUrl": "https://console.cloud.google.com/logs/viewer?project=project-e66945a9-799e-4142-bd5&resource=cloud_run_revision/service_name/furfeastco/revision_name/furfeastco-00054-nj9&advancedFilter=resource.type%3D%22cloud_run_revision%22%0Aresource.labels.service_name%3D%22furfeastco%22%0Aresource.labels.revision_name%3D%22furfeastco-00054-nj9%22",
+          "observedGeneration": 1
+        }
+      },
+      "serviceName": "run.googleapis.com",
+      "status": {
+        "message": "Ready condition status changed to True for Revision furfeastco-00054-nj9 with message: Deploying revision succeeded in 8.81s."
+      }
+    },
+    "receiveTimestamp": "2026-01-24T13:41:03.616743985Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "severity": "INFO",
+    "timestamp": "2026-01-24T13:41:03.115014Z"
+  },
+  {
+    "insertId": "6974cbef0001183c2e77ff75",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstderr",
+    "receiveTimestamp": "2026-01-24T13:41:03.392036124Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "[2026-01-24 13:41:03 +0000] [4] [INFO] Booting worker with pid: 4",
+    "timestamp": "2026-01-24T13:41:03.071740Z"
+  },
+  {
+    "insertId": "6974cbef0000e524280be5d6",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fvarlog%2Fsystem",
+    "receiveTimestamp": "2026-01-24T13:41:03.135181658Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "severity": "INFO",
+    "textPayload": "Default STARTUP TCP probe succeeded after 1 attempt for container \"furfeastco-1\" on port 8080.",
+    "timestamp": "2026-01-24T13:41:03.058660Z"
+  },
+  {
+    "insertId": "6974cbef0000e4027285bf2b",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstderr",
+    "receiveTimestamp": "2026-01-24T13:41:03.392036124Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "[2026-01-24 13:41:03 +0000] [1] [INFO] Using worker: sync",
+    "timestamp": "2026-01-24T13:41:03.058370Z"
+  },
+  {
+    "insertId": "6974cbef0000e3cec854b1cf",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstderr",
+    "receiveTimestamp": "2026-01-24T13:41:03.392036124Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "[2026-01-24 13:41:03 +0000] [1] [INFO] Listening at: http://0.0.0.0:8080 (1)",
+    "timestamp": "2026-01-24T13:41:03.058318Z"
+  },
+  {
+    "insertId": "6974cbef0000de96036d8acf",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstderr",
+    "receiveTimestamp": "2026-01-24T13:41:03.059281811Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "[2026-01-24 13:41:03 +0000] [1] [INFO] Starting gunicorn 21.2.0",
+    "timestamp": "2026-01-24T13:41:03.056982Z"
+  },
+  {
+    "insertId": "6974cbee0009c382769ce3fe",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:41:02.935586002Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "131 static files copied to '/app/staticfiles', 7 unmodified, 387 post-processed.",
+    "timestamp": "2026-01-24T13:41:02.639874Z"
+  },
+  {
+    "insertId": "6974cbed000ddfca6193343b",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:41:01.936271301Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "Found another file with the destination path 'js/slider.js'. It will be ignored since only the first encountered file is collected. If this is not what you want, make sure every static file has a unique path.",
+    "timestamp": "2026-01-24T13:41:01.909258Z"
+  },
+  {
+    "insertId": "6974cbed000ddfbc29cd5efe",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:41:01.936271301Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "Found another file with the destination path 'js/reviews-slider.js'. It will be ignored since only the first encountered file is collected. If this is not what you want, make sure every static file has a unique path.",
+    "timestamp": "2026-01-24T13:41:01.909244Z"
+  },
+  {
+    "insertId": "6974cbed000ddf7c392bd752",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:41:01.936271301Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "Found another file with the destination path 'js/reviews-slider-fixed.js'. It will be ignored since only the first encountered file is collected. If this is not what you want, make sure every static file has a unique path.",
+    "timestamp": "2026-01-24T13:41:01.909180Z"
+  },
+  {
+    "insertId": "6974cbed000ddf5c2cb35b73",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:41:01.936271301Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "Found another file with the destination path 'js/performance.js'. It will be ignored since only the first encountered file is collected. If this is not what you want, make sure every static file has a unique path.",
+    "timestamp": "2026-01-24T13:41:01.909148Z"
+  },
+  {
+    "insertId": "6974cbed000ddf3f8fad9940",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:41:01.936271301Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "Found another file with the destination path 'js/main.js'. It will be ignored since only the first encountered file is collected. If this is not what you want, make sure every static file has a unique path.",
+    "timestamp": "2026-01-24T13:41:01.909119Z"
+  },
+  {
+    "insertId": "6974cbed000ddf2458094342",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:41:01.936271301Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "Found another file with the destination path 'js/image-adjuster.js'. It will be ignored since only the first encountered file is collected. If this is not what you want, make sure every static file has a unique path.",
+    "timestamp": "2026-01-24T13:41:01.909092Z"
+  },
+  {
+    "insertId": "6974cbed000ddf0b9336a46d",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:41:01.936271301Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "Found another file with the destination path 'js/components.js'. It will be ignored since only the first encountered file is collected. If this is not what you want, make sure every static file has a unique path.",
+    "timestamp": "2026-01-24T13:41:01.909067Z"
+  },
+  {
+    "insertId": "6974cbed000ddee008af8d49",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:41:01.936271301Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "Found another file with the destination path 'js/admin_validation.js'. It will be ignored since only the first encountered file is collected. If this is not what you want, make sure every static file has a unique path.",
+    "timestamp": "2026-01-24T13:41:01.909024Z"
+  },
+  {
+    "insertId": "6974cbed000dddda4f459511",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:41:01.936271301Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "Found another file with the destination path 'css/styles.css'. It will be ignored since only the first encountered file is collected. If this is not what you want, make sure every static file has a unique path.",
+    "timestamp": "2026-01-24T13:41:01.908762Z"
+  },
+  {
+    "insertId": "6974cbed000dddc5fdfcded4",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:41:01.936271301Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "Found another file with the destination path 'css/input.css'. It will be ignored since only the first encountered file is collected. If this is not what you want, make sure every static file has a unique path.",
+    "timestamp": "2026-01-24T13:41:01.908741Z"
+  },
+  {
+    "insertId": "6974cbed000dddba9dd5ff7b",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:41:01.936271301Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "Found another file with the destination path 'css/admin_custom.css'. It will be ignored since only the first encountered file is collected. If this is not what you want, make sure every static file has a unique path.",
+    "timestamp": "2026-01-24T13:41:01.908730Z"
+  },
+  {
+    "insertId": "6974cbec0007e2b4db6146fd",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:41:00.605135786Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "Collecting static files...",
+    "timestamp": "2026-01-24T13:41:00.516788Z"
+  },
+  {
+    "insertId": "6974cbec0003e58ea0fdbfcb",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:41:00.271197194Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "  No migrations to apply.",
+    "timestamp": "2026-01-24T13:41:00.255374Z"
+  },
+  {
+    "insertId": "6974cbec0003e57841cce4a0",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:41:00.271197194Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "Running migrations:",
+    "timestamp": "2026-01-24T13:41:00.255352Z"
+  },
+  {
+    "insertId": "6974cbec00037aa4084662fa",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:41:00.271197194Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "  Apply all migrations: admin, auth, contenttypes, furfeast, sessions",
+    "timestamp": "2026-01-24T13:41:00.228004Z"
+  },
+  {
+    "insertId": "6974cbec00037a98841cd53b",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:41:00.271197194Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "Operations to perform:",
+    "timestamp": "2026-01-24T13:41:00.227992Z"
+  },
+  {
+    "insertId": "6974cbe90009381b0c463c1b",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:40:57.607342465Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "Running migrations...",
+    "timestamp": "2026-01-24T13:40:57.604187Z"
+  },
+  {
+    "insertId": "6974cbe900093807269c48c4",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:40:57.607342465Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "Starting FURFEASTCO Production on port 8080",
+    "timestamp": "2026-01-24T13:40:57.604167Z"
+  },
+  {
+    "insertId": "6974cbe900072ed92cf5d5e8",
+    "labels": {
+      "instanceId": "005eb6974c454364f17c5b18abac028e60af6e46a48c5cd015aa880510c57be32f02a1c34790594ed3f474ede009b108d4e1487e5ba257e107fcf53fb6787bc07901f2596550afaa9bdcd33d5041bccdc3",
+      "scaling_reason": "DEPLOYMENT_ROLLOUT"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fvarlog%2Fsystem",
+    "receiveTimestamp": "2026-01-24T13:40:57.473279843Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00054-nj9",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "severity": "INFO",
+    "textPayload": "Starting new instance. Reason: DEPLOYMENT_ROLLOUT - Instance started due to traffic shifting between revisions due to deployment, traffic split adjustment, or deployment health check.",
+    "timestamp": "2026-01-24T13:40:57.470745Z"
+  },
+  {
+    "insertId": "6974cbe70005ef6273bfdee8",
+    "labels": {
+      "instanceId": "005eb6974c01c80797270ca7da7bcac126c6fe8c2d1838236afd50b070b8a035d51a7d0028853543199b372fa6f31e5b5a5dabbbbb16592b41b21dce4b8f7717d94f0c8b6443338790aeb78c211083f199"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstderr",
+    "receiveTimestamp": "2026-01-24T13:40:55.522077842Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00052-wlt",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "[2026-01-24 13:40:55 +0000] [1] [INFO] Shutting down: Master",
+    "timestamp": "2026-01-24T13:40:55.388962Z"
+  },
+  {
+    "insertId": "6974cbe70002dd2011b49b52",
+    "labels": {
+      "instanceId": "005eb6974c01c80797270ca7da7bcac126c6fe8c2d1838236afd50b070b8a035d51a7d0028853543199b372fa6f31e5b5a5dabbbbb16592b41b21dce4b8f7717d94f0c8b6443338790aeb78c211083f199"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstderr",
+    "receiveTimestamp": "2026-01-24T13:40:55.522077842Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00052-wlt",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "[2026-01-24 19:25:55 +0545] [4] [INFO] Worker exiting (pid: 4)",
+    "timestamp": "2026-01-24T13:40:55.187680Z"
+  },
+  {
+    "insertId": "6974cbe70002d952ee562768",
+    "labels": {
+      "instanceId": "005eb6974c01c80797270ca7da7bcac126c6fe8c2d1838236afd50b070b8a035d51a7d0028853543199b372fa6f31e5b5a5dabbbbb16592b41b21dce4b8f7717d94f0c8b6443338790aeb78c211083f199"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstderr",
+    "receiveTimestamp": "2026-01-24T13:40:55.188986513Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00052-wlt",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "[2026-01-24 13:40:55 +0000] [1] [INFO] Handling signal: term",
+    "timestamp": "2026-01-24T13:40:55.186706Z"
+  },
+  {
+    "insertId": "3c35tydierd",
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/cloudaudit.googleapis.com%2Factivity",
+    "protoPayload": {
+      "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+      "authenticationInfo": {
+        "oauthInfo": {
+          "oauthClientId": "32555940559.apps.googleusercontent.com"
+        },
+        "principalEmail": "cofurfeast@gmail.com",
+        "principalSubject": "user:cofurfeast@gmail.com"
+      },
+      "authorizationInfo": [
+        {
+          "granted": true,
+          "permission": "run.services.update",
+          "permissionType": "ADMIN_WRITE",
+          "resource": "namespaces/project-e66945a9-799e-4142-bd5/services/furfeastco",
+          "resourceAttributes": {}
+        },
+        {
+          "granted": true,
+          "permission": "run.services.update",
+          "permissionType": "ADMIN_WRITE",
+          "resource": "namespaces/project-e66945a9-799e-4142-bd5/services/furfeastco",
+          "resourceAttributes": {
+            "name": "namespaces/project-e66945a9-799e-4142-bd5/services/furfeastco",
+            "service": "run.googleapis.com/",
+            "type": "run.googleapis.com/Service"
+          }
+        }
+      ],
+      "methodName": "google.cloud.run.v1.Services.ReplaceService",
+      "request": {
+        "@type": "type.googleapis.com/google.cloud.run.v1.ReplaceServiceRequest",
+        "name": "namespaces/project-e66945a9-799e-4142-bd5/services/furfeastco",
+        "service": {
+          "apiVersion": "serving.knative.dev/v1",
+          "kind": "Service",
+          "metadata": {
+            "annotations": {
+              "run.googleapis.com/build-enable-automatic-updates": "false",
+              "run.googleapis.com/build-id": "d8441609-2a70-4200-a9dc-83de168a8686",
+              "run.googleapis.com/build-image-uri": "australia-southeast2-docker.pkg.dev/project-e66945a9-799e-4142-bd5/cloud-run-source-deploy/furfeastco",
+              "run.googleapis.com/build-name": "projects/168900719564/locations/australia-southeast2/builds/d8441609-2a70-4200-a9dc-83de168a8686",
+              "run.googleapis.com/build-source-location": "gs://run-sources-project-e66945a9-799e-4142-bd5-australia-southeast2/services/furfeastco/1769255768.530307-f0ed40fbaa9248e489f0b0a231fbd52d.zip#1769255772203245",
+              "run.googleapis.com/client-name": "gcloud",
+              "run.googleapis.com/client-version": "552.0.0",
+              "run.googleapis.com/ingress": "all",
+              "run.googleapis.com/ingress-status": "all",
+              "run.googleapis.com/maxScale": "3",
+              "run.googleapis.com/operation-id": "f47a4d77-4c5f-4050-b9fe-70a39f0b427e",
+              "run.googleapis.com/urls": "[\"https://furfeastco-168900719564.australia-southeast2.run.app\",\"https://furfeastco-h2mw7nen5q-km.a.run.app\"]",
+              "serving.knative.dev/creator": "cofurfeast@gmail.com",
+              "serving.knative.dev/lastModifier": "168900719564-compute@developer.gserviceaccount.com"
+            },
+            "creationTimestamp": "2026-01-20T11:07:39.196185Z",
+            "generation": 53,
+            "labels": {
+              "cloud.googleapis.com/location": "australia-southeast2",
+              "run.googleapis.com/satisfiesPzs": "true"
+            },
+            "name": "furfeastco",
+            "namespace": "168900719564",
+            "resourceVersion": "AAZJImK1Nfk",
+            "selfLink": "/apis/serving.knative.dev/v1/namespaces/168900719564/services/furfeastco",
+            "uid": "5588584f-e08b-48e6-87b9-c74dee03801c"
+          },
+          "spec": {
+            "template": {
+              "metadata": {
+                "annotations": {
+                  "autoscaling.knative.dev/maxScale": "10",
+                  "run.googleapis.com/client-name": "gcloud",
+                  "run.googleapis.com/client-version": "552.0.0",
+                  "run.googleapis.com/startup-cpu-boost": "true"
+                },
+                "labels": {
+                  "client.knative.dev/nonce": "jbquvfowoq",
+                  "run.googleapis.com/startupProbeType": "Default"
+                }
+              },
+              "spec": {
+                "containerConcurrency": 80,
+                "containers": [
+                  {
+                    "image": "australia-southeast2-docker.pkg.dev/project-e66945a9-799e-4142-bd5/cloud-run-source-deploy/furfeastco:latest",
+                    "resources": {
+                      "limits": {
+                        "cpu": "2",
+                        "memory": "2Gi"
+                      }
+                    }
+                  }
+                ],
+                "serviceAccountName": "168900719564-compute@developer.gserviceaccount.com",
+                "timeoutSeconds": 600
+              }
+            },
+            "traffic": [
+              {
+                "latestRevision": true,
+                "percent": 100
+              }
+            ]
+          },
+          "status": {
+            "conditions": [
+              {
+                "lastTransitionTime": "2026-01-24T13:38:14.022649Z",
+                "status": "True",
+                "type": "Ready"
+              },
+              {
+                "lastTransitionTime": "2026-01-24T13:38:11.992607Z",
+                "status": "True",
+                "type": "ConfigurationsReady"
+              },
+              {
+                "lastTransitionTime": "2026-01-24T13:38:13.996544Z",
+                "status": "True",
+                "type": "RoutesReady"
+              }
+            ],
+            "latestCreatedRevisionName": "furfeastco-00053-86b",
+            "latestReadyRevisionName": "furfeastco-00053-86b",
+            "observedGeneration": 53,
+            "traffic": [
+              {
+                "latestRevision": true,
+                "percent": 100,
+                "revisionName": "furfeastco-00053-86b"
+              }
+            ],
+            "url": "https://furfeastco-h2mw7nen5q-km.a.run.app"
+          }
+        }
+      },
+      "requestMetadata": {
+        "callerIp": "2400:1a00:5b43:f7af:e86e:ed9f:ab11:8459",
+        "callerSuppliedUserAgent": "google-cloud-sdk gcloud/552.0.0 command/gcloud.run.deploy invocation-id/3cd00f7c916a4efc93ef0c69865d5b7e environment/None environment-version/None client-os/WINDOWS client-os-ver/10.0.26200 client-pltf-arch/x86_64 interactive/False from-script/False python/3.13.8 term/  (Windows NT 10.0.26200),gzip(gfe)",
+        "destinationAttributes": {},
+        "requestAttributes": {
+          "auth": {},
+          "time": "2026-01-24T13:40:54.254328Z"
+        }
+      },
+      "resourceLocation": {
+        "currentLocations": [
+          "australia-southeast2"
+        ]
+      },
+      "resourceName": "namespaces/project-e66945a9-799e-4142-bd5/services/furfeastco",
+      "serviceName": "run.googleapis.com"
+    },
+    "receiveTimestamp": "2026-01-24T13:40:55.110252817Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "severity": "NOTICE",
+    "timestamp": "2026-01-24T13:40:53.246510Z"
+  },
+  {
+    "insertId": "6974cbb500045469210ece22",
+    "labels": {
+      "instanceId": "005eb6974c39ebe74c92d59b9fdade121c916dde0a15332453378398ca5e8b816eed4cc8ba6c1752a77775696a8f7c156428cebdfa9799e0ab6dd924579d671218cd2258770d7c1dd61cae349f6d7180c4"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:40:05.286182638Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00053-86b",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "169.254.169.126 - - [24/Jan/2026:19:25:05 +0545] \"GET / HTTP/1.1\" 500 1835 \"-\" \"curl/8.16.0\"",
+    "timestamp": "2026-01-24T13:40:05.283753Z"
+  },
+  {
+    "httpRequest": {
+      "latency": "0.020538383s",
+      "protocol": "HTTP/1.1",
+      "remoteIp": "2400:1a00:5b43:f7af:e86e:ed9f:ab11:8459",
+      "requestMethod": "GET",
+      "requestSize": "298",
+      "requestUrl": "https://furfeastco-168900719564.australia-southeast2.run.app/",
+      "responseSize": "2213",
+      "serverIp": "2600:1900:4244:200::",
+      "status": 500,
+      "userAgent": "curl/8.16.0"
+    },
+    "insertId": "6974cbb5000455c6b5c956ee",
+    "labels": {
+      "instanceId": "005eb6974c39ebe74c92d59b9fdade121c916dde0a15332453378398ca5e8b816eed4cc8ba6c1752a77775696a8f7c156428cebdfa9799e0ab6dd924579d671218cd2258770d7c1dd61cae349f6d7180c4"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Frequests",
+    "receiveTimestamp": "2026-01-24T13:40:05.286826694Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00053-86b",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "severity": "ERROR",
+    "spanId": "63f36f36583e14cb",
+    "timestamp": "2026-01-24T13:40:05.261908Z",
+    "trace": "projects/project-e66945a9-799e-4142-bd5/traces/0f05894594635f81079f44d766219510",
+    "traceSampled": true
+  },
+  {
+    "insertId": "6974cb94000dad8b3a0e6e42",
+    "labels": {
+      "instanceId": "005eb6974c39ebe74c92d59b9fdade121c916dde0a15332453378398ca5e8b816eed4cc8ba6c1752a77775696a8f7c156428cebdfa9799e0ab6dd924579d671218cd2258770d7c1dd61cae349f6d7180c4"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:39:32.901769018Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00053-86b",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "169.254.169.126 - - [24/Jan/2026:19:24:32 +0545] \"HEAD / HTTP/1.1\" 500 1835 \"-\" \"curl/8.16.0\"",
+    "timestamp": "2026-01-24T13:39:32.896395Z"
+  },
+  {
+    "httpRequest": {
+      "latency": "1.141582749s",
+      "protocol": "HTTP/1.1",
+      "remoteIp": "2400:1a00:5b43:f7af:e86e:ed9f:ab11:8459",
+      "requestMethod": "HEAD",
+      "requestSize": "298",
+      "requestUrl": "https://furfeastco-168900719564.australia-southeast2.run.app/",
+      "responseSize": "378",
+      "serverIp": "2600:1900:4245:200::",
+      "status": 500,
+      "userAgent": "curl/8.16.0"
+    },
+    "insertId": "6974cb94000daf90af483406",
+    "labels": {
+      "instanceId": "005eb6974c39ebe74c92d59b9fdade121c916dde0a15332453378398ca5e8b816eed4cc8ba6c1752a77775696a8f7c156428cebdfa9799e0ab6dd924579d671218cd2258770d7c1dd61cae349f6d7180c4"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Frequests",
+    "receiveTimestamp": "2026-01-24T13:39:32.898909278Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00053-86b",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "severity": "ERROR",
+    "spanId": "6c3323b490c699f0",
+    "timestamp": "2026-01-24T13:39:31.748984Z",
+    "trace": "projects/project-e66945a9-799e-4142-bd5/traces/a1ce8e4755d10ec61ac7ad07d0c75804",
+    "traceSampled": true
+  },
+  {
+    "insertId": "4rb2f4d39u6",
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/cloudaudit.googleapis.com%2Fsystem_event",
+    "protoPayload": {
+      "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+      "methodName": "/Services.ReplaceService",
+      "resourceName": "namespaces/project-e66945a9-799e-4142-bd5/services/furfeastco",
+      "response": {
+        "@type": "type.googleapis.com/google.cloud.run.v1.Service",
+        "apiVersion": "serving.knative.dev/v1",
+        "kind": "Service",
+        "metadata": {
+          "annotations": {
+            "run.googleapis.com/build-enable-automatic-updates": "false",
+            "run.googleapis.com/build-id": "d8441609-2a70-4200-a9dc-83de168a8686",
+            "run.googleapis.com/build-image-uri": "australia-southeast2-docker.pkg.dev/project-e66945a9-799e-4142-bd5/cloud-run-source-deploy/furfeastco",
+            "run.googleapis.com/build-name": "projects/168900719564/locations/australia-southeast2/builds/d8441609-2a70-4200-a9dc-83de168a8686",
+            "run.googleapis.com/build-source-location": "gs://run-sources-project-e66945a9-799e-4142-bd5-australia-southeast2/services/furfeastco/1769255768.530307-f0ed40fbaa9248e489f0b0a231fbd52d.zip#1769255772203245",
+            "run.googleapis.com/client-name": "gcloud",
+            "run.googleapis.com/client-version": "553.0.0",
+            "run.googleapis.com/ingress": "all",
+            "run.googleapis.com/ingress-status": "all",
+            "run.googleapis.com/maxScale": "3",
+            "run.googleapis.com/operation-id": "f47a4d77-4c5f-4050-b9fe-70a39f0b427e",
+            "run.googleapis.com/urls": "[\"https://furfeastco-168900719564.australia-southeast2.run.app\",\"https://furfeastco-h2mw7nen5q-km.a.run.app\"]",
+            "serving.knative.dev/creator": "cofurfeast@gmail.com",
+            "serving.knative.dev/lastModifier": "168900719564-compute@developer.gserviceaccount.com"
+          },
+          "creationTimestamp": "2026-01-20T11:07:39.196185Z",
+          "generation": 53,
+          "labels": {
+            "cloud.googleapis.com/location": "australia-southeast2",
+            "run.googleapis.com/satisfiesPzs": "true"
+          },
+          "name": "furfeastco",
+          "namespace": "168900719564",
+          "resourceVersion": "AAZJImK1Nfk",
+          "selfLink": "/apis/serving.knative.dev/v1/namespaces/168900719564/services/furfeastco",
+          "uid": "5588584f-e08b-48e6-87b9-c74dee03801c"
+        },
+        "spec": {
+          "template": {
+            "metadata": {
+              "annotations": {
+                "autoscaling.knative.dev/maxScale": "10",
+                "run.googleapis.com/client-name": "gcloud",
+                "run.googleapis.com/client-version": "553.0.0",
+                "run.googleapis.com/startup-cpu-boost": "true"
+              },
+              "labels": {
+                "client.knative.dev/nonce": "itsnviszoe",
+                "run.googleapis.com/startupProbeType": "Default"
+              }
+            },
+            "spec": {
+              "containerConcurrency": 80,
+              "containers": [
+                {
+                  "env": [
+                    {
+                      "name": "DJANGO_SETTINGS_MODULE",
+                      "value": "FURFEASTCO.settings"
+                    },
+                    {
+                      "name": "SECRET_KEY",
+                      "value": "django-insecure-u%=m_jym@7l@45gval389byel^zg#%7pian(h3p0j68y90%+q+"
+                    },
+                    {
+                      "name": "DEBUG",
+                      "value": "False"
+                    },
+                    {
+                      "name": "DB_HOST",
+                      "value": "34.129.215.28"
+                    },
+                    {
+                      "name": "DB_NAME",
+                      "value": "furfeast"
+                    },
+                    {
+                      "name": "DB_USER",
+                      "value": "furfeast-user"
+                    },
+                    {
+                      "name": "DB_PASSWORD",
+                      "value": "FurfeastDB2024!"
+                    },
+                    {
+                      "name": "DB_PORT",
+                      "value": "5432"
+                    },
+                    {
+                      "name": "EMAIL_HOST_USER",
+                      "value": "cofurfeast@gmail.com"
+                    },
+                    {
+                      "name": "EMAIL_HOST_PASSWORD",
+                      "value": "omylzdzofbxymrxv"
+                    },
+                    {
+                      "name": "GS_BUCKET_NAME",
+                      "value": "furfeastco-media"
+                    },
+                    {
+                      "name": "GOOGLE_CLOUD_PROJECT",
+                      "value": "project-e66945a9-799e-4142-bd5"
+                    }
+                  ],
+                  "image": "australia-southeast2-docker.pkg.dev/project-e66945a9-799e-4142-bd5/cloud-run-source-deploy/furfeastco:latest",
+                  "ports": [
+                    {
+                      "containerPort": 8080,
+                      "name": "http1"
+                    }
+                  ],
+                  "resources": {
+                    "limits": {
+                      "cpu": "2",
+                      "memory": "2Gi"
+                    }
+                  },
+                  "startupProbe": {
+                    "failureThreshold": 1,
+                    "periodSeconds": 240,
+                    "tcpSocket": {
+                      "port": 8080
+                    },
+                    "timeoutSeconds": 240
+                  }
+                }
+              ],
+              "serviceAccountName": "168900719564-compute@developer.gserviceaccount.com",
+              "timeoutSeconds": 600
+            }
+          },
+          "traffic": [
+            {
+              "latestRevision": true,
+              "percent": 100
+            }
+          ]
+        },
+        "status": {
+          "address": {
+            "url": "https://furfeastco-h2mw7nen5q-km.a.run.app"
+          },
+          "conditions": [
+            {
+              "lastTransitionTime": "2026-01-24T13:38:14.022649Z",
+              "status": "True",
+              "type": "Ready"
+            },
+            {
+              "lastTransitionTime": "2026-01-24T13:38:11.992607Z",
+              "status": "True",
+              "type": "ConfigurationsReady"
+            },
+            {
+              "lastTransitionTime": "2026-01-24T13:38:13.996544Z",
+              "status": "True",
+              "type": "RoutesReady"
+            }
+          ],
+          "latestCreatedRevisionName": "furfeastco-00053-86b",
+          "latestReadyRevisionName": "furfeastco-00053-86b",
+          "observedGeneration": 53,
+          "traffic": [
+            {
+              "latestRevision": true,
+              "percent": 100,
+              "revisionName": "furfeastco-00053-86b"
+            }
+          ],
+          "url": "https://furfeastco-h2mw7nen5q-km.a.run.app"
+        }
+      },
+      "serviceName": "run.googleapis.com",
+      "status": {
+        "message": "Ready condition status changed to True for Service furfeastco."
+      }
+    },
+    "receiveTimestamp": "2026-01-24T13:38:14.912521676Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "severity": "INFO",
+    "timestamp": "2026-01-24T13:38:14.033455Z"
+  },
+  {
+    "insertId": "wgsa2ccr66",
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/cloudaudit.googleapis.com%2Fsystem_event",
+    "protoPayload": {
+      "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+      "methodName": "/Services.ReplaceService",
+      "resourceName": "namespaces/project-e66945a9-799e-4142-bd5/revisions/furfeastco-00053-86b",
+      "response": {
+        "@type": "type.googleapis.com/google.cloud.run.v1.Revision",
+        "apiVersion": "serving.knative.dev/v1",
+        "kind": "Revision",
+        "metadata": {
+          "annotations": {
+            "autoscaling.knative.dev/maxScale": "10",
+            "run.googleapis.com/client-name": "gcloud",
+            "run.googleapis.com/client-version": "553.0.0",
+            "run.googleapis.com/operation-id": "f47a4d77-4c5f-4050-b9fe-70a39f0b427e",
+            "run.googleapis.com/startup-cpu-boost": "true",
+            "serving.knative.dev/creator": "168900719564-compute@developer.gserviceaccount.com"
+          },
+          "creationTimestamp": "2026-01-24T13:37:59.971370Z",
+          "generation": 1,
+          "labels": {
+            "client.knative.dev/nonce": "itsnviszoe",
+            "cloud.googleapis.com/location": "australia-southeast2",
+            "run.googleapis.com/satisfiesPzs": "true",
+            "run.googleapis.com/startupProbeType": "Default",
+            "serving.knative.dev/configuration": "furfeastco",
+            "serving.knative.dev/configurationGeneration": "53",
+            "serving.knative.dev/route": "furfeastco",
+            "serving.knative.dev/service": "furfeastco",
+            "serving.knative.dev/serviceUid": "5588584f-e08b-48e6-87b9-c74dee03801c"
+          },
+          "name": "furfeastco-00053-86b",
+          "namespace": "168900719564",
+          "ownerReferences": [
+            {
+              "apiVersion": "serving.knative.dev/v1",
+              "blockOwnerDeletion": true,
+              "controller": true,
+              "kind": "Configuration",
+              "name": "furfeastco",
+              "uid": "3ca975eb-cd36-44e0-ab78-8ffbf4c19e26"
+            }
+          ],
+          "resourceVersion": "AAZJImKVv0E",
+          "selfLink": "/apis/serving.knative.dev/v1/namespaces/168900719564/revisions/furfeastco-00053-86b",
+          "uid": "b8581e11-1ecf-439e-8821-bb4e35805563"
+        },
+        "spec": {
+          "containerConcurrency": 80,
+          "containers": [
+            {
+              "env": [
+                {
+                  "name": "DJANGO_SETTINGS_MODULE",
+                  "value": "FURFEASTCO.settings"
+                },
+                {
+                  "name": "SECRET_KEY",
+                  "value": "django-insecure-u%=m_jym@7l@45gval389byel^zg#%7pian(h3p0j68y90%+q+"
+                },
+                {
+                  "name": "DEBUG",
+                  "value": "False"
+                },
+                {
+                  "name": "DB_HOST",
+                  "value": "34.129.215.28"
+                },
+                {
+                  "name": "DB_NAME",
+                  "value": "furfeast"
+                },
+                {
+                  "name": "DB_USER",
+                  "value": "furfeast-user"
+                },
+                {
+                  "name": "DB_PASSWORD",
+                  "value": "FurfeastDB2024!"
+                },
+                {
+                  "name": "DB_PORT",
+                  "value": "5432"
+                },
+                {
+                  "name": "EMAIL_HOST_USER",
+                  "value": "cofurfeast@gmail.com"
+                },
+                {
+                  "name": "EMAIL_HOST_PASSWORD",
+                  "value": "omylzdzofbxymrxv"
+                },
+                {
+                  "name": "GS_BUCKET_NAME",
+                  "value": "furfeastco-media"
+                },
+                {
+                  "name": "GOOGLE_CLOUD_PROJECT",
+                  "value": "project-e66945a9-799e-4142-bd5"
+                }
+              ],
+              "image": "australia-southeast2-docker.pkg.dev/project-e66945a9-799e-4142-bd5/cloud-run-source-deploy/furfeastco@sha256:f7f67d66805c4cf4d916ee9ec60c304244de05044d609f08db531dbd68c49ad5",
+              "name": "furfeastco-1",
+              "ports": [
+                {
+                  "containerPort": 8080,
+                  "name": "http1"
+                }
+              ],
+              "resources": {
+                "limits": {
+                  "cpu": "2",
+                  "memory": "2Gi"
+                }
+              },
+              "startupProbe": {
+                "failureThreshold": 1,
+                "periodSeconds": 240,
+                "tcpSocket": {
+                  "port": 8080
+                },
+                "timeoutSeconds": 240
+              }
+            }
+          ],
+          "serviceAccountName": "168900719564-compute@developer.gserviceaccount.com",
+          "timeoutSeconds": 600
+        },
+        "status": {
+          "conditions": [
+            {
+              "lastTransitionTime": "2026-01-24T13:38:11.960641Z",
+              "message": "Deploying revision succeeded in 11.99s.",
+              "status": "True",
+              "type": "Ready"
+            },
+            {
+              "lastTransitionTime": "2026-01-24T13:38:11.916066Z",
+              "message": "Containers became healthy in 4.78s.",
+              "status": "True",
+              "type": "ContainerHealthy"
+            },
+            {
+              "lastTransitionTime": "2026-01-24T13:38:04.103110Z",
+              "message": "Container image import completed in 3.7s.",
+              "status": "True",
+              "type": "ContainerReady"
+            },
+            {
+              "lastTransitionTime": "2026-01-24T13:38:06.756200Z",
+              "message": "Provisioning imported containers completed in 2.65s. Checking container health. This will wait for up to 4m for the configured startup probe, including an initial delay of 0s.",
+              "status": "True",
+              "type": "ResourcesAvailable"
+            }
+          ],
+          "containerStatuses": [
+            {
+              "imageDigest": "australia-southeast2-docker.pkg.dev/project-e66945a9-799e-4142-bd5/cloud-run-source-deploy/furfeastco@sha256:f7f67d66805c4cf4d916ee9ec60c304244de05044d609f08db531dbd68c49ad5",
+              "name": "furfeastco-1"
+            }
+          ],
+          "imageDigest": "australia-southeast2-docker.pkg.dev/project-e66945a9-799e-4142-bd5/cloud-run-source-deploy/furfeastco@sha256:f7f67d66805c4cf4d916ee9ec60c304244de05044d609f08db531dbd68c49ad5",
+          "logUrl": "https://console.cloud.google.com/logs/viewer?project=project-e66945a9-799e-4142-bd5&resource=cloud_run_revision/service_name/furfeastco/revision_name/furfeastco-00053-86b&advancedFilter=resource.type%3D%22cloud_run_revision%22%0Aresource.labels.service_name%3D%22furfeastco%22%0Aresource.labels.revision_name%3D%22furfeastco-00053-86b%22",
+          "observedGeneration": 1
+        }
+      },
+      "serviceName": "run.googleapis.com",
+      "status": {
+        "message": "Ready condition status changed to True for Revision furfeastco-00053-86b with message: Deploying revision succeeded in 11.99s."
+      }
+    },
+    "receiveTimestamp": "2026-01-24T13:38:12.367118953Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00053-86b",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "severity": "INFO",
+    "timestamp": "2026-01-24T13:38:11.971265Z"
+  },
+  {
+    "insertId": "6974cb43000e0d88c4cf7c19",
+    "labels": {
+      "instanceId": "005eb6974c39ebe74c92d59b9fdade121c916dde0a15332453378398ca5e8b816eed4cc8ba6c1752a77775696a8f7c156428cebdfa9799e0ab6dd924579d671218cd2258770d7c1dd61cae349f6d7180c4"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstderr",
+    "receiveTimestamp": "2026-01-24T13:38:12.245437270Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00053-86b",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "[2026-01-24 13:38:11 +0000] [4] [INFO] Booting worker with pid: 4",
+    "timestamp": "2026-01-24T13:38:11.920968Z"
+  },
+  {
+    "insertId": "6974cb43000de70d7f8aeb69",
+    "labels": {
+      "instanceId": "005eb6974c39ebe74c92d59b9fdade121c916dde0a15332453378398ca5e8b816eed4cc8ba6c1752a77775696a8f7c156428cebdfa9799e0ab6dd924579d671218cd2258770d7c1dd61cae349f6d7180c4"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fvarlog%2Fsystem",
+    "receiveTimestamp": "2026-01-24T13:38:12.241798664Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00053-86b",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "severity": "INFO",
+    "textPayload": "Default STARTUP TCP probe succeeded after 1 attempt for container \"furfeastco-1\" on port 8080.",
+    "timestamp": "2026-01-24T13:38:11.911117Z"
+  },
+  {
+    "insertId": "6974cb43000de644b52c86b7",
+    "labels": {
+      "instanceId": "005eb6974c39ebe74c92d59b9fdade121c916dde0a15332453378398ca5e8b816eed4cc8ba6c1752a77775696a8f7c156428cebdfa9799e0ab6dd924579d671218cd2258770d7c1dd61cae349f6d7180c4"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstderr",
+    "receiveTimestamp": "2026-01-24T13:38:12.245437270Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00053-86b",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "[2026-01-24 13:38:11 +0000] [1] [INFO] Using worker: sync",
+    "timestamp": "2026-01-24T13:38:11.910916Z"
+  },
+  {
+    "insertId": "6974cb43000de5f0bd1c7e63",
+    "labels": {
+      "instanceId": "005eb6974c39ebe74c92d59b9fdade121c916dde0a15332453378398ca5e8b816eed4cc8ba6c1752a77775696a8f7c156428cebdfa9799e0ab6dd924579d671218cd2258770d7c1dd61cae349f6d7180c4"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstderr",
+    "receiveTimestamp": "2026-01-24T13:38:12.245437270Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00053-86b",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "[2026-01-24 13:38:11 +0000] [1] [INFO] Listening at: http://0.0.0.0:8080 (1)",
+    "timestamp": "2026-01-24T13:38:11.910832Z"
+  },
+  {
+    "insertId": "6974cb43000de29808d36305",
+    "labels": {
+      "instanceId": "005eb6974c39ebe74c92d59b9fdade121c916dde0a15332453378398ca5e8b816eed4cc8ba6c1752a77775696a8f7c156428cebdfa9799e0ab6dd924579d671218cd2258770d7c1dd61cae349f6d7180c4"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstderr",
+    "receiveTimestamp": "2026-01-24T13:38:11.912100197Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00053-86b",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "[2026-01-24 13:38:11 +0000] [1] [INFO] Starting gunicorn 21.2.0",
+    "timestamp": "2026-01-24T13:38:11.909976Z"
+  },
+  {
+    "insertId": "6974cb4300091898d3c9e372",
+    "labels": {
+      "instanceId": "005eb6974c39ebe74c92d59b9fdade121c916dde0a15332453378398ca5e8b816eed4cc8ba6c1752a77775696a8f7c156428cebdfa9799e0ab6dd924579d671218cd2258770d7c1dd61cae349f6d7180c4"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:38:11.813414370Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00053-86b",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "131 static files copied to '/app/staticfiles', 7 unmodified, 387 post-processed.",
+    "timestamp": "2026-01-24T13:38:11.596120Z"
+  },
+  {
+    "insertId": "6974cb42000e8c80eb9b9e5d",
+    "labels": {
+      "instanceId": "005eb6974c39ebe74c92d59b9fdade121c916dde0a15332453378398ca5e8b816eed4cc8ba6c1752a77775696a8f7c156428cebdfa9799e0ab6dd924579d671218cd2258770d7c1dd61cae349f6d7180c4"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:38:11.146737132Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00053-86b",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "Found another file with the destination path 'js/slider.js'. It will be ignored since only the first encountered file is collected. If this is not what you want, make sure every static file has a unique path.",
+    "timestamp": "2026-01-24T13:38:10.953472Z"
+  },
+  {
+    "insertId": "6974cb42000e8c6f924e7f34",
+    "labels": {
+      "instanceId": "005eb6974c39ebe74c92d59b9fdade121c916dde0a15332453378398ca5e8b816eed4cc8ba6c1752a77775696a8f7c156428cebdfa9799e0ab6dd924579d671218cd2258770d7c1dd61cae349f6d7180c4"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:38:11.146737132Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00053-86b",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "Found another file with the destination path 'js/reviews-slider.js'. It will be ignored since only the first encountered file is collected. If this is not what you want, make sure every static file has a unique path.",
+    "timestamp": "2026-01-24T13:38:10.953455Z"
+  },
+  {
+    "insertId": "6974cb42000e8c5f4406b50b",
+    "labels": {
+      "instanceId": "005eb6974c39ebe74c92d59b9fdade121c916dde0a15332453378398ca5e8b816eed4cc8ba6c1752a77775696a8f7c156428cebdfa9799e0ab6dd924579d671218cd2258770d7c1dd61cae349f6d7180c4"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:38:11.146737132Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00053-86b",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "Found another file with the destination path 'js/reviews-slider-fixed.js'. It will be ignored since only the first encountered file is collected. If this is not what you want, make sure every static file has a unique path.",
+    "timestamp": "2026-01-24T13:38:10.953439Z"
+  },
+  {
+    "insertId": "6974cb42000e8c46ea900992",
+    "labels": {
+      "instanceId": "005eb6974c39ebe74c92d59b9fdade121c916dde0a15332453378398ca5e8b816eed4cc8ba6c1752a77775696a8f7c156428cebdfa9799e0ab6dd924579d671218cd2258770d7c1dd61cae349f6d7180c4"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:38:11.146737132Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00053-86b",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "Found another file with the destination path 'js/performance.js'. It will be ignored since only the first encountered file is collected. If this is not what you want, make sure every static file has a unique path.",
+    "timestamp": "2026-01-24T13:38:10.953414Z"
+  },
+  {
+    "insertId": "6974cb42000e8c2f7c8dbbda",
+    "labels": {
+      "instanceId": "005eb6974c39ebe74c92d59b9fdade121c916dde0a15332453378398ca5e8b816eed4cc8ba6c1752a77775696a8f7c156428cebdfa9799e0ab6dd924579d671218cd2258770d7c1dd61cae349f6d7180c4"
+    },
+    "logName": "projects/project-e66945a9-799e-4142-bd5/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2026-01-24T13:38:11.146737132Z",
+    "resource": {
+      "labels": {
+        "configuration_name": "furfeastco",
+        "location": "australia-southeast2",
+        "project_id": "project-e66945a9-799e-4142-bd5",
+        "revision_name": "furfeastco-00053-86b",
+        "service_name": "furfeastco"
+      },
+      "type": "cloud_run_revision"
+    },
+    "textPayload": "Found another file with the destination path 'js/main.js'. It will be ignored since only the first encountered file is collected. If this is not what you want, make sure every static file has a unique path.",
+    "timestamp": "2026-01-24T13:38:10.953391Z"
+  }
+]

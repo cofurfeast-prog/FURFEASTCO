@@ -140,6 +140,15 @@ urlpatterns = [
     path('api/chat/messages/', views.get_customer_messages, name='get_customer_messages'),
     path('api/chat/unread-count/', views.customer_unread_message_count, name='customer_unread_message_count'),
     path('api/chat/test/', lambda request: __import__('furfeast.test_chat', fromlist=['test_chat_messages']).test_chat_messages(request), name='test_chat_messages'),
+    
+    # Chatbot
+    path('chatbot/', views.chatbot_widget, name='chatbot_widget'),
+    path('api/chatbot/message/', views.chatbot_message, name='chatbot_message'),
+    path('api/chatbot/history/<str:session_id>/', views.chatbot_history, name='chatbot_history'),
+    
+    # Chatbot Testing
+    path('chatbot/test/', views.chatbot_test_view, name='chatbot_test'),
+    path('api/chatbot/test/message/', views.chatbot_test_message, name='chatbot_test_message'),
 ]
 
 # Serve static and media files in production

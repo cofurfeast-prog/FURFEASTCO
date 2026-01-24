@@ -151,7 +151,9 @@ function renderSlides() {
     a.href = slide.cta_link;
     a.className = 'inline-block btn-primary text-base sm:text-lg shadow-glow hover:scale-105 transition-transform animate-slide-up';
     a.style.animationDelay = '300ms';
-    a.style.backgroundColor = '#f97316';
+    a.style.backgroundColor = '#3A5A40';
+    a.style.color = '#ffffff';
+    a.style.padding = '0.75rem 1.5rem';
     a.textContent = slide.cta_text;
     textDiv.appendChild(a);
     

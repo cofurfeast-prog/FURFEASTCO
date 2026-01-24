@@ -3,8 +3,8 @@
 {% block content %}
 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
     <div>
-        <h2 class="text-2xl font-bold text-slate-900">Hero Images</h2>
-        <p class="text-slate-500">Manage homepage hero slider images (1920x800px required)</p>
+        <h2 class="text-2xl font-bold text-white">Hero Images</h2>
+        <p class="text-white">Manage homepage hero slider images (1920x800px required)</p>
     </div>
     <a href="{% url 'dashboard_hero_image_create' %}"
         class="px-4 py-2 bg-orange-500 text-white rounded-xl font-semibold hover:bg-orange-600 transition-colors">
@@ -22,7 +22,7 @@
             </div>
             <div class="flex-1">
                 <div class="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
-                    <h3 class="text-lg sm:text-xl font-bold text-slate-900">{{ image.title }}</h3>
+                    <h3 class="text-lg sm:text-xl font-bold text-white">{{ image.title }}</h3>
                     {% if not image.is_active %}
                     <span class="px-2 py-1 bg-red-100 text-red-600 text-xs rounded-full w-fit">Inactive</span>
                     {% endif %}
@@ -64,7 +64,7 @@
 <div id="deleteModal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
     <div class="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full mx-4 text-center">
         <div class="text-4xl sm:text-6xl mb-4">🐾</div>
-        <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">Delete Hero Image?</h3>
+        <h3 class="text-lg sm:text-xl font-bold text-white mb-2">Delete Hero Image?</h3>
         <p class="text-slate-600 mb-6 text-sm sm:text-base">Are you sure you want to delete "<span id="deleteItemName"></span>"? This action cannot be undone.</p>
         <div class="flex flex-col sm:flex-row gap-3 justify-center">
             <button onclick="hideDeleteConfirmation()" class="px-6 py-2 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 transition-colors">

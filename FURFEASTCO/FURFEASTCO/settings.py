@@ -30,6 +30,28 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-u%=m_jym@7l@45gval389byel^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
 
+# Logging configuration
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}
+
 ALLOWED_HOSTS = ['*']
 
 # CSRF settings for deployment
@@ -37,7 +59,13 @@ CSRF_TRUSTED_ORIGINS = [
     'https://taj8z613n2jd7-furfeastco--8000.prod2.defang.dev',
     'https://*.defang.dev',
     'https://*.australia-southeast2.run.app',
+    'https://*.a.run.app',
     'https://furfeastco-168900719564.australia-southeast2.run.app',
+    'https://furfeastco-h2mw7nen5q-km.a.run.app',
+    'https://furfeast.com.au',
+    'https://www.furfeast.com.au',
+    'http://furfeast.com.au',
+    'http://www.furfeast.com.au',
 ]
 CSRF_COOKIE_SECURE = False
 CSRF_COOKIE_SAMESITE = 'Lax'
@@ -45,19 +73,23 @@ SESSION_COOKIE_SECURE = False
 SESSION_COOKIE_SAMESITE = 'Lax'
 
 # --- Google Cloud Storage Settings ---
-GS_BUCKET_NAME = os.getenv('GS_BUCKET_NAME')
+GS_BUCKET_NAME = os.getenv('GS_BUCKET_NAME', '')
 
-if GS_BUCKET_NAME:  # Only apply GCS settings if the bucket name is defined
-    # Static files (CSS, JavaScript, images)
-    STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-    STATIC_URL = f'https://storage.googleapis.com/{GS_BUCKET_NAME}/static/'
+# Configure Google Cloud Storage for production
+if GS_BUCKET_NAME:
+    # Static files (CSS, JavaScript, images) - keep using WhiteNoise
+    STATIC_URL = '/static/'
+    STATIC_ROOT = BASE_DIR / 'staticfiles'
     
-    # Media files (user-uploaded content)
-    DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-    MEDIA_URL = f'https://storage.googleapis.com/{GS_BUCKET_NAME}/media/'
+    # Media files (user-uploaded content) - use Google Cloud Storage
+    MEDIA_URL = f'https://storage.googleapis.com/{GS_BUCKET_NAME}/'
     
-    # Set default permissions for uploaded files to be publicly readable
+    # Google Cloud Storage settings - use default credentials
+    GS_PROJECT_ID = os.getenv('GOOGLE_CLOUD_PROJECT', 'project-e66945a9-799e-4142-bd5')
     GS_DEFAULT_ACL = 'publicRead'
+    GS_QUERYSTRING_AUTH = False
+    GS_FILE_OVERWRITE = False
+    GS_CREDENTIALS = None  # Use default credentials from Cloud Run service account
     
     # Update STORAGES configuration for Django 4.2+
     STORAGES = {
@@ -65,17 +97,17 @@ if GS_BUCKET_NAME:  # Only apply GCS settings if the bucket name is defined
             "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
         },
         "staticfiles": {
-            "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+            "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
         },
     }
 else:
-    # Fallback to existing Supabase storage
+    # Use local storage for development
     STORAGES = {
         "default": {
-            "BACKEND": "furfeast.storage.SupabaseStorage",
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
         },
         "staticfiles": {
-            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+            "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
         },
     }
 # --- End Google Cloud Storage Settings ---
@@ -87,17 +119,10 @@ STATICFILES_DIRS = [
     BASE_DIR / 'furfeast' / 'static',
 ]
 
-# Media files settings
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-
-# Supabase Storage Configuration
-SUPABASE_URL = os.getenv('SUPABASE_URL', 'https://wivxshghrwmgxstaowjl.supabase.co')
-SUPABASE_KEY = os.getenv('SUPABASE_SERVICE_KEY', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndpdnhzaGdocndtZ3hzdGFvd2psIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2NzE4NDU2MSwiZXhwIjoyMDgyNzYwNTYxfQ.F62rm6cFzBccK477VyqFVSjXCzCeW4ZmsTQ1LJYrOvY')
-SUPABASE_BUCKET_NAME = 'FurfeastCo.'
-
-# Use Supabase storage for file uploads
-DEFAULT_FILE_STORAGE = 'furfeast.storage.SupabaseStorage'
+# Media files settings - handled by Google Cloud Storage
+if not GS_BUCKET_NAME:
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # Application definition
@@ -159,18 +184,16 @@ CHANNEL_LAYERS = {
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# Google Cloud SQL Configuration
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME', 'postgres'),
-        'USER': os.getenv('DB_USER', 'postgres'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
+        'NAME': os.getenv('DB_NAME', 'furfeast'),
+        'USER': os.getenv('DB_USER', 'furfeast-user'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'FurfeastDB2024!'),
+        'HOST': os.getenv('DB_HOST', '127.0.0.1'),
         'PORT': os.getenv('DB_PORT', '5432'),
-        'OPTIONS': {
-            'sslmode': 'require',  # Supabase requires SSL
-        },
-        'CONN_MAX_AGE': 0,  # Disable persistent connections
+        'CONN_MAX_AGE': 600,
         'CONN_HEALTH_CHECKS': True,
     }
 }
@@ -223,7 +246,7 @@ STATICFILES_DIRS = [
 ]
 
 # Static file optimization
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # Cache static files for 1 year and compress them
 WHITENOISE_MAX_AGE = 31536000
@@ -247,13 +270,7 @@ CACHE_MIDDLEWARE_KEY_PREFIX = 'furfeast'
 
 
 
-# Legacy settings (kept for compatibility or reference, but STORAGES takes precedence)
-# DEFAULT_FILE_STORAGE = 'furfeast.storage.SupabaseStorage'
 
-# Supabase Storage Configuration
-SUPABASE_URL = os.getenv('SUPABASE_URL', 'https://wivxshghrwmgxstaowjl.supabase.co')
-SUPABASE_KEY = os.getenv('SUPABASE_SERVICE_KEY', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndpdnhzaGdocndtZ3hzdGFvd2psIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2NzE4NDU2MSwiZXhwIjoyMDgyNzYwNTYxfQ.F62rm6cFzBccK477VyqFVSjXCzCeW4ZmsTQ1LJYrOvY')
-SUPABASE_BUCKET_NAME = 'FurfeastCo.'
 
 
 # Default primary key field type

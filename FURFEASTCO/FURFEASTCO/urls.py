@@ -18,10 +18,15 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.http import HttpResponse
+
+def health_check(request):
+    return HttpResponse("OK", content_type="text/plain")
 
 urlpatterns = [
+    path('health/', health_check, name='health'),
     path('admin/', admin.site.urls),
-    path('', include('furfeast.urls')),
+    path('', include('furfeast.urls')),  # Enable furfeast URLs for Phase 3
 ]
 
 if settings.DEBUG:

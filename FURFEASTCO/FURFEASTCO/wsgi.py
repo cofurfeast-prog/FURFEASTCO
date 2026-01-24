@@ -10,10 +10,6 @@ https://docs.djangoproject.com/en/5.1/howto/deployment/wsgi/
 import os
 from django.core.wsgi import get_wsgi_application
 
-# Try temp_settings first, fallback to production
-try:
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'FURFEASTCO.temp_settings')
-except:
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'FURFEASTCO.production')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'FURFEASTCO.settings')
 
 application = get_wsgi_application()

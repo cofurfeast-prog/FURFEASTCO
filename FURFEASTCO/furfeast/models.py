@@ -447,3 +447,43 @@ class CustomerMessage(models.Model):
     
     def __str__(self):
         return f"{self.chat_room.customer.username} - {'Admin' if self.is_from_admin else 'Customer'} - {self.created_at}"
+
+# Chatbot Models
+
+class ChatBotIntent(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    keywords = models.JSONField(help_text="List of keywords that trigger this intent")
+    response_template = models.TextField()
+    priority = models.IntegerField(default=0, help_text="Higher priority intents are checked first")
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ['-priority', 'name']
+    
+    def __str__(self):
+        return self.name
+
+class ChatBotSession(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    session_id = models.CharField(max_length=100, unique=True)
+    context = models.JSONField(default=dict)
+    last_intent = models.CharField(max_length=100, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return f"ChatBot Session: {self.user.username if self.user else self.session_id}"
+
+class ChatBotConversation(models.Model):
+    session = models.ForeignKey(ChatBotSession, on_delete=models.CASCADE, related_name='conversations')
+    user_message = models.TextField()
+    bot_response = models.TextField()
+    intent_matched = models.CharField(max_length=100, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ['created_at']
+    
+    def __str__(self):
+        return f"Chat: {self.user_message[:50]}..."

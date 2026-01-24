@@ -5,8 +5,10 @@ PORT=${PORT:-8080}
 
 echo "=== STARTING FURFEASTCO ON CLOUD RUN ==="
 echo "Working directory: $(pwd)"
-echo "Files in FURFEASTCO directory:"
-ls -la FURFEASTCO/ 2>/dev/null || echo "ERROR: FURFEASTCO directory not found!"
+echo "Files in current directory:"
+ls -la
+
+# We're already in the correct directory, no need to cd
 
 # Test Python/Django first
 echo "=== Testing Python/Django ==="
@@ -66,13 +68,12 @@ except Exception as e:
     traceback.print_exc()
 "
 
-# Run Django migrations
-echo "=== Running Django migrations ==="
-python manage.py migrate
+# Skip migrations and static files for now
+# echo "=== Running Django migrations ==="
+# python manage.py migrate
 
-# Collect static files
-echo "=== Collecting static files ==="
-python manage.py collectstatic --noinput
+# echo "=== Collecting static files ==="
+# python manage.py collectstatic --noinput
 
 # Start Gunicorn
 echo "🚀 Starting Gunicorn on port $PORT..."

@@ -1,7 +1,7 @@
 const SHARED_COMPONENTS = {
     header: `
     <!-- Header -->
-    <header class="sticky top-0 z-50 bg-card/95 backdrop-blur-md border-b border-slate-200">
+    <header class="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-green-600">
         <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-3 sm:py-4">
             <div class="flex items-center justify-between gap-2">
                 <!-- Left: Mobile menu + Logo -->
@@ -21,7 +21,7 @@ const SHARED_COMPONENTS = {
                         <span class="text-2xl sm:text-3xl">🐕</span>
                         <div class="flex flex-col shrink-0 overflow-hidden whitespace-nowrap">
                             <span id="brand-name" class="text-lg font-extrabold sm:text-lg lg:text-2xl lg:font-bold text-primary font-heading leading-none"></span>
-                            <span class="text-[8px] sm:text-[9px] lg:text-[10px] text-slate-500 hidden sm:block">Natural and Nutritious</span>
+                            <span class="text-[8px] sm:text-[9px] lg:text-[10px] text-primary hidden sm:block">Natural and Nutritious</span>
                         </div>
                     </a>
                 </div>
@@ -55,28 +55,28 @@ const SHARED_COMPONENTS = {
                     
                     <!-- Notifications Bell (Orders + Messages) -->
                     <div class="relative">
-                        <button id="notification-btn" class="p-2 sm:p-2.5 hover:bg-slate-100 rounded-full transition-colors text-slate-700 relative group" aria-label="Notifications">
+                        <button id="notification-btn" class="p-2 sm:p-2.5 hover:bg-green-700 rounded-full transition-colors text-foreground relative group" aria-label="Notifications">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
                                 <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
                             </svg>
-                            <span id="notification-badge" class="absolute top-0.5 right-0.5 w-4 h-4 bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center opacity-0 transition-opacity">0</span>
+                            <span id="notification-badge" class="absolute top-0.5 right-0.5 w-4 h-4 bg-primary text-white text-[9px] font-bold rounded-full flex items-center justify-center opacity-0 transition-opacity">0</span>
                         </button>
                         
                         <!-- Notification Dropdown -->
-                        <div id="notification-dropdown" class="absolute right-0 top-full mt-2 w-[420px] bg-white rounded-xl shadow-lg border border-slate-200 z-50 hidden">
-                            <div class="px-8 py-5 border-b border-slate-100 flex items-center justify-between gap-8">
-                                <h3 class="font-semibold text-slate-900 text-base">Notifications</h3>
+                        <div id="notification-dropdown" class="absolute right-0 top-full mt-2 w-[420px] bg-background rounded-xl shadow-lg border border-green-600 z-50 hidden">
+                            <div class="px-8 py-5 border-b border-green-600 flex items-center justify-between gap-8">
+                                <h3 class="font-semibold text-foreground text-base">Notifications</h3>
                                 <button id="clear-all-btn" class="text-sm text-primary hover:text-primary-dark font-medium whitespace-nowrap">Clear All</button>
                             </div>
                             <div id="notification-list" class="max-h-64 overflow-y-auto">
-                                <div class="p-4 text-center text-slate-500 text-sm">No new notifications</div>
+                                <div class="p-4 text-center text-muted-foreground text-sm">No new notifications</div>
                             </div>
                         </div>
                     </div>
                     
                     <!-- Wishlist -->
-                    <a href="/wishlist/" class="p-2 sm:p-2.5 hover:bg-slate-100 rounded-full transition-colors text-slate-700 relative group" aria-label="Wishlist">
+                    <a href="/wishlist/" class="p-2 sm:p-2.5 hover:bg-green-700 rounded-full transition-colors text-foreground relative group" aria-label="Wishlist">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
@@ -85,13 +85,13 @@ const SHARED_COMPONENTS = {
                     </a>
                     
                     <!-- Profile -->
-                    <a href="/profile/" class="hidden lg:block p-2 sm:p-2.5 hover:bg-slate-100 rounded-full transition-colors text-slate-700" aria-label="Profile">
+                    <a href="/profile/" class="hidden lg:block p-2 sm:p-2.5 hover:bg-green-700 rounded-full transition-colors text-foreground" aria-label="Profile">
                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                     </a>
 
                     <!-- Cart -->
-                    <a href="/cart/" class="p-2 sm:p-2.5 hover:bg-slate-100 rounded-full transition-colors relative group" aria-label="Cart">
-                        <svg class="text-slate-700 group-hover:text-primary transition-colors"
+                    <a href="/cart/" class="p-2 sm:p-2.5 hover:bg-green-700 rounded-full transition-colors relative group" aria-label="Cart">
+                        <svg class="text-foreground group-hover:text-primary transition-colors"
                             xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="8" cy="21" r="1" />
@@ -132,7 +132,7 @@ const SHARED_COMPONENTS = {
                     </div>
                     
                     <!-- Profile - Mobile Only -->
-                    <a href="/profile/" class="lg:hidden p-2 sm:p-2.5 hover:bg-slate-100 rounded-full transition-colors text-slate-700" aria-label="Profile">
+                    <a href="/profile/" class="lg:hidden p-2 sm:p-2.5 hover:bg-green-700 rounded-full transition-colors text-foreground" aria-label="Profile">
                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                     </a>
                 </div>
@@ -140,11 +140,11 @@ const SHARED_COMPONENTS = {
         </div>
 
         <!-- Desktop Navigation -->
-        <nav class="hidden lg:block border-t border-slate-100 bg-white">
+        <nav class="hidden lg:block border-t border-green-600 bg-background">
             <div class="max-w-[1440px] mx-auto px-12">
                 <ul class="flex items-center justify-center gap-10 py-3">
                     <li><a href="/shop/"
-                            class="flex items-center gap-1 text-sm font-semibold text-slate-700 hover:text-primary transition-colors py-2 group">
+                            class="flex items-center gap-1 text-sm font-semibold text-foreground hover:text-primary transition-colors py-2 group">
                             Shop
                             <svg class="group-hover:translate-y-0.5 transition-transform" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -152,19 +152,19 @@ const SHARED_COMPONENTS = {
                                 <path d="m6 9 6 6 6-6" />
                             </svg></a></li>
                     <li><a href="/shop/?category=dog-food"
-                            class="text-sm font-semibold text-slate-700 hover:text-primary transition-colors py-2">Dog
+                            class="text-sm font-semibold text-foreground hover:text-primary transition-colors py-2">Dog
                             Food</a></li>
                     <li><a href="/shop/?category=cat-food"
-                            class="text-sm font-semibold text-slate-700 hover:text-primary transition-colors py-2">Cat
+                            class="text-sm font-semibold text-foreground hover:text-primary transition-colors py-2">Cat
                             Food</a></li>
                     <li><a href="/shop/?category=accessories"
-                            class="text-sm font-semibold text-slate-700 hover:text-primary transition-colors py-2">Accessories</a>
+                            class="text-sm font-semibold text-foreground hover:text-primary transition-colors py-2">Accessories</a>
                     </li>
                     <li><a href="/about/"
-                            class="text-sm font-semibold text-slate-700 hover:text-primary transition-colors py-2">About</a>
+                            class="text-sm font-semibold text-foreground hover:text-primary transition-colors py-2">About</a>
                     </li>
                     <li><a href="/blog/"
-                            class="text-sm font-semibold text-slate-700 hover:text-primary transition-colors py-2">Blog</a>
+                            class="text-sm font-semibold text-foreground hover:text-primary transition-colors py-2">Blog</a>
                     </li>
                 </ul>
             </div>
@@ -173,8 +173,8 @@ const SHARED_COMPONENTS = {
 
     <!-- Mobile Menu Overlay -->
     <div id="mobile-menu" class="fixed inset-0 z-[100] bg-black/50 invisible transition-all duration-300 lg:hidden">
-        <div class="absolute left-0 top-0 h-full w-[240px] bg-white shadow-2xl -translate-x-full transition-transform duration-300 ease-out flex flex-col">
-            <div class="p-4 border-b border-slate-100 flex items-center justify-between">
+        <div class="absolute left-0 top-0 h-full w-[240px] bg-background shadow-2xl -translate-x-full transition-transform duration-300 ease-out flex flex-col">
+            <div class="p-4 border-b border-green-600 flex items-center justify-between">
                 <span class="text-lg font-bold text-primary font-heading">Menu</span>
                 <button id="mobile-menu-close" class="p-2 hover:bg-slate-100 rounded-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -198,20 +198,20 @@ const SHARED_COMPONENTS = {
                 </div>
                 
                 <ul class="space-y-4">
-                    <li><a href="/" class="block text-base font-semibold text-slate-800 hover:text-primary py-2">Home</a></li>
-                    <li><a href="/shop/" class="block text-base font-semibold text-slate-800 hover:text-primary py-2">Shop All</a></li>
-                    <li><a href="/shop/?category=dog-food" class="block text-base font-semibold text-slate-800 hover:text-primary py-2">Dog Food</a></li>
-                    <li><a href="/shop/?category=cat-food" class="block text-base font-semibold text-slate-800 hover:text-primary py-2">Cat Food</a></li>
-                    <li><a href="/shop/?category=accessories" class="block text-base font-semibold text-slate-800 hover:text-primary py-2">Accessories</a></li>
-                    <li><a href="/about/" class="block text-base font-semibold text-slate-800 hover:text-primary py-2">About Us</a></li>
-                    <li><a href="/blog/" class="block text-base font-semibold text-slate-800 hover:text-primary py-2">Blog</a></li>
+                    <li><a href="/" class="block text-base font-semibold text-foreground hover:text-primary py-2">Home</a></li>
+                    <li><a href="/shop/" class="block text-base font-semibold text-foreground hover:text-primary py-2">Shop All</a></li>
+                    <li><a href="/shop/?category=dog-food" class="block text-base font-semibold text-foreground hover:text-primary py-2">Dog Food</a></li>
+                    <li><a href="/shop/?category=cat-food" class="block text-base font-semibold text-foreground hover:text-primary py-2">Cat Food</a></li>
+                    <li><a href="/shop/?category=accessories" class="block text-base font-semibold text-foreground hover:text-primary py-2">Accessories</a></li>
+                    <li><a href="/about/" class="block text-base font-semibold text-foreground hover:text-primary py-2">About Us</a></li>
+                    <li><a href="/blog/" class="block text-base font-semibold text-foreground hover:text-primary py-2">Blog</a></li>
                 </ul>
             </nav>
-            <div class="p-4 border-t border-slate-100 bg-slate-50">
+            <div class="p-4 border-t border-green-600 bg-background">
                 <div id="auth-section">
                     <!-- This will be populated by JavaScript based on user authentication -->
                 </div>
-                <div class="mt-4 pt-4 border-t border-slate-200 text-center">
+                <div class="mt-4 pt-4 border-t border-green-600 text-center">
                     <span class="text-lg font-bold text-primary font-heading">FURFEAST CO.</span>
                 </div>
             </div>
@@ -219,7 +219,7 @@ const SHARED_COMPONENTS = {
     </div>
     `,
     footer: `
-    <footer class="bg-slate-900 text-slate-300 py-8 sm:py-16">
+    <footer class="bg-background text-muted-foreground py-8 sm:py-16">
         <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
             <!-- Mobile: 3 columns side by side -->
             <div class="grid grid-cols-3 md:grid-cols-4 gap-4 md:gap-12 mb-8 sm:mb-16 text-center md:text-left">

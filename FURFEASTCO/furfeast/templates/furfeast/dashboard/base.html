@@ -13,17 +13,99 @@
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
+        .bg-white {
+            background-color: #3A5A40 !important;
+        }
+        div h1, div h2, div h3, div h4, div h5, div h6 {
+            color: white !important;
+        }
+        div, div p, div span, div td, div th, div label, div a {
+            color: white !important;
+        }
+        .bg-slate-50, thead {
+            background-color: #fbbf24 !important;
+        }
+        .hover\:bg-slate-50:hover, tr:hover {
+            background-color: #1f2937 !important;
+        }
+        select, .bg-slate-100 {
+            background-color: #3A5A40 !important;
+        }
+        .bg-green-50, .bg-blue-50, .bg-yellow-50, .bg-purple-50, .bg-orange-50, .bg-red-50 {
+            background-color: #000000 !important;
+        }
+        .message-incoming {
+            background-color: #dc2626 !important;
+        }
+        .message-outgoing {
+            background-color: #16a34a !important;
+        }
+        .bg-yellow-100 {
+            background-color: #1f2937 !important;
+        }
+        canvas, .text-2xl, .text-3xl {
+            color: white !important;
+        }
+        .bg-orange-50, .bg-blue-50, .bg-green-50 {
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3) !important;
+        }
+        input, textarea {
+            color: #000000 !important;
+        }
+        .customer-message {
+            background-color: #000000 !important;
+        }
+        .admin-message {
+            background-color: #fbbf24 !important;
+        }
+        .query-message {
+            background-color: #1f4532 !important;
+        }
+        .message-bubble.incoming {
+            background-color: #fbbf24 !important;
+        }
+        .message-bubble.outgoing {
+            background-color: #000000 !important;
+        }
+        .bg-orange-500, .bg-orange-600 {
+            background-color: #000000 !important;
+        }
+        .hover\:bg-orange-600:hover {
+            background-color: #1f2937 !important;
+        }
+        canvas * {
+            color: white !important;
+            fill: white !important;
+        }
+        .inline-flex {
+            background-color: #000000 !important;
+        }
+        #salesChart, #targetChart {
+            color: white !important;
+        }
+        .chartjs-tooltip {
+            color: white !important;
+        }
+        .bg-slate-100 {
+            background-color: #fbbf24 !important;
+        }
+        .bg-orange-500 {
+            background-color: #000000 !important;
+        }
+        .bg-yellow-100 {
+            background-color: #1f4532 !important;
+        }
     </style>
 </head>
 
-<body class="bg-slate-50">
-    <div class="flex h-screen bg-slate-50 md:overflow-hidden">
+<body class="bg-background">
+    <div class="flex h-screen bg-background md:overflow-hidden">
 
         <!-- Mobile Header -->
         <div
-            class="md:hidden fixed top-0 w-full bg-slate-900 text-white z-40 flex items-center justify-between p-4 h-16 shadow-md">
+            class="md:hidden fixed top-0 w-full bg-background text-foreground z-40 flex items-center justify-between p-4 h-16 shadow-md">
             <h1 class="font-bold text-lg">
-                <span class="text-orange-500">FurFeast</span><span class="text-white">Admin</span>
+                <span class="text-primary">FurFeast</span><span class="text-foreground">Admin</span>
             </h1>
             <button id="mobile-menu-btn" class="p-2 text-slate-300 hover:text-white focus:outline-none">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -39,15 +121,15 @@
 
         <!-- Sidebar -->
         <aside id="sidebar"
-            class="fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 text-white flex flex-col transition-transform duration-300 transform -translate-x-full md:translate-x-0 md:static md:inset-auto shadow-xl md:shadow-none">
-            <div class="p-6 border-b border-slate-800 hidden md:block">
+            class="fixed inset-y-0 left-0 z-50 w-64 bg-background text-foreground flex flex-col transition-transform duration-300 transform -translate-x-full md:translate-x-0 md:static md:inset-auto shadow-xl md:shadow-none">
+            <div class="p-6 border-b border-green-600 hidden md:block">
                 <h1 class="text-2xl font-bold">
-                    <span class="text-orange-500">FurFeast</span><span class="text-white">Admin</span>
+                    <span class="text-primary">FurFeast</span><span class="text-foreground">Admin</span>
                 </h1>
             </div>
 
             <!-- Mobile Sidebar Header (with Close button) -->
-            <div class="p-4 border-b border-slate-800 flex items-center justify-between md:hidden">
+            <div class="p-4 border-b border-green-600 flex items-center justify-between md:hidden">
                 <span class="font-bold text-lg">Menu</span>
                 <button onclick="toggleSidebar()" class="text-slate-400 hover:text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -150,9 +232,9 @@
                 </a>
             </nav>
 
-            <div class="p-4 border-t border-slate-800">
+            <div class="p-4 border-t border-green-600">
                 <div class="flex items-center gap-3 px-4 py-3">
-                    <div class="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center font-bold text-white flex-shrink-0">
+                    <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center font-bold text-white flex-shrink-0">
                         {{ request.user.username|make_list|first|upper }}
                     </div>
                     <div>

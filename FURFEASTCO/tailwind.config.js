@@ -10,10 +10,10 @@ module.exports = {
         extend: {
             colors: {
                 primary: {
-                    DEFAULT: '#f97316',
+                    DEFAULT: '#d4a23f',
                     foreground: '#ffffff',
                     light: '#fff7ed',
-                    dark: '#ea580c',
+                    dark: '#b8912e',
                 },
                 secondary: {
                     DEFAULT: '#10b981',
@@ -22,13 +22,13 @@ module.exports = {
                 accent: {
                     DEFAULT: '#f43f5e',
                 },
-                background: '#fefce8',
-                foreground: '#1e293b',
+                background: '#3A5A40',
+                foreground: '#ffffff',
                 card: '#ffffff',
                 border: '#e2e8f0',
                 muted: {
                     DEFAULT: '#f1f5f9',
-                    foreground: '#64748b',
+                    foreground: '#d9d9d9',
                 }
             },
             fontFamily: {

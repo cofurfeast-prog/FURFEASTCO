@@ -8,8 +8,8 @@
     <!-- Header -->
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
         <div>
-            <h1 class="text-2xl md:text-3xl font-bold text-slate-900">Order Management</h1>
-            <p class="text-slate-600 text-sm md:text-base">Manage customer orders from payment to delivery</p>
+            <h1 class="text-2xl md:text-3xl font-bold text-white">Order Management</h1>
+            <p class="text-white text-sm md:text-base">Manage customer orders from payment to delivery</p>
         </div>
         
         <!-- Filter -->
@@ -25,7 +25,7 @@
 
     <!-- Order Status Dashboard -->
     <div class="bg-white rounded-xl shadow-sm border border-slate-100 p-6 mb-6">
-        <h2 class="text-xl font-bold text-slate-900 mb-4">Order Status Overview</h2>
+        <h2 class="text-xl font-bold text-white mb-4">Order Status Overview</h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div class="text-center p-4 bg-yellow-50 rounded-lg border border-yellow-100">
                 <div class="text-2xl font-bold text-yellow-600">{{ pending_count }}</div>
@@ -211,7 +211,7 @@
         {% else %}
         <div class="p-8 text-center">
             <div class="text-4xl mb-4">📦</div>
-            <h3 class="text-lg font-semibold text-slate-900 mb-2">No orders found</h3>
+            <h3 class="text-lg font-semibold text-white mb-2">No orders found</h3>
             <p class="text-slate-500">Orders will appear here once customers make purchases.</p>
         </div>
         {% endif %}

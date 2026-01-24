@@ -1,0 +1,973 @@
+{% load static %}
+<!-- Improved Responsive Chatbot Widget -->
+<div id="furfeast-chatbot" class="ff-chatbot-container">
+    <!-- Chat Toggle Button -->
+    <button id="ff-chatbot-toggle" class="ff-chat-btn" aria-label="Open FurFeast Chat">
+        <div class="ff-btn-content">
+            <div class="ff-chat-icon">
+                <span style="font-size: 28px; line-height: 1;">🤖</span>
+            </div>
+            <div class="ff-notification-badge" id="ff-notification-badge" style="display: none;">1</div>
+        </div>
+    </button>
+
+    <!-- Chat Modal -->
+    <div id="ff-chatbot-modal" class="ff-chat-modal ff-hidden">
+        <!-- Header -->
+        <div class="ff-chat-header">
+            <div class="ff-header-content">
+                <div class="ff-bot-avatar">
+                    <div class="ff-fallback-avatar">🤖</div>
+                </div>
+                <div class="ff-bot-info">
+                    <h3 style="color: white;">FurFeast Bot</h3>
+                    <p class="ff-status" style="color: white;">
+                        <span class="ff-status-dot"></span>
+                        Online
+                    </p>
+                </div>
+            </div>
+            <button id="ff-chatbot-close" class="ff-close-btn" aria-label="Close chat">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Messages Container -->
+        <div id="ff-chat-messages" class="ff-messages-container">
+            <div class="ff-welcome-message">
+                <div class="ff-message ff-bot-message">
+                    <div class="ff-message-content">
+                        <p>Hello! I'm FurFeast Bot 🐾</p>
+                        <p>How can I help you today?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Typing Indicator -->
+        <div id="ff-typing-indicator" class="ff-typing-indicator ff-hidden">
+            <div class="ff-typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <span class="ff-typing-text">FurFeast Bot is typing...</span>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="ff-quick-actions">
+            <button class="ff-quick-btn" data-message="What products do you have?">
+                <span class="ff-quick-icon">🛍️</span>
+                Products
+            </button>
+            <button class="ff-quick-btn" data-message="Show me dog food">
+                <span class="ff-quick-icon">🐕</span>
+                Dog Food
+            </button>
+            <button class="ff-quick-btn" data-message="Show me cat food">
+                <span class="ff-quick-icon">🐱</span>
+                Cat Food
+            </button>
+            <button class="ff-quick-btn" data-message="How can I pay?">
+                <span class="ff-quick-icon">💳</span>
+                Payment
+            </button>
+            <button class="ff-quick-btn" data-message="What are your shipping rates?">
+                <span class="ff-quick-icon">🚚</span>
+                Shipping
+            </button>
+            <button class="ff-quick-btn" data-message="Contact support">
+                <span class="ff-quick-icon">📞</span>
+                Support
+            </button>
+        </div>
+
+        <!-- Input Area -->
+        <div class="ff-input-area">
+            <div class="ff-input-wrapper">
+                <input type="text" 
+                       id="ff-chat-input" 
+                       placeholder="Type your message..." 
+                       autocomplete="off"
+                       maxlength="500">
+                <button id="ff-send-btn" class="ff-send-btn" aria-label="Send message">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22,2 15,22 11,13 2,9 22,2"></polygon>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* FurFeast Chatbot Styles */
+.ff-chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999999;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    --ff-primary: #3A5A40;
+    --ff-primary-dark: #2d4532;
+    --ff-primary-light: #d4a23f;
+    --ff-white: #ffffff;
+    --ff-gray-50: #f9fafb;
+    --ff-gray-100: #f3f4f6;
+    --ff-gray-200: #e5e7eb;
+    --ff-gray-300: #d1d5db;
+    --ff-gray-400: #9ca3af;
+    --ff-gray-500: #6b7280;
+    --ff-gray-600: #4b5563;
+    --ff-gray-700: #374151;
+    --ff-gray-800: #1f2937;
+    --ff-gray-900: #111827;
+    --ff-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --ff-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --ff-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --ff-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --ff-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Chat Button */
+.ff-chat-btn {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, #d4a23f 0%, #b8912e 100%);
+    box-shadow: var(--ff-shadow-lg);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: visible;
+}
+
+.ff-chat-btn:hover {
+    transform: scale(1.05);
+    box-shadow: var(--ff-shadow-xl);
+}
+
+.ff-chat-btn:active {
+    transform: scale(0.95);
+}
+
+.ff-btn-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ff-chat-icon {
+    font-size: 28px;
+    line-height: 1;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.ff-notification-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #ef4444;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    border: 2px solid white;
+    animation: ff-pulse 2s infinite;
+}
+
+@keyframes ff-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Chat Modal */
+.ff-chat-modal {
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    width: 380px;
+    height: 520px;
+    background: var(--ff-white);
+    border-radius: 16px;
+    box-shadow: var(--ff-shadow-xl);
+    border: 1px solid var(--ff-gray-200);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: bottom right;
+}
+
+.ff-chat-modal.ff-hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.8) translateY(20px);
+}
+
+/* Header */
+.ff-chat-header {
+    background: linear-gradient(135deg, #3A5A40 0%, #2d4532 100%);
+    color: var(--ff-white);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ff-header-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ff-bot-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ff-bot-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ff-fallback-avatar {
+    font-size: 20px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ff-bot-info h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.ff-status {
+    margin: 0;
+    font-size: 12px;
+    opacity: 0.9;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.ff-status-dot {
+    width: 8px;
+    height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+    animation: ff-blink 2s infinite;
+}
+
+@keyframes ff-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.ff-close-btn {
+    background: none;
+    border: none;
+    color: var(--ff-white);
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.ff-close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Messages */
+/* Messages */
+.ff-messages-container {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: white !important;
+    scroll-behavior: smooth;
+    color: black !important;
+}
+
+.ff-message {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.ff-bot-message {
+    justify-content: flex-start;
+}
+
+.ff-user-message {
+    justify-content: flex-end;
+}
+
+.ff-message-content {
+    max-width: 85%;
+    padding: 12px 16px;
+    border-radius: 18px;
+    font-size: 14px;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+.ff-bot-message .ff-message-content {
+    background: white !important;
+    border: 1px solid var(--ff-gray-200);
+    border-bottom-left-radius: 6px;
+    box-shadow: var(--ff-shadow-sm);
+    color: black !important;
+}
+
+.ff-user-message .ff-message-content {
+    background: #3A5A40;
+    color: var(--ff-white);
+    border-bottom-right-radius: 6px;
+}
+
+.ff-message-content p {
+    margin: 0;
+}
+
+.ff-message-content p + p {
+    margin-top: 8px;
+}
+
+/* Typing Indicator */
+.ff-typing-indicator {
+    padding: 12px 20px;
+    background: var(--ff-gray-50);
+    border-top: 1px solid var(--ff-gray-200);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--ff-gray-500);
+}
+
+.ff-typing-indicator.ff-hidden {
+    display: none;
+}
+
+.ff-typing-dots {
+    display: flex;
+    gap: 2px;
+}
+
+.ff-typing-dots span {
+    width: 4px;
+    height: 4px;
+    background: var(--ff-gray-400);
+    border-radius: 50%;
+    animation: ff-typing 1.4s infinite ease-in-out;
+}
+
+.ff-typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+.ff-typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes ff-typing {
+    0%, 80%, 100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Quick Actions */
+.ff-quick-actions {
+    padding: 16px 20px;
+    border-top: 1px solid var(--ff-gray-200);
+    background: white !important;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.ff-quick-btn {
+    background: white !important;
+    color: black !important;
+    border: 1px solid var(--ff-gray-200);
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+}
+
+.ff-quick-btn:hover {
+    background: #d4a23f !important;
+    color: white !important;
+    border-color: #d4a23f;
+}
+
+.ff-quick-icon {
+    font-size: 14px;
+}
+
+/* Input Area */
+.ff-input-area {
+    padding: 20px;
+    border-top: 1px solid var(--ff-gray-200);
+    background: white !important;
+}
+
+.ff-input-wrapper {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+}
+
+#ff-chat-input {
+    flex: 1;
+    border: 1px solid var(--ff-gray-300);
+    border-radius: 24px;
+    padding: 12px 16px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: none;
+    min-height: 20px;
+    max-height: 80px;
+    line-height: 1.4;
+    background: white !important;
+    color: black !important;
+}
+
+#ff-chat-input:focus {
+    border-color: var(--ff-primary);
+}
+
+#ff-chat-input::placeholder {
+    color: #666 !important;
+}
+
+.ff-send-btn {
+    background: #3A5A40 !important;
+    color: var(--ff-white);
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.ff-send-btn:hover {
+    background: #2d4532 !important;
+    transform: scale(1.05);
+}
+
+.ff-send-btn:active {
+    transform: scale(0.95);
+}
+
+.ff-send-btn:disabled {
+    background: var(--ff-gray-300);
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Scrollbar */
+.ff-messages-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.ff-messages-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.ff-messages-container::-webkit-scrollbar-thumb {
+    background: var(--ff-gray-300);
+    border-radius: 2px;
+}
+
+.ff-messages-container::-webkit-scrollbar-thumb:hover {
+    background: var(--ff-gray-400);
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 480px) {
+    .ff-chatbot-container {
+        bottom: 16px;
+        right: 16px;
+    }
+    
+    .ff-chat-btn {
+        width: 56px;
+        height: 56px;
+    }
+    
+    .ff-chat-icon {
+        font-size: 24px;
+    }
+    
+    .ff-chat-modal {
+        position: fixed;
+        bottom: 80px;
+        left: 16px;
+        right: 16px;
+        width: auto;
+        height: 75vh;
+        max-height: 600px;
+        transform-origin: bottom center;
+    }
+    
+    .ff-chat-header {
+        padding: 16px;
+    }
+    
+    .ff-bot-avatar {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .ff-messages-container {
+        padding: 16px;
+    }
+    
+    .ff-quick-actions {
+        padding: 12px 16px;
+        gap: 6px;
+    }
+    
+    .ff-quick-btn {
+        font-size: 11px;
+        padding: 6px 10px;
+    }
+    
+    .ff-input-area {
+        padding: 16px;
+    }
+    
+    #ff-chat-input {
+        font-size: 16px; /* Prevents zoom on iOS */
+        padding: 10px 14px;
+    }
+    
+    .ff-send-btn {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+    .ff-chat-modal {
+        height: 80vh;
+        bottom: 76px;
+        left: 12px;
+        right: 12px;
+    }
+    
+    .ff-chat-btn {
+        width: 52px;
+        height: 52px;
+    }
+    
+    .ff-chat-icon {
+        font-size: 22px;
+    }
+}
+
+/* Landscape mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .ff-chat-modal {
+        height: 90vh;
+        max-height: 450px;
+    }
+    
+    .ff-quick-actions {
+        display: none; /* Hide quick actions in landscape to save space */
+    }
+}
+
+/* Tablet styles */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .ff-chat-modal {
+        width: 400px;
+        height: 550px;
+    }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .ff-chat-btn {
+        box-shadow: var(--ff-shadow-lg), 0 0 0 0.5px rgba(0, 0, 0, 0.05);
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .ff-chatbot-container {
+        --ff-white: #1f2937;
+        --ff-gray-50: #111827;
+        --ff-gray-100: #1f2937;
+        --ff-gray-200: #374151;
+        --ff-gray-300: #4b5563;
+        --ff-gray-700: #d1d5db;
+        --ff-gray-800: #f3f4f6;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .ff-chat-btn,
+    .ff-chat-modal,
+    .ff-send-btn,
+    .ff-quick-btn {
+        transition: none;
+    }
+    
+    .ff-notification-badge,
+    .ff-status-dot,
+    .ff-typing-dots span {
+        animation: none;
+    }
+}
+
+/* Focus styles for accessibility */
+.ff-chat-btn:focus,
+.ff-close-btn:focus,
+.ff-send-btn:focus,
+.ff-quick-btn:focus {
+    outline: 2px solid var(--ff-primary);
+    outline-offset: 2px;
+}
+
+#ff-chat-input:focus {
+    outline: 2px solid var(--ff-primary);
+    outline-offset: -2px;
+}
+
+/* Ensure visibility on all backgrounds */
+.ff-chat-btn::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: var(--ff-white);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.1;
+}
+</style>
+
+<script>
+class FurFeastChatBot {
+    constructor() {
+        this.sessionId = localStorage.getItem('ff_chatbot_session_id') || null;
+        this.isOpen = false;
+        this.isTyping = false;
+        this.messageQueue = [];
+        this.initializeElements();
+        this.bindEvents();
+        this.checkNotifications();
+    }
+
+    initializeElements() {
+        this.container = document.getElementById('furfeast-chatbot');
+        this.toggleBtn = document.getElementById('ff-chatbot-toggle');
+        this.modal = document.getElementById('ff-chatbot-modal');
+        this.closeBtn = document.getElementById('ff-chatbot-close');
+        this.messagesContainer = document.getElementById('ff-chat-messages');
+        this.input = document.getElementById('ff-chat-input');
+        this.sendBtn = document.getElementById('ff-send-btn');
+        this.typingIndicator = document.getElementById('ff-typing-indicator');
+        this.notificationBadge = document.getElementById('ff-notification-badge');
+        this.quickBtns = document.querySelectorAll('.ff-quick-btn');
+    }
+
+    bindEvents() {
+        this.toggleBtn.addEventListener('click', () => this.toggleChat());
+        this.closeBtn.addEventListener('click', () => this.closeChat());
+        this.sendBtn.addEventListener('click', () => this.sendMessage());
+        
+        this.input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                this.sendMessage();
+            }
+        });
+        
+        this.input.addEventListener('input', () => {
+            this.sendBtn.disabled = !this.input.value.trim();
+        });
+        
+        this.quickBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const message = e.currentTarget.dataset.message;
+                this.sendMessage(message);
+            });
+        });
+
+        // Handle clicks outside modal
+        document.addEventListener('click', (e) => {
+            if (this.isOpen && !this.container.contains(e.target)) {
+                this.closeChat();
+            }
+        });
+
+        // Handle escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.isOpen) {
+                this.closeChat();
+            }
+        });
+    }
+
+    toggleChat() {
+        if (this.isOpen) {
+            this.closeChat();
+        } else {
+            this.openChat();
+        }
+    }
+
+    openChat() {
+        this.modal.classList.remove('ff-hidden');
+        this.isOpen = true;
+        this.input.focus();
+        this.hideNotification();
+        this.scrollToBottom();
+        
+        // Track chat open event
+        this.trackEvent('chat_opened');
+    }
+
+    closeChat() {
+        this.modal.classList.add('ff-hidden');
+        this.isOpen = false;
+        this.hideTyping();
+        
+        // Track chat close event
+        this.trackEvent('chat_closed');
+    }
+
+    async sendMessage(message = null) {
+        const text = message || this.input.value.trim();
+        if (!text || this.isTyping) return;
+
+        // Clear input
+        this.input.value = '';
+        this.sendBtn.disabled = true;
+
+        // Add user message
+        this.addMessage(text, 'user');
+
+        // Show typing indicator
+        this.showTyping();
+
+        try {
+            const response = await fetch('/api/chatbot/message/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': this.getCSRFToken()
+                },
+                body: JSON.stringify({
+                    message: text,
+                    session_id: this.sessionId
+                })
+            });
+
+            const data = await response.json();
+            
+            if (response.ok) {
+                // Store session ID
+                if (data.session_id && !this.sessionId) {
+                    this.sessionId = data.session_id;
+                    localStorage.setItem('ff_chatbot_session_id', this.sessionId);
+                }
+
+                // Hide typing and add bot response
+                this.hideTyping();
+                this.addMessage(data.response, 'bot');
+                
+                // Track successful message
+                this.trackEvent('message_sent', { message_length: text.length });
+            } else {
+                this.hideTyping();
+                this.addMessage('Sorry, I encountered an error. Please try again later.', 'bot');
+                
+                // Track error
+                this.trackEvent('message_error', { error: data.error || 'Unknown error' });
+            }
+        } catch (error) {
+            this.hideTyping();
+            this.addMessage('Sorry, I\'m having trouble connecting. Please check your internet connection and try again.', 'bot');
+            
+            // Track network error
+            this.trackEvent('network_error', { error: error.message });
+        }
+    }
+
+    addMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `ff-message ff-${sender}-message`;
+        
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'ff-message-content';
+        
+        // Format message content
+        const formattedText = this.formatMessage(text);
+        contentDiv.innerHTML = formattedText;
+        
+        messageDiv.appendChild(contentDiv);
+        
+        // Add timestamp for accessibility
+        const timestamp = new Date().toLocaleTimeString();
+        contentDiv.setAttribute('aria-label', `${sender} message at ${timestamp}`);
+        
+        this.messagesContainer.appendChild(messageDiv);
+        this.scrollToBottom();
+        
+        // Show notification if chat is closed
+        if (!this.isOpen && sender === 'bot') {
+            this.showNotification();
+        }
+    }
+
+    formatMessage(text) {
+        // Convert line breaks to <br> tags
+        let formatted = text.replace(/\n/g, '<br>');
+        
+        // Convert URLs to links
+        const urlRegex = /(https?:\/\/[^\s]+)/g;
+        formatted = formatted.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+        
+        // Convert email addresses to mailto links
+        const emailRegex = /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g;
+        formatted = formatted.replace(emailRegex, '<a href="mailto:$1">$1</a>');
+        
+        return formatted;
+    }
+
+    showTyping() {
+        this.isTyping = true;
+        this.typingIndicator.classList.remove('ff-hidden');
+        this.scrollToBottom();
+    }
+
+    hideTyping() {
+        this.isTyping = false;
+        this.typingIndicator.classList.add('ff-hidden');
+    }
+
+    showNotification() {
+        this.notificationBadge.style.display = 'flex';
+    }
+
+    hideNotification() {
+        this.notificationBadge.style.display = 'none';
+    }
+
+    checkNotifications() {
+        // Check for unread messages or notifications
+        const hasUnread = localStorage.getItem('ff_chatbot_unread') === 'true';
+        if (hasUnread) {
+            this.showNotification();
+        }
+    }
+
+    scrollToBottom() {
+        requestAnimationFrame(() => {
+            this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+        });
+    }
+
+    getCSRFToken() {
+        // Try multiple methods to get CSRF token
+        let token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+        if (!token) {
+            token = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
+        }
+        if (!token) {
+            const cookies = document.cookie.split(';');
+            for (let cookie of cookies) {
+                const [name, value] = cookie.trim().split('=');
+                if (name === 'csrftoken') {
+                    token = value;
+                    break;
+                }
+            }
+        }
+        return token || '';
+    }
+
+    trackEvent(eventName, data = {}) {
+        // Track events for analytics (optional)
+        if (typeof gtag !== 'undefined') {
+            gtag('event', eventName, {
+                event_category: 'chatbot',
+                ...data
+            });
+        }
+    }
+
+    // Public methods for external control
+    open() {
+        this.openChat();
+    }
+
+    close() {
+        this.closeChat();
+    }
+
+    sendQuickMessage(message) {
+        this.sendMessage(message);
+        if (!this.isOpen) {
+            this.openChat();
+        }
+    }
+}
+
+// Initialize chatbot when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    window.furFeastChatBot = new FurFeastChatBot();
+});
+
+// Expose chatbot for external access
+window.FurFeastChatBot = FurFeastChatBot;
+</script>
