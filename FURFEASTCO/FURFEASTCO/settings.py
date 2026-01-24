@@ -89,12 +89,18 @@ if GS_BUCKET_NAME:
     GS_DEFAULT_ACL = 'publicRead'
     GS_QUERYSTRING_AUTH = False
     GS_FILE_OVERWRITE = False
-    GS_CREDENTIALS = None  # Use default credentials from Cloud Run service account
     
     # Update STORAGES configuration for Django 4.2+
     STORAGES = {
         "default": {
             "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+            "OPTIONS": {
+                "project_id": GS_PROJECT_ID,
+                "bucket_name": GS_BUCKET_NAME,
+                "default_acl": "publicRead",
+                "querystring_auth": False,
+                "file_overwrite": False,
+            },
         },
         "staticfiles": {
             "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
