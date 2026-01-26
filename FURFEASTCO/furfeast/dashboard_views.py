@@ -363,6 +363,13 @@ def product_edit(request, product_id):
         product.is_out_of_stock = request.POST.get('is_out_of_stock') == 'on'
         product.rating = request.POST.get('rating', 0.0)
         
+        # Handle image deletion
+        if request.POST.get('delete_image') == 'true':
+            if product.image:
+                product.image.delete(save=False)
+                product.image = None
+        
+        # Handle new image upload
         if 'image' in request.FILES:
             product.image = request.FILES['image']
         
@@ -371,7 +378,6 @@ def product_edit(request, product_id):
             messages.success(request, 'Product updated successfully.')
             return redirect('dashboard_product_list')
         except ValidationError as e:
-            # Handle validation error with user-friendly message
             if 'is_out_of_stock' in str(e) or 'stock' in str(e):
                 messages.error(request, 'Cannot mark item as out of stock when stock quantity is greater than 0. Please set stock to 0 or uncheck "Out of Stock".')
             else:

@@ -109,8 +109,8 @@ def index(request):
             featured_products = bestsellers
         context['featured_products'] = featured_products
         
-        # Get real customer reviews (increase to show more)
-        context['customer_reviews'] = Review.objects.select_related('user', 'product').order_by('-created_at')[:6]
+        # Get recent customer reviews (max 10, ordered by newest)
+        context['customer_reviews'] = Review.objects.select_related('user', 'product').order_by('-created_at')[:10]
         
         return render(request, 'furfeast/index.html', context)
     except Exception as e:

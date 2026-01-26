@@ -80,13 +80,21 @@
         <div>
             <label class="block text-sm font-semibold text-slate-700 mb-2">Product Image</label>
             {% if product.image %}
-            <div class="mb-4">
-                <img src="{{ product.image.url }}" alt="Current image"
+            <div class="mb-4 relative inline-block">
+                <img src="https://storage.googleapis.com/furfeastco-media/{{ product.image.name }}" alt="Current image" onerror="this.src='/static/images/placeholder.jpg'"
                     class="w-32 h-32 object-cover rounded-lg border border-slate-200">
+                <button type="button" onclick="deleteCurrentImage()" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600 transition-colors">
+                    ×
+                </button>
             </div>
-            {% endif %}
+            <p class="text-sm text-orange-600 mb-2">Delete the current image to upload a new one</p>
+            <input type="file" name="image" id="product-image" accept="image/jpeg,image/jpg,image/png,image/webp" disabled
+                class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-gray-500 opacity-50 cursor-not-allowed">
+            <input type="hidden" name="delete_image" id="delete-image-flag" value="false">
+            {% else %}
             <input type="file" name="image" id="product-image" accept="image/jpeg,image/jpg,image/png,image/webp"
                 class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 transition-colors">
+            {% endif %}
             
             <!-- Image Preview -->
             <div id="product-preview" class="mt-6 pt-6 border-t border-slate-100 hidden">
@@ -121,6 +129,18 @@
 <script src="/static/js/image-adjuster.js"></script>
 <script>
 let productAdjuster;
+
+function deleteCurrentImage() {
+    if (confirm('Are you sure you want to delete the current image?')) {
+        document.getElementById('delete-image-flag').value = 'true';
+        document.querySelector('img[alt="Current image"]').parentElement.style.display = 'none';
+        document.querySelector('p.text-orange-600').style.display = 'none';
+        const fileInput = document.getElementById('product-image');
+        fileInput.disabled = false;
+        fileInput.classList.remove('opacity-50', 'cursor-not-allowed', 'file:bg-gray-200', 'file:text-gray-500');
+        fileInput.classList.add('file:bg-orange-50', 'file:text-orange-700', 'hover:file:bg-orange-100');
+    }
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     productAdjuster = createImageAdjuster(

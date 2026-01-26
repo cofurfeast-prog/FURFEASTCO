@@ -34,7 +34,7 @@
             <label class="block text-sm font-semibold text-slate-700 mb-2">Image</label>
             {% if about_us.image %}
                 <div class="mb-3">
-                    <img src="{{ about_us.image.url }}" alt="Current image" class="w-32 h-32 object-cover rounded-lg">
+                    <img src="https://storage.googleapis.com/furfeastco-media/{{ about_us.image.name }}" alt="Current image" onerror="this.src='/static/images/placeholder.jpg'" class="w-32 h-32 object-cover rounded-lg">
                     <p class="text-sm text-slate-500 mt-1">Current image</p>
                 </div>
             {% endif %}

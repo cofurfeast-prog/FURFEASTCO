@@ -200,6 +200,16 @@ class Blog(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     is_published = models.BooleanField(default=True)
 
+    def save(self, *args, **kwargs):
+        if self.pk:
+            try:
+                old_blog = Blog.objects.get(pk=self.pk)
+                if old_blog.image and old_blog.image != self.image:
+                    old_blog.image.delete(save=False)
+            except Blog.DoesNotExist:
+                pass
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.title
 
@@ -278,6 +288,16 @@ class AboutUs(models.Model):
     class Meta:
         verbose_name_plural = "About Us"
     
+    def save(self, *args, **kwargs):
+        if self.pk:
+            try:
+                old_about = AboutUs.objects.get(pk=self.pk)
+                if old_about.image and old_about.image != self.image:
+                    old_about.image.delete(save=False)
+            except AboutUs.DoesNotExist:
+                pass
+        super().save(*args, **kwargs)
+    
     def __str__(self):
         return self.title
 
@@ -298,14 +318,27 @@ class HeroImage(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     
     def save(self, *args, **kwargs):
-        # Delete old hero image when uploading new one
+        # If this is an update (not new), delete old images
         if self.pk:
             try:
                 old_hero = HeroImage.objects.get(pk=self.pk)
                 if old_hero.image and old_hero.image != self.image:
                     old_hero.image.delete(save=False)
+                if old_hero.desktop_image and old_hero.desktop_image != self.desktop_image:
+                    old_hero.desktop_image.delete(save=False)
+                if old_hero.mobile_image and old_hero.mobile_image != self.mobile_image:
+                    old_hero.mobile_image.delete(save=False)
             except HeroImage.DoesNotExist:
                 pass
+        
+        # If adding new hero image and count will exceed 3, delete oldest
+        if not self.pk:
+            hero_count = HeroImage.objects.count()
+            if hero_count >= 3:
+                oldest = HeroImage.objects.order_by('created_at').first()
+                if oldest:
+                    oldest.delete()
+        
         super().save(*args, **kwargs)
     
     class Meta:
@@ -326,6 +359,18 @@ class MassEmailCampaign(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     sent_at = models.DateTimeField(null=True, blank=True)
     recipients_count = models.IntegerField(default=0)
+    
+    def save(self, *args, **kwargs):
+        if self.pk:
+            try:
+                old_campaign = MassEmailCampaign.objects.get(pk=self.pk)
+                if old_campaign.image and old_campaign.image != self.image:
+                    old_campaign.image.delete(save=False)
+                if old_campaign.video and old_campaign.video != self.video:
+                    old_campaign.video.delete(save=False)
+            except MassEmailCampaign.DoesNotExist:
+                pass
+        super().save(*args, **kwargs)
     
     def __str__(self):
         return self.title
@@ -434,6 +479,16 @@ class CustomerMessage(models.Model):
     
     class Meta:
         ordering = ['created_at']
+    
+    def save(self, *args, **kwargs):
+        if self.pk:
+            try:
+                old_message = CustomerMessage.objects.get(pk=self.pk)
+                if old_message.image and old_message.image != self.image:
+                    old_message.image.delete(save=False)
+            except CustomerMessage.DoesNotExist:
+                pass
+        super().save(*args, **kwargs)
     
     def clean(self):
         from django.core.exceptions import ValidationError

@@ -84,23 +84,22 @@ if GS_BUCKET_NAME:
     # Media files (user-uploaded content) - use Google Cloud Storage
     MEDIA_URL = f'https://storage.googleapis.com/{GS_BUCKET_NAME}/'
     
-    # Google Cloud Storage settings - use default credentials
+    # Google Cloud Storage settings - use gcloud CLI credentials for local dev
     GS_PROJECT_ID = os.getenv('GOOGLE_CLOUD_PROJECT', 'project-e66945a9-799e-4142-bd5')
-    GS_DEFAULT_ACL = 'publicRead'
+    GS_DEFAULT_ACL = None  # Use bucket's default permissions
     GS_QUERYSTRING_AUTH = False
     GS_FILE_OVERWRITE = False
     
     # Update STORAGES configuration for Django 4.2+
     STORAGES = {
         "default": {
-            "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+            "BACKEND": "FURFEASTCO.gcs_storage.GCloudCLIStorage",
             "OPTIONS": {
                 "project_id": GS_PROJECT_ID,
                 "bucket_name": GS_BUCKET_NAME,
-                "default_acl": "publicRead",
+                "default_acl": None,
                 "querystring_auth": False,
                 "file_overwrite": False,
-                "credentials": None,  # Use default service account credentials
             },
         },
         "staticfiles": {
@@ -224,9 +223,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.AttributeSimilarityValidator',
     },
 ]
 

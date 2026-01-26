@@ -17,9 +17,12 @@ class Command(BaseCommand):
         
         self.stdout.write(self.style.WARNING(f'Deleting data older than: {cutoff_date}'))
         
-        # Delete old chat messages
+        # Delete old chat messages (including images)
         old_messages = CustomerMessage.objects.filter(created_at__lt=cutoff_date)
         message_count = old_messages.count()
+        for msg in old_messages:
+            if msg.image:
+                msg.image.delete(save=False)
         old_messages.delete()
         
         # Delete old notifications

@@ -135,9 +135,9 @@ class FurFeastChatBot:
             response = f"🐕 **Dog Food Collection** ({count} products available)\n\n"
             
             for product in products:
-                price_info = f"Rs. {product.price}"
+                price_info = f"AUD {product.price}"
                 if product.original_price and product.original_price > product.price:
-                    price_info = f"Rs. {product.price} (was Rs. {product.original_price})"
+                    price_info = f"AUD {product.price} (was AUD {product.original_price})"
                 response += f"• **{product.name}** - {price_info}\n"
             
             response += f"\n🛒 Visit our Dog Food section to see all {Product.objects.filter(category='dog-food').count()} options and place your order!"
@@ -156,9 +156,9 @@ class FurFeastChatBot:
             response = f"🐱 **Cat Food Collection** ({count} products available)\n\n"
             
             for product in products:
-                price_info = f"Rs. {product.price}"
+                price_info = f"AUD {product.price}"
                 if product.original_price and product.original_price > product.price:
-                    price_info = f"Rs. {product.price} (was Rs. {product.original_price})"
+                    price_info = f"AUD {product.price} (was AUD {product.original_price})"
                 response += f"• **{product.name}** - {price_info}\n"
             
             response += f"\n🛒 Visit our Cat Food section to see all {Product.objects.filter(category='cat-food').count()} options and place your order!"
@@ -177,9 +177,9 @@ class FurFeastChatBot:
             response = f"🎾 **Pet Accessories** ({count} products available)\n\n"
             
             for product in products:
-                price_info = f"Rs. {product.price}"
+                price_info = f"AUD {product.price}"
                 if product.original_price and product.original_price > product.price:
-                    price_info = f"Rs. {product.price} (was Rs. {product.original_price})"
+                    price_info = f"AUD {product.price} (was AUD {product.original_price})"
                 response += f"• **{product.name}** - {price_info}\n"
             
             response += f"\n🛒 Check out our Accessories section to see all {Product.objects.filter(category='accessories').count()} items!"
@@ -203,20 +203,18 @@ class FurFeastChatBot:
         }
         
         status_msg = status_messages.get(recent_order.status, 'is being processed')
-        return f"Your recent order {recent_order.order_id} {status_msg}. Total: Rs. {recent_order.total_amount}"
+        return f"Your recent order {recent_order.order_id} {status_msg}. Total: AUD {recent_order.total_amount}"
     
     def get_shipping_info(self):
         return """🚚 Shipping Information:
-• Free shipping on orders above Rs. 500
-• Delivery within 2-5 business days in Kathmandu Valley
-• 5-7 business days for other areas
-• We use reliable courier services like DHL and local partners
+• Free shipping on orders above AUD 50
+• Delivery within 2-5 business days in major cities
+• 5-7 business days for regional areas
+• We use reliable courier services like Australia Post and local partners
 • You'll receive tracking information once your order ships"""
     
     def get_contact_info(self):
-        return """📞 Contact FurFeast:
-
-📧 **Email:** cofurfeast@gmail.com
+        return """📧 **Email:** cofurfeast@gmail.com
 • We respond within 24 hours
 • For orders, complaints, or general inquiries
 
@@ -225,9 +223,12 @@ class FurFeastChatBot:
 • Real-time assistance
 
 📱 **Social Media:**
-• Facebook: FurFeast Nepal
-• Instagram: @furfeast_nepal  
-• TikTok: @furfeastco
+
+• Facebook: https://www.facebook.com/share/1ChcEySvre/?mibextid=wwXIfr
+
+• Instagram: https://www.instagram.com/furfeast.co?igsh=MTN4eXk4YzRzcHdhdA%3D%3D&utm_source=qr
+
+• TikTok: https://www.tiktok.com/@furfeast.co?_r=1&_t=ZS-931i5Beq7LU
 
 🕒 **Response Time:**
 • Chat: Instant during business hours
@@ -238,21 +239,21 @@ We're here to help you and your furry friends! 🐾"""
     
     def get_about_info(self):
         return """🐾 About FurFeast:
-We're Nepal's premium pet food company, dedicated to providing high-quality nutrition for your furry friends. We offer:
+We're Australia's premium pet food company, dedicated to providing high-quality nutrition for your furry friends. We offer:
 • Premium dog and cat food from trusted brands
 • Pet accessories and toys
-• Fast delivery across Nepal
+• Fast delivery across Australia
 • Expert customer support
 • 10k+ happy pet parents trust us!"""
     
     def get_pricing_info(self):
         return """💰 Our Pricing:
-• Dog food: Starting from Rs. 200
-• Cat food: Starting from Rs. 180
-• Accessories: Starting from Rs. 50
-• Free shipping on orders above Rs. 500
+• Dog food: Starting from AUD 20
+• Cat food: Starting from AUD 18
+• Accessories: Starting from AUD 5
+• Free shipping on orders above AUD 50
 • Regular discounts and flash sales
-• Best prices guaranteed in Nepal!"""
+• Best prices guaranteed in Australia!"""
     
     def get_inventory_info(self):
         """Get current inventory information"""
@@ -305,9 +306,9 @@ Browse our shop to see all products in each category!"""
 • Credit/Debit cards via PayPal
 • Instant payment confirmation
 
-✅ **Cash on Delivery (COD)**
+✅ **Cash on Delivery (COD)** - Coming Soon!
 • Pay when you receive your order
-• Available across Nepal
+• Available across Australia
 • No advance payment required
 
 🔒 All payments are 100% secure and encrypted. Choose the method that's most convenient for you!"""
@@ -317,11 +318,11 @@ Browse our shop to see all products in each category!"""
         return """📍 FurFeast Shop Location:
 
 🏪 **Online Store**
-We operate as an online pet store serving all of Nepal!
+We operate as an online pet store serving all of Australia!
 
 🚚 **Delivery Areas:**
-• Kathmandu Valley: 2-3 days
-• Major cities: 3-5 days
+• Major cities: 2-3 days
+• Regional areas: 3-5 days
 • Remote areas: 5-7 days
 
 📧 **Contact Us:**
@@ -335,9 +336,12 @@ No physical store visits needed - shop online and we'll bring everything to you!
         return """📱 Follow FurFeast Online:
 
 🔗 **Social Media:**
-• Facebook: Search "FurFeast Nepal" 
-• Instagram: @furfeast_nepal
-• TikTok: @furfeastco
+
+• Facebook: https://www.facebook.com/share/1ChcEySvre/?mibextid=wwXIfr
+
+• Instagram: https://www.instagram.com/furfeast.co?igsh=MTN4eXk4YzRzcHdhdA%3D%3D&utm_source=qr
+
+• TikTok: https://www.tiktok.com/@furfeast.co?_r=1&_t=ZS-931i5Beq7LU
 
 📞 **Contact Methods:**
 • Email: cofurfeast@gmail.com

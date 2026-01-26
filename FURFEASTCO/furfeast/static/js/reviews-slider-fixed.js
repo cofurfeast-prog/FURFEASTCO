@@ -1,7 +1,9 @@
-// Infinite loop reviews slider
+// Infinite loop reviews slider with no gaps
 let currentReviewIndex = 0;
 let totalReviews = 0;
 let isTransitioning = false;
+let reviewWidth = 0;
+let visibleReviews = 1;
 
 function initReviewsSlider() {
     const slider = document.getElementById('reviewsSlider');
@@ -10,21 +12,38 @@ function initReviewsSlider() {
     
     if (!slider) return;
     
-    totalReviews = slider.children.length;
+    const originalReviews = Array.from(slider.children);
+    totalReviews = originalReviews.length;
     
-    // Clone first and last reviews for infinite effect
-    const firstClone = slider.children[0].cloneNode(true);
-    const lastClone = slider.children[totalReviews - 1].cloneNode(true);
+    if (totalReviews === 0) return;
     
-    slider.appendChild(firstClone);
-    slider.insertBefore(lastClone, slider.children[0]);
+    // Determine visible reviews based on screen size
+    function updateVisibleReviews() {
+        if (window.innerWidth >= 1024) {
+            visibleReviews = 3;
+        } else if (window.innerWidth >= 768) {
+            visibleReviews = 2;
+        } else {
+            visibleReviews = 1;
+        }
+    }
     
-    // Start at first real review (index 1 because of clone)
-    currentReviewIndex = 1;
-    slider.style.transform = `translateX(-100%)`;
+    updateVisibleReviews();
     
-    // Show buttons if more than 1 review
-    const showButtons = totalReviews > 1;
+    // Clone all reviews 3 times for seamless loop
+    slider.innerHTML = '';
+    for (let i = 0; i < 3; i++) {
+        originalReviews.forEach(review => {
+            slider.appendChild(review.cloneNode(true));
+        });
+    }
+    
+    // Start at middle set
+    currentReviewIndex = totalReviews;
+    updateSliderPosition(false);
+    
+    // Show buttons if more than visible reviews
+    const showButtons = totalReviews > visibleReviews;
     if (prevBtn) prevBtn.style.display = showButtons ? 'block' : 'none';
     if (nextBtn) nextBtn.style.display = showButtons ? 'block' : 'none';
     
@@ -37,32 +56,47 @@ function initReviewsSlider() {
         prevBtn.onclick = () => prevSlide();
     }
     
-    // Auto slide every 6 seconds
-    if (totalReviews > 1) {
-        setInterval(nextSlide, 6000);
+    // Auto slide every 5 seconds
+    if (totalReviews > visibleReviews) {
+        setInterval(nextSlide, 5000);
     }
+    
+    // Handle window resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            updateVisibleReviews();
+            updateSliderPosition(false);
+        }, 250);
+    });
+}
+
+function updateSliderPosition(animate = true) {
+    const slider = document.getElementById('reviewsSlider');
+    if (!slider) return;
+    
+    const slideWidth = 100 / visibleReviews;
+    const offset = currentReviewIndex * slideWidth;
+    
+    slider.style.transition = animate ? 'transform 0.5s ease-in-out' : 'none';
+    slider.style.transform = `translateX(-${offset}%)`;
 }
 
 function nextSlide() {
     if (isTransitioning) return;
     
-    const slider = document.getElementById('reviewsSlider');
-    if (!slider) return;
-    
     isTransitioning = true;
     currentReviewIndex++;
     
-    slider.style.transition = 'transform 0.5s ease-in-out';
-    slider.style.transform = `translateX(-${currentReviewIndex * 100}%)`;
+    updateSliderPosition(true);
     
-    // If we're at the cloned first slide, jump to real first slide
-    if (currentReviewIndex === totalReviews + 1) {
+    // Reset to middle set when reaching end
+    if (currentReviewIndex >= totalReviews * 2) {
         setTimeout(() => {
-            slider.style.transition = 'none';
-            currentReviewIndex = 1;
-            slider.style.transform = `translateX(-100%)`;
+            currentReviewIndex = totalReviews;
+            updateSliderPosition(false);
             setTimeout(() => {
-                slider.style.transition = 'transform 0.5s ease-in-out';
                 isTransitioning = false;
             }, 50);
         }, 500);
@@ -76,23 +110,17 @@ function nextSlide() {
 function prevSlide() {
     if (isTransitioning) return;
     
-    const slider = document.getElementById('reviewsSlider');
-    if (!slider) return;
-    
     isTransitioning = true;
     currentReviewIndex--;
     
-    slider.style.transition = 'transform 0.5s ease-in-out';
-    slider.style.transform = `translateX(-${currentReviewIndex * 100}%)`;
+    updateSliderPosition(true);
     
-    // If we're at the cloned last slide, jump to real last slide
-    if (currentReviewIndex === 0) {
+    // Reset to middle set when reaching start
+    if (currentReviewIndex < totalReviews) {
         setTimeout(() => {
-            slider.style.transition = 'none';
-            currentReviewIndex = totalReviews;
-            slider.style.transform = `translateX(-${totalReviews * 100}%)`;
+            currentReviewIndex = totalReviews * 2 - 1;
+            updateSliderPosition(false);
             setTimeout(() => {
-                slider.style.transition = 'transform 0.5s ease-in-out';
                 isTransitioning = false;
             }, 50);
         }, 500);

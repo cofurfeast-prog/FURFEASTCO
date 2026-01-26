@@ -14,15 +14,16 @@ def get_image_url(image_field):
     if isinstance(image_field, dict):
         return image_field.get('url', '')
     
-    # If it's an ImageFieldFile (GCS format)
-    if hasattr(image_field, 'url'):
-        try:
-            return image_field.url
-        except:
-            return ''
-    
     # If it's a string path
     if isinstance(image_field, str):
         return image_field
+    
+    # If it's an ImageFieldFile (GCS format) - check type name to avoid triggering property
+    if type(image_field).__name__ == 'ImageFieldFile' or type(image_field).__name__ == 'FieldFile':
+        try:
+            return image_field.url
+        except Exception as e:
+            # If GCS fails, return empty string
+            return ''
     
     return ''
