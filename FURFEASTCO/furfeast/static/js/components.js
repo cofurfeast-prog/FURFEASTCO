@@ -85,7 +85,7 @@ const SHARED_COMPONENTS = {
                     </a>
                     
                     <!-- Profile -->
-                    <a href="/profile/" class="hidden lg:block p-2 sm:p-2.5 bg-primary hover:bg-green-700 rounded-full transition-colors text-white" aria-label="Profile">
+                    <a href="/profile/" class="hidden lg:block p-1.5 bg-primary hover:bg-green-700 rounded-full transition-colors text-white" aria-label="Profile">
                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                     </a>
 
@@ -120,8 +120,8 @@ const SHARED_COMPONENTS = {
                             </svg>
                             <form action="/search/" method="GET" class="w-full flex">
                                 <input type="text" name="q" placeholder="Search products..."
-                                    class="flex-1 pl-11 pr-4 py-2.5 rounded-l-full border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm">
-                                <button type="submit" class="px-4 py-2.5 bg-primary text-white rounded-r-full hover:bg-primary-dark transition-colors">
+                                    class="flex-1 pl-11 pr-4 py-2 rounded-l-full border border-slate-200 bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm">
+                                <button type="submit" class="px-4 py-2 bg-primary text-white rounded-r-full hover:bg-primary-dark transition-colors">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <circle cx="11" cy="11" r="8" />
                                         <path d="m21 21-4.3-4.3" />
@@ -132,8 +132,8 @@ const SHARED_COMPONENTS = {
                     </div>
                     
                     <!-- Profile - Mobile Only -->
-                    <a href="/profile/" class="lg:hidden p-2 sm:p-2.5 bg-primary hover:bg-green-700 rounded-full transition-colors text-white" aria-label="Profile">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    <a href="/profile/" class="lg:hidden p-1.5 bg-primary hover:bg-green-700 rounded-full transition-colors text-white" aria-label="Profile">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                     </a>
                 </div>
             </div>
