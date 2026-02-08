@@ -10,7 +10,7 @@ class PendingRegistration(models.Model):
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=20, blank=True, null=True)
     password_hash = models.CharField(max_length=128)
-    verification_token = models.CharField(max_length=100, unique=True)
+    otp = models.CharField(max_length=6)
     created_at = models.DateTimeField(auto_now_add=True)
     expires_at = models.DateTimeField()
     

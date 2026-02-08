@@ -9,9 +9,9 @@
         </div>
 
         {% if cart.items.all %}
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-12">
-            <!-- Items List -->
-            <div class="lg:col-span-2 space-y-4">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+            <!-- Items List - Takes 65% on desktop -->
+            <div class="lg:col-span-8 space-y-4">
                 {% for item in cart.items.all %}
                 <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm" data-item-id="{{ item.id }}">
                     <div class="flex gap-4">
@@ -50,8 +50,10 @@
                                         
                                         <!-- Remove Button -->
                                         <button onclick="updateCartItem({{ item.id }}, 'remove')" 
-                                            class="text-red-500 hover:text-red-700 text-sm font-semibold px-2 py-1 rounded border border-red-200 hover:bg-red-50 transition-colors">
-                                            Remove
+                                            class="text-red-500 hover:text-red-700 p-2 rounded hover:bg-red-50 transition-colors" title="Remove item">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                            </svg>
                                         </button>
                                     </div>
                                 </div>
@@ -62,74 +64,70 @@
                 {% endfor %}
             </div>
 
-            <!-- Summary -->
-            <div class="lg:col-span-1">
-                <div class="bg-white p-6 md:p-8 rounded-2xl md:rounded-3xl border border-slate-100 shadow-sm lg:sticky lg:top-24">
-                    <h2 class="text-lg md:text-xl font-bold text-green-600 mb-6">Order Summary</h2>
-                    <div class="space-y-4 mb-8">
-                        <div class="flex justify-between text-slate-600">
+            <!-- Summary - Takes 35% on desktop -->
+            <div class="lg:col-span-4">
+                <div class="bg-white p-6 lg:p-8 rounded-2xl lg:rounded-3xl border border-slate-100 shadow-sm lg:sticky lg:top-24">
+                    <h2 class="text-xl lg:text-2xl font-bold text-green-600 mb-6 lg:mb-8">Order Summary</h2>
+                    <div class="space-y-4 lg:space-y-5 mb-8">
+                        <div class="flex justify-between text-slate-600 text-base lg:text-lg">
                             <span>Subtotal</span>
                             <span class="font-bold" id="cart-subtotal">${{ cart.total_price }}</span>
                         </div>
-                        <div class="flex justify-between text-slate-600">
+                        <div class="flex justify-between text-slate-600 text-base lg:text-lg">
                             <span>Shipping</span>
                             <span class="text-green-600 font-bold">Free</span>
                         </div>
                         <div class="pt-4 border-t border-slate-100 flex justify-between text-slate-900">
-                            <span class="font-bold text-lg">Total</span>
-                            <span class="font-bold text-lg text-primary" id="cart-total">${{ cart.total_price }}</span>
+                            <span class="font-bold text-xl lg:text-2xl">Total</span>
+                            <span class="font-bold text-xl lg:text-2xl text-primary" id="cart-total">${{ cart.total_price }}</span>
                         </div>
                     </div>
                     
                     <!-- Delivery Address Form -->
-                    <div class="mb-6 p-4 bg-slate-50 rounded-lg">
-                        <h3 class="font-semibold text-green-600 mb-3">Delivery Address</h3>
-                        <div class="space-y-3">
+                    <div class="mb-6 p-4 lg:p-5 bg-slate-50 rounded-lg lg:rounded-xl">
+                        <h3 class="font-semibold text-green-600 mb-4 text-base lg:text-lg">Delivery Address</h3>
+                        <div class="space-y-3 lg:space-y-4">
                             <input type="text" id="shipping-address" placeholder="Full Address" 
                                    value="{{ user.profile.address|default:'' }}" required
-                                   class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-transparent text-green-600">
-                            <div class="grid grid-cols-2 gap-2">
+                                   class="w-full px-4 py-3 border border-slate-200 rounded-lg text-sm lg:text-base focus:ring-2 focus:ring-primary focus:border-transparent text-green-600">
+                            <div class="grid grid-cols-2 gap-3">
                                 <input type="text" id="shipping-phone" placeholder="+1 202-555-0147" 
                                        value="{{ user.profile.phone_number|default:'' }}" required
-                                       class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-transparent text-green-600">
+                                       class="w-full px-4 py-3 border border-slate-200 rounded-lg text-sm lg:text-base focus:ring-2 focus:ring-primary focus:border-transparent text-green-600">
                                 <input type="text" id="shipping-city" placeholder="City" 
                                        value="{{ user.profile.city|default:'' }}" required
-                                       class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-transparent text-green-600">
+                                       class="w-full px-4 py-3 border border-slate-200 rounded-lg text-sm lg:text-base focus:ring-2 focus:ring-primary focus:border-transparent text-green-600">
                             </div>
                             <input type="text" id="shipping-postal" placeholder="Postal Code" 
                                    value="{{ user.profile.postal_code|default:'' }}"
-                                   class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-transparent text-green-600">
+                                   class="w-full px-4 py-3 border border-slate-200 rounded-lg text-sm lg:text-base focus:ring-2 focus:ring-primary focus:border-transparent text-green-600">
                         </div>
                     </div>
                     
-                    <button onclick="clearCart()" class="w-full py-3 mb-4 border border-red-200 text-red-600 font-semibent rounded-xl hover:bg-red-50 transition-colors text-sm bg-white">
+                    <button onclick="clearCart()" class="w-full py-3 lg:py-3.5 mb-4 lg:mb-5 border border-red-200 text-red-600 font-semibold rounded-xl hover:bg-red-50 transition-colors text-sm lg:text-base bg-white">
                         🗑️ Clear Cart
                     </button>
                     
                     {% if cart.items.all %}
-                    <!-- Payment Method Selection -->
-                    <div class="mb-4">
-                        <h3 class="font-semibold text-green-600 mb-3">Payment Method</h3>
-                        <div class="space-y-2">
-                            <label class="flex items-center p-3 border border-slate-200 rounded-lg cursor-pointer hover:bg-slate-50">
-                                <input type="radio" name="payment-method" value="paypal" checked class="mr-3">
-                                <span class="font-medium text-green-600">PayPal</span>
-                            </label>
-                            <label class="flex items-center p-3 border border-slate-200 rounded-lg cursor-pointer hover:bg-slate-50">
-                                <input type="radio" name="payment-method" value="cod" class="mr-3">
-                                <span class="font-medium text-green-600">Cash on Delivery (COD)</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div id="paypal-button-container" class="mb-4"></div>
                     <button id="checkout-btn" onclick="initiateCheckout()"
-                        class="w-full py-3 md:py-4 bg-background text-foreground font-bold rounded-xl md:rounded-2xl hover:bg-green-700 transition-all shadow-lg shadow-background/10 text-sm md:text-base">
+                        class="w-full py-3 lg:py-4 bg-background text-foreground font-bold rounded-xl lg:rounded-2xl hover:bg-green-700 transition-all shadow-lg shadow-background/10 text-sm lg:text-base">
                         Proceed to Checkout
                     </button>
+                    
+                    <button id="card-pay-btn" onclick="showCardPayment()" style="display: none;"
+                        class="w-full py-3 lg:py-4 mt-3 bg-blue-600 text-white font-bold rounded-xl lg:rounded-2xl hover:bg-blue-700 transition-all shadow-lg text-sm lg:text-base">
+                        💳 Pay with Debit / Credit Card
+                    </button>
+                    
+                    <div id="card-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center;">
+                        <div style="background: white; padding: 30px; border-radius: 12px; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto;">
+                            <h3 style="margin: 0 0 20px 0; color: #16a34a; font-size: 22px; text-align: center; font-weight: 600;">Enter Your Credentials</h3>
+                            <div id="card-form-wrapper"></div>
+                        </div>
+                    </div>
                     {% else %}
                     <button disabled
-                        class="w-full py-3 md:py-4 bg-gray-300 text-gray-500 font-bold rounded-xl md:rounded-2xl cursor-not-allowed text-sm md:text-base">
+                        class="w-full py-3 lg:py-4 bg-gray-300 text-gray-500 font-bold rounded-xl lg:rounded-2xl cursor-not-allowed text-sm lg:text-base">
                         Cart is Empty
                     </button>
                     {% endif %}
@@ -154,11 +152,10 @@
 {% csrf_token %}
 <meta name="csrf-token" content="{{ csrf_token }}">
 
-<script src="https://www.paypal.com/sdk/js?client-id={{ PAYPAL_CLIENT_ID }}&currency=USD&intent=capture&enable-funding=venmo&disable-funding=credit,card"></script>
+<script src="https://www.paypal.com/sdk/js?client-id={{ PAYPAL_CLIENT_ID }}&currency=USD&intent=capture&components=buttons"></script>
 <script>
 // PayPal checkout function
 function initiateCheckout() {
-    // Validate address fields
     const address = document.getElementById('shipping-address').value.trim();
     const phone = document.getElementById('shipping-phone').value.trim();
     const city = document.getElementById('shipping-city').value.trim();
@@ -168,87 +165,43 @@ function initiateCheckout() {
         return;
     }
     
-    const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
-    
-    if (paymentMethod === 'cod') {
-        processCODOrder();
-    } else {
-        processPayPalOrder();
-    }
+    document.getElementById('checkout-btn').style.display = 'none';
+    document.getElementById('card-pay-btn').style.display = 'block';
 }
 
-function processCODOrder() {
-    const address = document.getElementById('shipping-address').value.trim();
-    const phone = document.getElementById('shipping-phone').value.trim();
-    const city = document.getElementById('shipping-city').value.trim();
-    const postal = document.getElementById('shipping-postal').value.trim();
-    
-    fetch('/api/cod/order/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken')
-        },
-        body: JSON.stringify({
-            shipping_address: address,
-            shipping_phone: phone,
-            shipping_city: city,
-            shipping_postal_code: postal
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            window.location.href = '/order-success/';
-        } else {
-            alert('Order processing failed: ' + (data.error || 'Unknown error'));
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Network error. Please try again.');
-    });
-}
-
-function processPayPalOrder() {
-    // Check if PayPal SDK is loaded
+function showCardPayment() {
     if (typeof paypal === 'undefined') {
         alert('PayPal is not available. Please refresh the page and try again.');
         return;
     }
     
-    document.getElementById('checkout-btn').style.display = 'none';
-    document.getElementById('paypal-button-container').innerHTML = '';
+    document.getElementById('card-modal').style.display = 'flex';
+    const cardFormWrapper = document.getElementById('card-form-wrapper');
+    cardFormWrapper.innerHTML = '';
+    
+    const totalAmount = parseFloat('{{ cart.total_price }}').toFixed(2);
     
     paypal.Buttons({
         style: {
             layout: 'vertical',
-            color: 'gold',
             shape: 'rect',
-            label: 'paypal'
+            height: 50,
+            label: 'pay'
         },
+        fundingSource: paypal.FUNDING.CARD,
         createOrder: function(data, actions) {
-            const totalAmount = parseFloat('{{ cart.total_price }}').toFixed(2);
-            console.log('Creating PayPal order with amount:', totalAmount);
-            
             return actions.order.create({
                 purchase_units: [{
                     amount: {
                         value: totalAmount,
                         currency_code: 'USD'
                     },
-                    description: 'FurFeast Pet Products Order',
-                    custom_id: 'FF_{{ user.id }}_' + Date.now()
+                    description: 'FurFeast Pet Products Order'
                 }],
                 application_context: {
-                    shipping_preference: 'NO_SHIPPING',
-                    user_action: 'PAY_NOW'
+                    brand_name: 'FurFeast',
+                    shipping_preference: 'NO_SHIPPING'
                 }
-            }).catch(function(err) {
-                console.error('PayPal createOrder error:', err);
-                alert('Failed to create PayPal order. Please try again.');
-                document.getElementById('checkout-btn').style.display = 'block';
-                throw err;
             });
         },
         onApprove: function(data, actions) {
@@ -258,7 +211,7 @@ function processPayPalOrder() {
                 const city = document.getElementById('shipping-city').value.trim();
                 const postal = document.getElementById('shipping-postal').value.trim();
                 
-                fetch('/api/paypal/capture/', {
+                return fetch('/api/paypal/capture/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -278,26 +231,20 @@ function processPayPalOrder() {
                     if (data.success) {
                         window.location.href = '/order-success/';
                     } else {
-                        alert('Payment processing failed');
-                        document.getElementById('checkout-btn').style.display = 'block';
+                        alert('Payment failed: ' + (data.error || 'Unknown error'));
                     }
                 });
             });
         },
         onError: function(err) {
-            console.error('PayPal Error:', err);
-            alert('PayPal encountered an error. Please try again.');
-            document.getElementById('checkout-btn').style.display = 'block';
+            console.error('Card payment error:', err);
+            alert('Payment failed. Please try again.');
+            document.getElementById('card-modal').style.display = 'none';
         },
-        onCancel: function(data) {
-            console.log('PayPal payment cancelled');
-            document.getElementById('checkout-btn').style.display = 'block';
+        onCancel: function() {
+            document.getElementById('card-modal').style.display = 'none';
         }
-    }).render('#paypal-button-container').catch(function(err) {
-        console.error('PayPal render error:', err);
-        alert('Unable to load PayPal. Please refresh and try again.');
-        document.getElementById('checkout-btn').style.display = 'block';
-    });
+    }).render('#card-form-wrapper');
 }
 
 // Cart functions - simplified and reliable

@@ -27,7 +27,7 @@
                     <input type="file" id="profile-pic-input" accept="image/jpeg,image/jpg,image/png,image/webp" class="hidden" onchange="previewProfilePicture(this)">
                 </div>
                 <div class="text-center md:text-left">
-                    <h1 class="text-2xl md:text-3xl font-bold text-foreground mb-2">{{ user.first_name }} {{ user.last_name }}</h1>
+                    <h1 class="text-2xl md:text-3xl font-bold text-green-600 mb-2">{{ user.first_name }} {{ user.last_name }}</h1>
                     <p class="text-slate-500 mb-1">{{ user.email }}</p>
                     {% if user.profile.phone_number %}
                     <p class="text-slate-500 mb-4">{{ user.profile.phone_number }}</p>
@@ -84,7 +84,7 @@
 
         <!-- Account Information -->
         <div class="bg-card rounded-2xl shadow-sm border border-green-600 p-6 md:p-8 mb-6">
-            <h3 class="text-xl font-bold text-foreground mb-6">Account Information</h3>
+            <h3 class="text-xl font-bold text-green-600 mb-6">Account Information</h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="text-center md:text-left">
                     <div class="text-slate-500 text-sm mb-1">Date Joined</div>
@@ -104,7 +104,7 @@
         <!-- Purchase History -->
         <div class="bg-card rounded-2xl shadow-sm border border-green-600 p-6 md:p-8 mb-6">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6">
-                <h3 class="text-xl font-bold text-foreground mb-4 sm:mb-0">Purchase History</h3>
+                <h3 class="text-xl font-bold text-green-600 mb-4 sm:mb-0">Purchase History</h3>
                 <div class="flex gap-2">
                     <a href="?filter=all" class="px-3 py-1 text-sm rounded-lg {% if filter_period == 'all' %}bg-orange-500 text-white{% else %}bg-slate-100 text-slate-600 hover:bg-slate-200{% endif %} transition-colors">All</a>
                     <a href="?filter=week" class="px-3 py-1 text-sm rounded-lg {% if filter_period == 'week' %}bg-orange-500 text-white{% else %}bg-slate-100 text-slate-600 hover:bg-slate-200{% endif %} transition-colors">This Week</a>

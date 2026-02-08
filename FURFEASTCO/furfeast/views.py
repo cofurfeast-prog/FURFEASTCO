@@ -312,8 +312,8 @@ def signup_view(request):
         # Check if pending registration exists
         existing_pending = PendingRegistration.objects.filter(email=email).first()
         if existing_pending:
-            messages.error(request, 'Email verification pending. Please check your email.')
-            return render(request, 'furfeast/signup.html')
+            # Delete old pending registration and create new one with fresh OTP
+            existing_pending.delete()
         
         # Check rate limit: max 3 signup attempts in 24 hours
         twenty_four_hours_ago = timezone.now() - timedelta(hours=24)
@@ -327,10 +327,11 @@ def signup_view(request):
             return render(request, 'furfeast/signup.html')
         
         from django.contrib.auth.hashers import make_password
+        import random
         
-        # Create pending registration
-        verification_token = str(uuid.uuid4())
-        expires_at = timezone.now() + timedelta(hours=24)
+        # Generate 6-digit OTP
+        otp = str(random.randint(100000, 999999))
+        expires_at = timezone.now() + timedelta(minutes=10)
         
         pending_reg = PendingRegistration.objects.create(
             first_name=first_name,
@@ -338,26 +339,96 @@ def signup_view(request):
             email=email,
             phone_number=phone_number,
             password_hash=make_password(password),
-            verification_token=verification_token,
+            otp=otp,
             expires_at=expires_at
         )
         
-        # Send verification email
-        verification_url = request.build_absolute_uri(f'/verify-email/{verification_token}/')
+        # Send OTP email with HTML
+        from django.core.mail import EmailMultiAlternatives
         try:
-            send_mail(
-                'Verify your FurFeast account',
-                f'Click here to verify your account: {verification_url}\n\nThis link expires in 24 hours.',
-                settings.DEFAULT_FROM_EMAIL,
-                [email],
-                fail_silently=False,
-            )
-            messages.success(request, 'Please check your email to verify your account. 📧')
+            subject = 'Verify Your FurFeast Account'
+            text_content = f'Your verification code is: {otp}\n\nThis code expires in 10 minutes.\n\nIf you didn\'t request this, please ignore this email.'
+            html_content = f'''
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f5f5f5;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5; padding: 20px;">
+        <tr>
+            <td align="center">
+                <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                    <!-- Header -->
+                    <tr>
+                        <td style="background: linear-gradient(135deg, #3A5A40 0%, #588157 100%); padding: 40px 20px; text-align: center;">
+                            <h1 style="color: #ffffff; margin: 0; font-size: 32px; font-weight: bold;">🐾 FURFEAST</h1>
+                            <p style="color: #ffffff; margin: 10px 0 0 0; font-size: 14px; opacity: 0.9;">Premium Pet Food & Accessories</p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Body -->
+                    <tr>
+                        <td style="padding: 40px 30px;">
+                            <h2 style="color: #3A5A40; margin: 0 0 20px 0; font-size: 24px;">Verify Your Account</h2>
+                            <p style="color: #666666; font-size: 16px; line-height: 1.6; margin: 0 0 30px 0;">
+                                Hi {first_name},<br><br>
+                                Thank you for joining the FurFeast family! To complete your registration, please use the verification code below:
+                            </p>
+                            
+                            <!-- OTP Box -->
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td align="center" style="padding: 20px 0;">
+                                        <div style="background-color: #f8f9fa; border: 2px dashed #3A5A40; border-radius: 10px; padding: 20px; display: inline-block;">
+                                            <p style="color: #666666; font-size: 14px; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 1px;">Your Verification Code</p>
+                                            <p style="color: #3A5A40; font-size: 36px; font-weight: bold; margin: 0; letter-spacing: 8px; font-family: 'Courier New', monospace;">{otp}</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <p style="color: #666666; font-size: 14px; line-height: 1.6; margin: 30px 0 0 0; text-align: center;">
+                                ⏰ This code will expire in <strong>10 minutes</strong>
+                            </p>
+                            
+                            <p style="color: #999999; font-size: 13px; line-height: 1.6; margin: 30px 0 0 0; padding-top: 20px; border-top: 1px solid #eeeeee;">
+                                If you didn't create an account with FurFeast, please ignore this email or contact our support team if you have concerns.
+                            </p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Footer -->
+                    <tr>
+                        <td style="background-color: #f8f9fa; padding: 30px; text-align: center; border-top: 1px solid #eeeeee;">
+                            <p style="color: #999999; font-size: 12px; margin: 0 0 10px 0;">
+                                © 2024 FurFeast Co. All rights reserved.
+                            </p>
+                            <p style="color: #999999; font-size: 12px; margin: 0;">
+                                Questions? Contact us at <a href="mailto:cofurfeast@gmail.com" style="color: #3A5A40; text-decoration: none;">cofurfeast@gmail.com</a>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+'''
+            
+            msg = EmailMultiAlternatives(subject, text_content, settings.DEFAULT_FROM_EMAIL, [email])
+            msg.attach_alternative(html_content, "text/html")
+            msg.send(fail_silently=False)
+            
+            # Store email in session for verification page
+            request.session['pending_email'] = email
+            return redirect('verify_otp')
         except Exception as e:
             pending_reg.delete()
-            messages.error(request, 'Failed to send verification email. Please try again.')
-        
-        return redirect('login')
+            messages.error(request, f'Failed to send verification email: {str(e)}')
+            return render(request, 'furfeast/signup.html')
             
     return render(request, 'furfeast/signup.html')
 
@@ -680,6 +751,61 @@ def paypal_capture(request):
 
 @login_required
 @require_POST
+def paypal_create_order(request):
+    try:
+        data = json.loads(request.body)
+        amount = data.get('amount')
+        
+        if not amount:
+            return JsonResponse({'error': 'Amount required'}, status=400)
+        
+        # Create PayPal order via REST API
+        import requests
+        from django.conf import settings
+        
+        # Get access token
+        auth_response = requests.post(
+            f'https://api-m.paypal.com/v1/oauth2/token',
+            headers={'Accept': 'application/json', 'Accept-Language': 'en_US'},
+            auth=(settings.PAYPAL_CLIENT_ID, settings.PAYPAL_CLIENT_SECRET),
+            data={'grant_type': 'client_credentials'}
+        )
+        
+        if auth_response.status_code != 200:
+            return JsonResponse({'error': 'PayPal authentication failed'}, status=500)
+        
+        access_token = auth_response.json()['access_token']
+        
+        # Create order
+        order_response = requests.post(
+            f'https://api-m.paypal.com/v2/checkout/orders',
+            headers={
+                'Content-Type': 'application/json',
+                'Authorization': f'Bearer {access_token}'
+            },
+            json={
+                'intent': 'CAPTURE',
+                'purchase_units': [{
+                    'amount': {
+                        'currency_code': 'USD',
+                        'value': str(amount)
+                    },
+                    'description': 'FurFeast Pet Products Order'
+                }]
+            }
+        )
+        
+        if order_response.status_code != 201:
+            return JsonResponse({'error': 'Failed to create PayPal order'}, status=500)
+        
+        order_data = order_response.json()
+        return JsonResponse({'orderID': order_data['id']})
+        
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+@login_required
+@require_POST
 def cod_order(request):
     try:
         data = json.loads(request.body)
@@ -993,66 +1119,67 @@ def order_success(request):
     context = get_context_data(request)
     return render(request, 'furfeast/order_success.html', context)
 
-def verify_email(request, token):
-    try:
-        # First check if it's a pending registration
-        pending_reg = PendingRegistration.objects.get(verification_token=token)
+def verify_otp(request):
+    if request.method == 'POST':
+        otp = request.POST.get('otp', '').strip()
+        email = request.session.get('pending_email')
         
-        # Check if token hasn't expired
-        if pending_reg.expires_at < timezone.now():
-            pending_reg.delete()
-            messages.error(request, 'Verification link has expired. Please register again.')
+        if not email:
+            messages.error(request, 'Session expired. Please sign up again.')
             return redirect('signup')
         
-        # Create the actual user now
-        username = pending_reg.email.split('@')[0]
-        if User.objects.filter(username=username).exists():
-            username = f"{username}_{User.objects.count()}"
-        
-        user = User.objects.create_user(
-            username=username,
-            email=pending_reg.email,
-            first_name=pending_reg.first_name,
-            last_name=pending_reg.last_name
-        )
-        user.password = pending_reg.password_hash
-        user.is_active = True
-        user.save()
-        
-        # Update user profile (created by signal)
-        profile, created = UserProfile.objects.get_or_create(user=user)
-        profile.phone_number = pending_reg.phone_number or ''
-        profile.email_verified = True
-        profile.save()
-        
-        # Delete pending registration
-        pending_reg.delete()
-        
-        messages.success(request, 'Email verified successfully! You can now log in. 🐾')
-        return redirect('login')
-        
-    except PendingRegistration.DoesNotExist:
-        # Check if it's an existing user profile verification
         try:
-            profile = UserProfile.objects.get(email_verification_token=token)
-            user = profile.user
+            pending_reg = PendingRegistration.objects.get(email=email)
             
-            if not user.is_active:
+            # Check if OTP expired
+            if pending_reg.expires_at < timezone.now():
+                pending_reg.delete()
+                del request.session['pending_email']
+                messages.error(request, 'OTP expired. Please sign up again.')
+                return redirect('signup')
+            
+            # Verify OTP
+            if pending_reg.otp == otp:
+                # Create user
+                username = pending_reg.email.split('@')[0]
+                if User.objects.filter(username=username).exists():
+                    username = f"{username}_{User.objects.count()}"
+                
+                user = User.objects.create_user(
+                    username=username,
+                    email=pending_reg.email,
+                    first_name=pending_reg.first_name,
+                    last_name=pending_reg.last_name
+                )
+                user.password = pending_reg.password_hash
                 user.is_active = True
                 user.save()
                 
+                # Create profile
+                profile, created = UserProfile.objects.get_or_create(user=user)
+                profile.phone_number = pending_reg.phone_number or ''
                 profile.email_verified = True
-                profile.email_verification_token = None
                 profile.save()
                 
-                messages.success(request, 'Email verified successfully! You can now log in. 🐾')
-            else:
-                messages.info(request, 'Email already verified.')
+                # Delete pending registration
+                pending_reg.delete()
+                del request.session['pending_email']
                 
-        except UserProfile.DoesNotExist:
-            messages.error(request, 'Invalid verification token.')
+                messages.success(request, 'Account verified successfully! You can now log in. 🐾')
+                return redirect('login')
+            else:
+                messages.error(request, 'Invalid OTP. Please try again.')
+        
+        except PendingRegistration.DoesNotExist:
+            messages.error(request, 'Invalid session. Please sign up again.')
+            return redirect('signup')
     
-    return redirect('login')
+    return render(request, 'furfeast/verify_otp.html')
+
+def verify_email(request, token):
+    # Old verification method - kept for backward compatibility
+    messages.error(request, 'This verification link is no longer valid. Please sign up again.')
+    return redirect('signup')
 
 def forgot_password(request):
     if request.method == 'POST':
@@ -1061,25 +1188,91 @@ def forgot_password(request):
             user = User.objects.get(email=email)
             profile, created = UserProfile.objects.get_or_create(user=user)
             
-            # Generate reset token
-            reset_token = str(uuid.uuid4())
-            profile.password_reset_token = reset_token
-            profile.password_reset_expires = timezone.now() + timedelta(hours=1)
+            # Generate 6-digit OTP
+            import random
+            otp = str(random.randint(100000, 999999))
+            
+            # Store OTP and expiry in profile
+            profile.password_reset_token = otp
+            profile.password_reset_expires = timezone.now() + timedelta(minutes=10)
             profile.save()
             
-            # Send reset email
-            reset_url = request.build_absolute_uri(f'/reset-password/{reset_token}/')
+            # Send OTP email with HTML
+            from django.core.mail import EmailMultiAlternatives
             try:
-                send_mail(
-                    'Reset your FurFeast password',
-                    f'Click here to reset your password: {reset_url}\n\nThis link expires in 1 hour.',
-                    settings.DEFAULT_FROM_EMAIL,
-                    [email],
-                    fail_silently=False,
-                )
-                messages.success(request, 'Password reset link sent to your email! 📧')
+                subject = 'Reset Your FurFeast Password'
+                text_content = f'Your password reset code is: {otp}\n\nThis code expires in 10 minutes.\n\nIf you didn\'t request this, please ignore this email.'
+                html_content = f'''
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f5f5f5;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5; padding: 20px;">
+        <tr>
+            <td align="center">
+                <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                    <tr>
+                        <td style="background: linear-gradient(135deg, #3A5A40 0%, #588157 100%); padding: 40px 20px; text-align: center;">
+                            <h1 style="color: #ffffff; margin: 0; font-size: 32px; font-weight: bold;">🐾 FURFEAST</h1>
+                            <p style="color: #ffffff; margin: 10px 0 0 0; font-size: 14px; opacity: 0.9;">Premium Pet Food & Accessories</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 40px 30px;">
+                            <h2 style="color: #3A5A40; margin: 0 0 20px 0; font-size: 24px;">Reset Your Password</h2>
+                            <p style="color: #666666; font-size: 16px; line-height: 1.6; margin: 0 0 30px 0;">
+                                Hi {user.first_name},<br><br>
+                                We received a request to reset your password. Use the code below to reset it:
+                            </p>
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td align="center" style="padding: 20px 0;">
+                                        <div style="background-color: #f8f9fa; border: 2px dashed #3A5A40; border-radius: 10px; padding: 20px; display: inline-block;">
+                                            <p style="color: #666666; font-size: 14px; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 1px;">Your Reset Code</p>
+                                            <p style="color: #3A5A40; font-size: 36px; font-weight: bold; margin: 0; letter-spacing: 8px; font-family: 'Courier New', monospace;">{otp}</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <p style="color: #666666; font-size: 14px; line-height: 1.6; margin: 30px 0 0 0; text-align: center;">
+                                ⏰ This code will expire in <strong>10 minutes</strong>
+                            </p>
+                            <p style="color: #999999; font-size: 13px; line-height: 1.6; margin: 30px 0 0 0; padding-top: 20px; border-top: 1px solid #eeeeee;">
+                                If you didn't request a password reset, please ignore this email or contact our support team if you have concerns.
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #f8f9fa; padding: 30px; text-align: center; border-top: 1px solid #eeeeee;">
+                            <p style="color: #999999; font-size: 12px; margin: 0 0 10px 0;">
+                                © 2024 FurFeast Co. All rights reserved.
+                            </p>
+                            <p style="color: #999999; font-size: 12px; margin: 0;">
+                                Questions? Contact us at <a href="mailto:cofurfeast@gmail.com" style="color: #3A5A40; text-decoration: none;">cofurfeast@gmail.com</a>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+'''
+                
+                msg = EmailMultiAlternatives(subject, text_content, settings.DEFAULT_FROM_EMAIL, [email])
+                msg.attach_alternative(html_content, "text/html")
+                msg.send(fail_silently=False)
+                
+                # Store email in session
+                request.session['reset_email'] = email
+                messages.success(request, 'Password reset code sent to your email! 📧')
+                return redirect('reset_password_otp')
             except Exception as e:
-                messages.error(request, 'Failed to send reset email. Please try again.')
+                messages.error(request, f'Failed to send reset email: {str(e)}')
                 
         except User.DoesNotExist:
             messages.error(request, 'No account found with this email address.')
@@ -1087,6 +1280,84 @@ def forgot_password(request):
         return redirect('forgot_password')
     
     return render(request, 'furfeast/forgot_password.html')
+
+def reset_password_otp(request):
+    if request.method == 'POST':
+        otp = request.POST.get('otp', '').strip()
+        email = request.session.get('reset_email')
+        
+        if not email:
+            messages.error(request, 'Session expired. Please try again.')
+            return redirect('forgot_password')
+        
+        try:
+            user = User.objects.get(email=email)
+            profile = UserProfile.objects.get(user=user)
+            
+            # Check if OTP expired
+            if profile.password_reset_expires < timezone.now():
+                profile.password_reset_token = None
+                profile.password_reset_expires = None
+                profile.save()
+                del request.session['reset_email']
+                messages.error(request, 'Reset code expired. Please request a new one.')
+                return redirect('forgot_password')
+            
+            # Verify OTP
+            if profile.password_reset_token == otp:
+                # Store verified email for password reset page
+                request.session['verified_reset_email'] = email
+                del request.session['reset_email']
+                return redirect('reset_password_form')
+            else:
+                messages.error(request, 'Invalid reset code. Please try again.')
+        
+        except (User.DoesNotExist, UserProfile.DoesNotExist):
+            messages.error(request, 'Invalid session. Please try again.')
+            return redirect('forgot_password')
+    
+    return render(request, 'furfeast/reset_password_otp.html')
+
+def reset_password_form(request):
+    email = request.session.get('verified_reset_email')
+    if not email:
+        messages.error(request, 'Session expired. Please try again.')
+        return redirect('forgot_password')
+    
+    if request.method == 'POST':
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
+        
+        if password != confirm_password:
+            messages.error(request, 'Passwords do not match.')
+            return render(request, 'furfeast/reset_password_form.html')
+        
+        if len(password) < 8:
+            messages.error(request, 'Password must be at least 8 characters long.')
+            return render(request, 'furfeast/reset_password_form.html')
+        
+        try:
+            user = User.objects.get(email=email)
+            profile = UserProfile.objects.get(user=user)
+            
+            # Reset password
+            user.set_password(password)
+            user.save()
+            
+            # Clear reset token
+            profile.password_reset_token = None
+            profile.password_reset_expires = None
+            profile.save()
+            
+            del request.session['verified_reset_email']
+            
+            messages.success(request, 'Password reset successfully! You can now log in. 🐾')
+            return redirect('login')
+        except (User.DoesNotExist, UserProfile.DoesNotExist):
+            messages.error(request, 'Invalid session. Please try again.')
+            return redirect('forgot_password')
+    
+    return render(request, 'furfeast/reset_password_form.html')
 
 def reset_password(request, token):
     try:

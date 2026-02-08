@@ -201,6 +201,9 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT', '5432'),
         'CONN_MAX_AGE': 600,
         'CONN_HEALTH_CHECKS': True,
+        'OPTIONS': {
+            'connect_timeout': 10,
+        },
     }
 }
 
@@ -248,8 +251,7 @@ STATICFILES_DIRS = [
     BASE_DIR / 'furfeast' / 'static',
 ]
 
-# Static file optimization
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+# Static file optimization - removed STATICFILES_STORAGE (conflicts with STORAGES)
 
 # Cache static files for 1 year and compress them
 WHITENOISE_MAX_AGE = 31536000
@@ -302,7 +304,7 @@ TEMPLATE_CACHE_TIMEOUT = 3600  # 1 hour
 
 # Session Optimization
 SESSION_CACHE_ALIAS = 'default'
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_AGE = 86400  # 24 hours
 
 # Auth Settings
@@ -321,7 +323,7 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', 'omylzdzofbxymrxv')
 EMAIL_VERIFICATION_REQUIRED = True
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)
 
-# PayPal Configuration
-PAYPAL_CLIENT_ID = 'AXDh7dyyix7N1dDlS8jKhPATLOZZz3sspEpZa683c6_1vo4otgt62aebiUoZy_JSmvSqDU1kJ056Em0T'
-PAYPAL_CLIENT_SECRET = 'EPY4XVLrZB6yJqillbqjDfipk06rfa5n6OhpXCNkMEURVSOtQp-VWpA3nKWXR11-A4oJ8uCdzY63E8OC'
-PAYPAL_MODE = 'sandbox'  # 'sandbox' for testing, 'live' for production
+# PayPal Configuration - LIVE
+PAYPAL_CLIENT_ID = 'ATHBPx1KUolI5bEYJrYDMwypIV0pWHye68J-g8oN1O4QBXCW7eCRSdmp-wxOGoodLrU33eYZqLSqIAKQ'
+PAYPAL_CLIENT_SECRET = 'ECunQUgQD0ssGWBA03S8IzKnX9qcPku37yr3m_YGiUETCoSwjudzm7gm7HwDnTrrZnBGlQqdXTGDUw0E'
+PAYPAL_MODE = 'live'  # LIVE MODE - Real payments
